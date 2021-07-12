@@ -1,5 +1,6 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
+import datetime
 from flask_login import UserMixin
 
 
@@ -8,8 +9,16 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
+    name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
+    website = db.Column(db.Text, nullable=False, default="https://www.instagram.com/")
+    bio = db.Column(db.Text, nullable=True)
+    phone = db.Column(db.Integer, nullable=True)
+    gender = db.Column(db.String(100), nullable=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    profileImage = db.Column(db.String(256))
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     @property
     def password(self):
@@ -26,5 +35,10 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'bio': self.bio,
+            'website': self.website,
+            'phone': self.phone,
+            'gender': self.gender,
+            'profileImage': self.profileImage
         }
