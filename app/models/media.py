@@ -4,7 +4,7 @@ class Media(db.Model):
     __tablename__ = 'medias'
     
     id = db.Column(db.Integer, primary_key=True)
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id', nullable=False))
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     media_url = db.Column(db.String, nullable=False)
     views = db.Column(db.Integer, nullable=True, default=0)
     

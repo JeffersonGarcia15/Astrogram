@@ -13,9 +13,21 @@ class Post(db.Model):
     user = db.relationship('User', back_populates='posts')
     location = db.relationship('Location', back_populates='posts')
     album = db.relationship('Album', back_populates='posts')
-    media = db.relationship('Media', back_populates='post')
+    medias = db.relationship('Media', back_populates='post')
     
-    # def get_views(self):
-    #     views = 0
-    #     for image in self.images
+    def get_views(self):
+        views = 0
+        for image in self.medias:
+            views += image.views
+        return views
     
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'location_id': self.location_id,
+            'description': self.description,
+            'album_id': self.album_id,
+            'medias': [media.to_dict() for media in self.medias],
+            'views': self.get_views()
+        }
