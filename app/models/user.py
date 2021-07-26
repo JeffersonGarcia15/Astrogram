@@ -9,14 +9,14 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
-    name = db.Column(db.String(100), nullable=False)
+    full_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    website = db.Column(db.Text, nullable=False, default="https://www.instagram.com/")
+    website = db.Column(db.Text, nullable=True, default="https://www.instagram.com/")
     bio = db.Column(db.Text, nullable=True)
-    phone = db.Column(db.Integer, nullable=True)
+    phone = db.Column(db.String, nullable=True)
     gender = db.Column(db.String(100), nullable=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    profileImage = db.Column(db.String(256))
+    profile_image = db.Column(db.String(256), default="https://astrogram.s3.us-east-2.amazonaws.com/avatar.png")
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
@@ -35,10 +35,11 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
+            'full_name': self.full_name,
             'email': self.email,
-            'bio': self.bio,
             'website': self.website,
+            'bio': self.bio,
             'phone': self.phone,
             'gender': self.gender,
-            'profileImage': self.profileImage
+            'profile_image': self.profile_image
         }
