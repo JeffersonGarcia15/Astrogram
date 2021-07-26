@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../store/session';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const LogoutButton = () => {
   const dispatch = useDispatch()
@@ -8,7 +9,9 @@ const LogoutButton = () => {
     await dispatch(logout());
   };
 
-  return <button onClick={onLogout}>Logout</button>;
+  return <button onClick={onLogout}>
+    <ExitToAppIcon />
+  </button>;
 };
 
 export default LogoutButton;

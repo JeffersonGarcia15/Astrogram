@@ -70,31 +70,28 @@ export const logout = () => async (dispatch) => {
 };
 
 
-export const signUp = (username, email, password) => async (dispatch) => {
+export const signUp = (username, full_name, email, password) => async (dispatch) => {
+
+  const formData = new FormData()
+
+  formData.append('username', username)
+  formData.append('full_name', full_name)
+  formData.append('email', email)
+  formData.append('password', password)
+
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'enctype': 'multipart/form-data'
     },
-    body: JSON.stringify({
-      username,
-      email,
-      password,
-    }),
-  });
-  
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(setUser(data))
-    return null;
-  } else if (response.status < 500) {
-    const data = await response.json();
-    if (data.errors) {
-      return data.errors;
-    }
-  } else {
-    return ['An error occurred. Please try again.']
+    body: formData
+  })
+  const data = await response.json()
+  if (data.errors) {
+    return data
   }
+  dispatch(setUser(data))
+  return data
 }
 
 export default function reducer(state = initialState, action) {
