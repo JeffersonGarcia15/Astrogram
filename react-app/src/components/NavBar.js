@@ -1,37 +1,51 @@
-
+import { useSelector } from 'react-redux';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import LoginFormModal from '../components/auth/LoginForm/LoginFormModal'
+import SignUpFormModal from './auth/SignUpForm/SignUpFormModal';
 
-const NavBar = () => {
+const NavBar = ({ loaded }) => {
+  const user = useSelector(state => state.session.user);
+
+  let sessionLinks
+  if (user) {
+    sessionLinks = (
+      <>
+        <div>
+          <NavLink to={`/users/${user.username}`} exact={true} activeClassName='active'>
+            <AccountCircleOutlinedIcon></AccountCircleOutlinedIcon>
+          </NavLink>
+        </div>
+        <div>
+          <LogoutButton></LogoutButton>
+        </div>
+      
+      </>
+    )
+  }
+  else {
+    sessionLinks = (
+      <>
+        <div>
+          <LoginFormModal></LoginFormModal>
+        </div>
+        <div>
+          <SignUpFormModal></SignUpFormModal>
+        </div>
+      
+      </>
+    )
+  }
   return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/login' exact={true} activeClassName='active'>
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
-            Sign Up
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/users' exact={true} activeClassName='active'>
-            Users
-          </NavLink>
-        </li>
-        <li>
-          <LogoutButton />
-        </li>
-      </ul>
-    </nav>
+    <>
+      <div>
+        {loaded && sessionLinks}
+
+      </div>
+    
+    </>
   );
 }
 
