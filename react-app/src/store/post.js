@@ -39,7 +39,7 @@ export const getAllPosts = () => async (dispatch) => {
     }
 }
 
-export const getUserPosts = (id) => async (dispatch) => {
+export const getOwnPosts = (id) => async (dispatch) => {
     const response = await fetch(`/api/posts/user/${id}`)
     if (response.ok) {
         const posts = await response.json()
@@ -105,10 +105,10 @@ export default function posts(state = initialState, action) {
     switch (action.type) {
         case GET_POSTS: {
             const allPosts = {}
-            action.posts.forEach(post => {
+            action.posts.posts.forEach(post => {
                 allPosts[post.id] = post
             })
-            newState = {...allPosts }
+            const newState = {...allPosts }
             return newState
         }
         case GET_USER_POSTS: {
