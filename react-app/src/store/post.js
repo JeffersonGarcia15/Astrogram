@@ -112,7 +112,7 @@ export default function posts(state = initialState, action) {
             return newState
         }
         case GET_USER_POSTS: {
-            updatedState[action.post.id] = action.post
+            updatedState[action.post?.id] = action.post
             return updatedState
         }
         case CREATE_POST: {
