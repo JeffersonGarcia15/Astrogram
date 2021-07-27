@@ -31,7 +31,6 @@ class Post(db.Model):
             'description': self.description,
             'album_id': self.album_id,
             'picture_url': self.picture_url,
-            'location': self.location.to_dict(),
             'user': self.user.to_dict()
         }
             # 'medias': [media.to_dict() for media in self.medias],

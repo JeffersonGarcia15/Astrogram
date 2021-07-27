@@ -45,5 +45,6 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             'phone': self.phone,
             'gender': self.gender,
-            'profile_image': self.profile_image
+            'profile_image': self.profile_image,
+            # 'posts': {post.id: post.to_dict() for post in self.posts}
         }

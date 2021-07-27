@@ -32,7 +32,7 @@ def post(id):
         return "Bad Data"
     return post.to_dict()
 
-@post_routes.route('/', methods=['POST'])
+@post_routes.route('/new', methods=['POST'])
 def create_post():
     if "image" not in request.files:
         return {'errors': ['image required']}, 400
@@ -50,19 +50,20 @@ def create_post():
         return {'errors': [upload]}, 400
 
     url = upload["url"]
+    print('BEFORE SUBMISION HERE IS THE URL**************', url)
     
     user_id = request.form['user_id']
-    location_id = request.form['location_id']
     description = request.form['description']
-    album_id = request.form['album_id']
+    # location_id = request.form['location_id']
+    # album_id = request.form['album_id']
+    print("@@@@@@@@@@@@@@@@@@@", user_id, description)
     
     post = Post(
         user_id = user_id,
-        location_id = location_id,
         description = description,
-        album_id = album_id,
-        picture_url = url
+        picture_url = url,
     )
+    print('WHAT$$$$$DID*******POSTZ^^^^^ZRETuzrzn', post)
     db.session.add(post)
     db.session.commit()
     

@@ -5,6 +5,7 @@ import LogoutButton from './auth/LogoutButton';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import LoginFormModal from '../components/auth/LoginForm/LoginFormModal'
 import SignUpFormModal from './auth/SignUpForm/SignUpFormModal';
+import PostUploadModal from '../context/PostUploadModal'
 
 const NavBar = ({ loaded }) => {
   const user = useSelector(state => state.session.user);
@@ -21,6 +22,7 @@ const NavBar = ({ loaded }) => {
         <div>
           <LogoutButton></LogoutButton>
         </div>
+        <PostUploadModal></PostUploadModal>
       
       </>
     )

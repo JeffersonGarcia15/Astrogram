@@ -30,7 +30,7 @@ const deleteSinglePost = post => ({
 })
 
 export const getAllPosts = () => async (dispatch) => {
-    const response = await fetch("/api/posts")
+    const response = await fetch("/api/posts/")
 
     if (response.ok) {
         const posts = await response.json()
@@ -47,17 +47,17 @@ export const getOwnPosts = (id) => async (dispatch) => {
     }
 }
 
-export const createPost = (user_id, location_id, description, album_id, picture_url) => async (dispatch) => {
+export const createPost = (user_id, description, picture_url) => async (dispatch) => {
     const formData = new FormData()
 
     formData.append('user_id', user_id)
-    formData.append('location_id', location_id)
-    formData.append('description', description)
-    formData.append('album_id', album_id)
+    // formData.append('location_id', JSON.stringify(location_id))
+    formData.append('description', JSON.stringify(description))
+    // formData.append('album_id', JSON.stringify(album_id))
 
     if (picture_url) formData.append("image", picture_url)
 
-    const response = await fetch('/api/posts', {
+    const response = await fetch('/api/posts/new', {
         method: 'POST',
         headers: {
             'enctype': 'multipart/form-data'
@@ -65,17 +65,20 @@ export const createPost = (user_id, location_id, description, album_id, picture_
         body: formData
     })
     const data = await response.json()
+    console.log('FROM CREATE THUNK BEFORE CHECKING IF ERRORS', data, user_id, description, picture_url);
     if (data.errors) {
         return data
     }
     dispatch(addPost(data))
+    // console.log("CREATE THUNK AFTER DISPATCH", user_id, location_id, description, album_id, picture_url, data);
     return data
 
 }
 
 
 export const editPost = post => async (dispatch) => {
-    const response = await fetch(`/api/posts/${post.id}`, {
+    // const {description, postId} = post
+    const response = await fetch(`/api/posts/${post.postId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -85,7 +88,9 @@ export const editPost = post => async (dispatch) => {
     if (response.ok) {
         const edit_post = await response.json()
         dispatch(updateSinglePost(edit_post))
+        console.log('RESPONSE OK ON EDIT');
     }
+    console.log('AT LEAST GETTING TO THE THUNK');
 }
 
 
@@ -101,14 +106,14 @@ export const deletePost = postId => async (dispatch) => {
 const initialState = {}
 
 export default function posts(state = initialState, action) {
-    let updatedState = {...state}
+    let updatedState = { ...state }
     switch (action.type) {
         case GET_POSTS: {
             const allPosts = {}
             action.posts.posts.forEach(post => {
                 allPosts[post.id] = post
             })
-            const newState = {...allPosts }
+            const newState = { ...allPosts }
             return newState
         }
         case GET_USER_POSTS: {

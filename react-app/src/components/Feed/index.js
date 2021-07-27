@@ -16,8 +16,6 @@ function Feed() {
         dispatch(getAllPosts())
     }, [dispatch])
 
-    console.log('THis is the user info', user);
-    console.log('THis is the posttttttssss', posts);
     return (
         <div>
             <Grid container align='center'>
@@ -43,14 +41,14 @@ function Feed() {
                                 {/* <button onClick={() => console.log('AQUI POST', post)}>CLICK</button> */}
                                 <div>
                                     <div>
-                                        <img src={post.user.profile_image} />
+                                        <img src={post?.user?.profile_image} />
                                     </div>
                                     <div>
-                                        <strong>{post.user.username}</strong>
-                                        <p>{post.location.city}, {post.location.state}</p>
+                                        <strong>{post?.user?.username}</strong>
+                                        {/* <p>{post.location.city}, {post.location.state}</p> */}
                                     </div>
                                     <div>
-                                        <img src={post.picture_url}></img>
+                                        <img src={post?.picture_url}></img>
                                     </div>
                                     <div className="bg-white">
                                         <div>
@@ -59,10 +57,10 @@ function Feed() {
                                             <SendOutlinedIcon></SendOutlinedIcon>
                                         </div>
                                         <div>
-                                            Liked by {post.user.username} and others
+                                            Liked by {post?.user?.username} and others
                                         </div>
                                         <div>
-                                            <strong>{post.user.username}</strong> {post.description}
+                                            <strong>{post?.user?.username}</strong> {post.description}
                                         </div>
                                         <div className="text-gray-300">
                                             View all 21 comments
