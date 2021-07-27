@@ -33,6 +33,7 @@ function PhotoUploadModal() {
         e.preventDefault()
         await dispatch(createPost(user.id, description, picture_url))
         setShowMenu(false)
+        window.location.reload(true)
     }
 
     const updateFile = (e) => {
