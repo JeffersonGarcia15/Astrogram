@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    posts = db.relationship('Post', back_populates='user')
+    posts = db.relationship('Post', back_populates='user', lazy='subquery')
     albums = db.relationship('Album', back_populates='user')
     
     
@@ -45,5 +45,6 @@ class User(db.Model, UserMixin):
             'bio': self.bio,
             'phone': self.phone,
             'gender': self.gender,
-            'profile_image': self.profile_image
+            'profile_image': self.profile_image,
+            # 'posts': {post.id: post.to_dict() for post in self.posts}
         }

@@ -11,8 +11,9 @@ class Post(db.Model):
     album_id = db.Column(db.Integer, db.ForeignKey('albums.id'), nullable=True)
     picture_url = db.Column(db.String, nullable=False)
     
-    user = db.relationship('User', back_populates='posts')
-    location = db.relationship('Location', back_populates='posts')
+    # Credits to: https://stackoverflow.com/questions/13967093/parent-instance-is-not-bound-to-a-session-lazy-load-operation-of-attribute-acc
+    user = db.relationship('User', back_populates='posts', lazy='subquery')
+    location = db.relationship('Location', back_populates='posts', lazy='subquery')
     album = db.relationship('Album', back_populates='posts')
     # medias = db.relationship('Media', back_populates='post')
     
@@ -30,7 +31,6 @@ class Post(db.Model):
             'description': self.description,
             'album_id': self.album_id,
             'picture_url': self.picture_url,
-            'location': self.location.to_dict(),
             'user': self.user.to_dict()
         }
             # 'medias': [media.to_dict() for media in self.medias],
