@@ -11,7 +11,7 @@ class Location(db.Model):
     longitude = db.Column(db.String, nullable=False)
     
     
-    posts = db.relationship('Post', back_populates='location')
+    posts = db.relationship('Post', back_populates='location', lazy='subquery')
     
     def to_dict(self):
         return {
