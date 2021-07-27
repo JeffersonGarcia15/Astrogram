@@ -8,7 +8,7 @@ class Media(db.Model):
     media_url = db.Column(db.String, nullable=False)
     views = db.Column(db.Integer, nullable=True, default=0)
     
-    post = db.relationship('Post', back_populates='medias')
+    # post = db.relationship('Post', back_populates='medias')
     
     
     def to_dict(self):
