@@ -18,7 +18,7 @@ def seed():
     seed_albums()
     seed_locations()
     seed_posts()
-    seed_media()
+    # seed_media()
     # Add other seed functions here
 
 
@@ -29,5 +29,5 @@ def undo():
     undo_albums()
     undo_locations()
     undo_posts()
-    undo_media()
+    # undo_media()
     # Add other undo functions here
