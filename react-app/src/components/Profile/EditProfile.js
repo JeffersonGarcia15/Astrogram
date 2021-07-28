@@ -23,10 +23,13 @@ function EditProfile() {
     const onSubmit = async (e) => {
         e.preventDefault()
         const data = await dispatch(editProfileUser(user?.id, username, full_name, website, bio, phone, gender, profile_image))
-        if (data.errors) {
-            setErrors(data.errors)
+        if (data?.errors) {
+            setErrors(data?.errors)
         }
-        history.push(`/user/${user?.id}`)
+
+        // history.push(`/user/${user?.id}`)
+        window.location.reload(true)
+
     }
 
     const updateUserName = (e) => {
