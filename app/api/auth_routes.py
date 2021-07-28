@@ -6,6 +6,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.awsS3 import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 
+
 auth_routes = Blueprint('auth', __name__)
 
 def validation_errors_to_error_messages(validation_errors):
