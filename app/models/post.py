@@ -1,5 +1,6 @@
 from .db import db
 from .media import Media
+from .location import Location
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -31,7 +32,7 @@ class Post(db.Model):
             'description': self.description,
             'album_id': self.album_id,
             'picture_url': self.picture_url,
-            'user': self.user.to_dict()
+            'user': self.user.to_dict(),
         }
             # 'medias': [media.to_dict() for media in self.medias],
             # 'views': self.get_views()
