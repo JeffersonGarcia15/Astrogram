@@ -25,7 +25,7 @@ function Feed() {
                         {/* Hey */}
                     </input>
                     <div className="pb-5">
-                        <Grid style={{backgroundColor: 'red', paddingTop: '25px', paddingBottom: '25px'}} container align='center'>
+                        <Grid style={{ backgroundColor: 'red', paddingTop: '25px', paddingBottom: '25px' }} container align='center'>
                             <Grid item md={2}>Hi</Grid>
                             <Grid item md={2}>Hi</Grid>
                             <Grid item md={2}>Hi</Grid>
@@ -41,7 +41,7 @@ function Feed() {
                                 {/* <button onClick={() => console.log('AQUI POST', post)}>CLICK</button> */}
                                 <div>
                                     <div>
-                                        <img src={post?.user?.profile_image} />
+                                        <img style={{width: '50px', borderRadius: '50px'}} src={post?.user?.profile_image} />
                                     </div>
                                     <div>
                                         <strong>{post?.user?.username}</strong>
