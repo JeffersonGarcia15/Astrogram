@@ -21,7 +21,7 @@ def user(id):
     return user.to_dict()
 
 @user_routes.route('/<int:id>', methods=['PUT'])
-def update():
+def update(id):
     user = User.query.get(id)
     if "image" not in request.files:
         return {'errors': ['image required']}, 400

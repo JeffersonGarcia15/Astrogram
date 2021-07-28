@@ -110,6 +110,8 @@ export const editProfileUser = (user_id, username, full_name, website, bio, phon
   formData.append('phone', phone)
   formData.append('gender', gender)
 
+  if (profile_image) formData.append('image', profile_image)
+
   const response = await fetch(`/api/users/${user_id}`, {
     method: 'PUT',
     headers: {
