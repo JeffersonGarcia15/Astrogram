@@ -21,17 +21,17 @@ function Feed() {
             <Grid container align='center'>
                 <Grid item md={2}>Hi</Grid>
                 <Grid item md={5}>
-                    <input className="bg-gray-200 focus:bg-red-300 md:bg-yellow-200 md:focus:bg-green-300">
+                    <input placeholder='This might be the search bar?'>
                         {/* Hey */}
                     </input>
                     <div className="pb-5">
-                        <Grid style={{ backgroundColor: 'red', paddingTop: '25px', paddingBottom: '25px' }} container align='center'>
-                            <Grid item md={2}>Hi</Grid>
-                            <Grid item md={2}>Hi</Grid>
-                            <Grid item md={2}>Hi</Grid>
-                            <Grid item md={2}>Hi</Grid>
-                            <Grid item md={2}>Hi</Grid>
-                            <Grid item md={2}>Hi</Grid>
+                        <Grid  style={{paddingBottom: '25px' }} container align='center'>
+                            <Grid item md={2} placeholder='This is here for user stories'>This is here for user stories</Grid>
+                            <Grid item md={2}>This is here for user stories</Grid>
+                            <Grid item md={2}>This is here for user stories</Grid>
+                            <Grid item md={2}>This is here for user stories</Grid>
+                            <Grid item md={2}>This is here for user stories</Grid>
+                            <Grid item md={2}>This is here for user stories</Grid>
 
                         </Grid>
                     </div>

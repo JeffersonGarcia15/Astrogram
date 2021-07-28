@@ -4,6 +4,7 @@ import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { getOwnPosts, getAllPosts } from '../../store/post';
 import Grid from '@material-ui/core/Grid'
 import UpdateDeletePost from '../UpdateDeletePost'
+import EditProfileModal from '../Profile/EditProfileModal';
 
 
 function Profile() {
@@ -32,6 +33,9 @@ function Profile() {
                     <div className="flex space-x-4">
                         <div>
                             <p>{user.username}</p>
+                        </div>
+                        <div>
+                            <EditProfileModal></EditProfileModal>
                         </div>
                         <div>
                             <p>{filter.length} posts</p>

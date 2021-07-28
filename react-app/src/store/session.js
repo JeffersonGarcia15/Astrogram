@@ -110,6 +110,8 @@ export const editProfileUser = (user_id, username, full_name, website, bio, phon
   formData.append('phone', phone)
   formData.append('gender', gender)
 
+  if (profile_image) formData.append('image', profile_image)
+
   const response = await fetch(`/api/users/${user_id}`, {
     method: 'PUT',
     headers: {
@@ -118,10 +120,12 @@ export const editProfileUser = (user_id, username, full_name, website, bio, phon
     body: formData
   })
   const data = await response.json()
+  console.log('FROM THUNK UPDATE', data);
   if (data.errors) {
     return data
   }
   dispatch(setUser(data))
+  console.log('TO CHECK IF THE INFO GETS TO THE EDIT THUNK', user_id, username, full_name, website, bio, phone, gender, profile_image );
 
 }
 

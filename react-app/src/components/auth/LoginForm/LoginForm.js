@@ -27,7 +27,7 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to={`/profile/${user.username}`} />;
+    return <Redirect to={`/`} />;
   }
 
   return (
