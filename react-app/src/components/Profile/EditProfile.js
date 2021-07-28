@@ -59,12 +59,65 @@ function EditProfile() {
     }
 
     return (
-        <form >
+        <form onSubmit={onSubmit}>
             <ul className="form-errors">
                 {errors?.map((error, ind) => <li key={ind}>{error}</li>)}
             </ul>
             <h2>Update Profile</h2>
+            <div>
+                <label>Full Name</label>
+                <input
+                    type='text'
+                    name='fullName'
+                    onChange={updateFullName}
+                    value={full_name}
+                ></input>
+            </div>
+            <div>
+                <label>User Name</label>
+                <input
+                    type='text'
+                    name='username'
+                    onChange={updateUserName}
+                    value={username}
+                ></input>
+            </div>
+            <div>
+                <label>Website</label>
+                <input
+                    type='text'
+                    name='fullName'
+                    onChange={updateWebsite}
+                    value={website}
+                ></input>
+            </div>
+            <div>
+                <label>Biography</label>
+                <textarea
+                    onChange={updateBiography}
+                    value={bio}
+                    cols="30"
+                    rows="10"
+                ></textarea>
+            </div>
+            <div>
+                <label>Gender</label>
+                <input type='text' onChange={updateGender} value={gender}></input>
+            </div>
+            <div>
+                <label>Phone</label>
+                <input type="text" onChange={updatePhone} value={phone}/>
+            </div>
+            <div>
+                <label>Change Your Profile Picture</label>
+                <input type="file" onChange={updateImage} />
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
         </form>
     )
 
 }
+
+export default EditProfile

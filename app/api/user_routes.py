@@ -39,7 +39,7 @@ def update(id):
         return {'errors': [upload]}, 400
 
     url = upload["url"]
-    
+    print('################## BEFORE THE CHANGE', user.username, user.full_name, user.website, user.bio, user.phone, user.gender, user.profile_image)
     user.username = request.form['username']
     user.full_name = request.form['full_name']
     user.website = request.form['website']
@@ -47,6 +47,7 @@ def update(id):
     user.phone = request.form['phone']
     user.gender = request.form['gender']
     user.profile_image = url
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AFTER THE CHANGE', user.username, user.full_name, user.website, user.bio, user.phone, user.gender, user.profile_image)
     # user = User(
     #     user_id = id,
     #     username=username,
@@ -59,5 +60,5 @@ def update(id):
     # )
     # db.session.add(user)
     db.session.commit()
-    return "Success"
+    return {"Success": 'success'}
     
