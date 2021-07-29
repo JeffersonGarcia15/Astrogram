@@ -33,3 +33,10 @@ def comment_edit(id):
     print('$$$$$$$$$$$$$$$$$$$$$', comment.body)
     db.session.commit()
     return {"Success": "Success"}
+
+@comment_routes.route('/<int:id>', methods=['DELETE'])
+def delete_comment(id):
+    comment = Comment.query.get(id)
+    db.session.delete(comment)
+    db.session.commit()
+    return {'delete': comment.to_dict()}

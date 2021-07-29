@@ -1,6 +1,7 @@
 const GET_COMMENTS = 'comments/GET_COMMENTS'
 const CREATE_COMMENT = 'comments/CREATE_COMMENT'
 const UPDATE_COMMENT = 'comments/UPDATE_COMMENT'
+const DELETE_COMMENT = 'comments/DELETE_COMMENT'
 
 
 const getComments = comments => ({
@@ -15,6 +16,11 @@ const addComment = comment => ({
 
 const editComment = comment => ({
     type: UPDATE_COMMENT,
+    comment
+})
+
+const deleteSingleComment = comment => ({
+    type: DELETE_COMMENT,
     comment
 })
 
@@ -62,6 +68,15 @@ export const updateComment = (user_id, post_id, body, comment_id) => async (disp
     console.log('THIS IS HERE TO CHECK IF THE INFO GETS TO THE THUNK', user_id, post_id, body, comment_id);
 }
 
+export const deleteComment = comment_id => async (dispatch) => {
+    const response = await fetch(`/api/comments/${comment_id}`, {
+        method: "DELETE"
+    })
+    if (response.ok) {
+        dispatch(deleteSingleComment(comment_id))
+    }
+}
+
 
 
 const initialState = {}
@@ -83,6 +98,10 @@ export default function comments(state = initialState, action) {
         }
         case UPDATE_COMMENT: {
             updatedState[action.comment.id] = action.comment
+            return updatedState
+        }
+        case DELETE_COMMENT: {
+            delete updatedState[action.comment]
             return updatedState
         }
         default:
