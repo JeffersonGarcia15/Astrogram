@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Redirect } from 'react-router-dom';
-import { getAllComments, createComment } from '../../store/comment'
+import { getAllComments, createComment, updateComment } from '../../store/comment'
+import SendIcon from '@material-ui/icons/Send';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 
 function Comments({post_id}) {
@@ -12,6 +14,7 @@ function Comments({post_id}) {
     const [body, setBody] = useState('')
     const [newComment, setNewComment] = useState('')
     const [showForm, setShowForm] = useState('')
+    const [formId, setFormId] = useState(null)
     const comment = Object.values(comments)
 
     useEffect(() => {
@@ -27,6 +30,18 @@ function Comments({post_id}) {
         }))
     }
 
+    const editAComment = async (comment_id, body, e) => {
+        e.preventDefault()
+        const data = await dispatch(updateComment(user.id, post_id, body, comment_id))
+    }
+
+    const openForm = (comment) => {
+        setShowForm(true)
+        setBody(comment.body)
+        setFormId(comment.id)
+
+    }
+
     return (
         <div>
             {Object.values(comments).map(comment => (
@@ -34,6 +49,23 @@ function Comments({post_id}) {
                     <div>
                         <p>{comment.username}</p>
                         <p>{comment.body}</p>
+                        {user.id === comment.user_id && (
+                            <div>
+                                <button onClick={() => openForm(comment)}>Edit Comment</button>
+
+                                {showForm&& comment.id === formId ? 
+                                <form onSubmit={(e) => editAComment(comment.id, body, e)} key={comment.id}>
+                                    <textarea value={body} onChange={(e) => setBody(e.target.value)} ></textarea>
+                                    <button type="submit" onSubmit={(e) => editAComment(comment.id, body, e)} >
+                                            <SendIcon></SendIcon>
+                                    </button>
+                                    {/* <button onClick={() =}></button> */}
+                                </form>
+                            
+                            
+                            :null}
+                            </div>
+                        )}
                         
                     </div>
                 </div>

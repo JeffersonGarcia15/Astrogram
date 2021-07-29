@@ -1,5 +1,6 @@
 const GET_COMMENTS = 'comments/GET_COMMENTS'
 const CREATE_COMMENT = 'comments/CREATE_COMMENT'
+const UPDATE_COMMENT = 'comments/UPDATE_COMMENT'
 
 
 const getComments = comments => ({
@@ -9,6 +10,11 @@ const getComments = comments => ({
 
 const addComment = comment => ({
     type: CREATE_COMMENT,
+    comment
+})
+
+const editComment = comment => ({
+    type: UPDATE_COMMENT,
     comment
 })
 
@@ -39,6 +45,23 @@ export const createComment = comment => async (dispatch) => {
     console.log('COMMENT MAKING IT TO THE THUNK COMMENT', comment);
 }
 
+export const updateComment = (user_id, post_id, body, comment_id) => async (dispatch) => {
+    const response = await fetch(`/api/comments/${comment_id}`, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({user_id, post_id, body})
+    })
+    if (response.ok) {
+        const updatedComment = await response.json()
+        dispatch(editComment(updatedComment))
+        console.log('THIS WILL PRINT IF RESPONSE IN EDIT COPMMENT IS OK', updatedComment);
+
+    }
+    console.log('THIS IS HERE TO CHECK IF THE INFO GETS TO THE THUNK', user_id, post_id, body, comment_id);
+}
+
 
 
 const initialState = {}
@@ -55,6 +78,10 @@ export default function comments(state = initialState, action) {
             return newState
         }
         case CREATE_COMMENT: {
+            updatedState[action.comment.id] = action.comment
+            return updatedState
+        }
+        case UPDATE_COMMENT: {
             updatedState[action.comment.id] = action.comment
             return updatedState
         }

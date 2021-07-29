@@ -24,3 +24,12 @@ def new_comment(id):
     return {
         'comment': comment.to_dict()
     }
+    
+@comment_routes.route('/<int:id>', methods=['PUT'])
+def comment_edit(id):
+    request_json = request.get_json()
+    comment = Comment.query.get(id)
+    comment.body = request_json['body']
+    print('$$$$$$$$$$$$$$$$$$$$$', comment.body)
+    db.session.commit()
+    return {"Success": "Success"}
