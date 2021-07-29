@@ -12,13 +12,17 @@ import './Feed.css'
 function Feed() {
     const history = useHistory()
     const dispatch = useDispatch()
-    const user = useSelector(state => state.session.user)
+    const sessionUser = useSelector(state => state.session.user)
     const posts = useSelector(state => state.posts)
+    // const profile = useSelector(state => state.profile)
 
     useEffect(() => {
         dispatch(getAllPosts())
     }, [dispatch])
 
+    // useEffect(() => {
+    //     dispatch(getUserInfo(username))
+    // }, [dispatch, username])
 
     return (
         <div>
@@ -42,11 +46,11 @@ function Feed() {
                     <div>
                         {Object.values(posts)?.map((post) => (
                             <div key={post.id}>
-                                <button onClick={() => console.log('AQUI POST', post)}>CLICK</button>
                                 <div className="post">
                                     <div className="user-info">
                                         <img className="userphoto" style={{ width: '50px', borderRadius: '50px' }} src={post?.user?.profile_image} />
-                                        <a className="username" href={`/users/${user.id}`} >{post?.user?.username}</a>
+                                        <a className="username" href={`/users/${post?.user?.username}`} >{post?.user?.username}</a>
+                                <button onClick={() => console.log('DOWJNOKJIWJEIW', post)}>CLICK</button>
                                     </div>
                                     {/* <div> */}
                                     {/* <strong>{post?.user?.username}</strong> */}
@@ -55,7 +59,7 @@ function Feed() {
                                     <div>
                                         <img className="post-img" src={post?.picture_url}></img>
                                     </div>
-                                    <div className="bg-white post-description">
+                                    <div className=" post-description">
                                         <div className="icons">
                                             <FavoriteBorderOutlinedIcon className="icon"></FavoriteBorderOutlinedIcon>
                                             <ChatBubbleOutlineOutlinedIcon className="icon"></ChatBubbleOutlineOutlinedIcon>
@@ -64,7 +68,7 @@ function Feed() {
                                         <div className="comments">
                                             <p style={{ display: "block" }}> Liked by {post?.user?.username} and others </p>
                                             <div>
-                                                <a className="username" href={`/users/${user.id}`}>{post?.user?.username}</a>
+                                                <a className="username" href={`/users/${post?.user?.username}`}>{post?.user?.username}</a>
                                                 <p className="comment">{post.description}</p>
                                             </div>
                                             <hr></hr>

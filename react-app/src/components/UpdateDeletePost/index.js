@@ -27,11 +27,13 @@ function UpdateDeletePost({postId}) {
             await dispatch(deletePost(postId))
         }
         // history.push('/')
+        window.location.reload(true)
+
     }
 
     return (
         <div>
-            {user.id === post.user_id && (
+            {user?.id === post?.user_id && (
                 <form onSubmit={updateUserPost}>
                     <input type='text' value={description} onChange={(e) => setDescription(e.target.value)}></input>
                     <button type='submit'>Save Updates</button>

@@ -15,7 +15,7 @@ const NavBar = ({ loaded }) => {
     sessionLinks = (
       <>
         <div>
-          <NavLink to={`/users/${user.id}`} exact={true} activeClassName='active'>
+          <NavLink to={`/users/${user.username}`} exact={true} activeClassName='active'>
             <AccountCircleOutlinedIcon></AccountCircleOutlinedIcon>
           </NavLink>
         </div>
