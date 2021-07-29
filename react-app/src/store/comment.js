@@ -68,6 +68,7 @@ export const updateComment = (user_id, post_id, body, comment_id) => async (disp
     console.log('THIS IS HERE TO CHECK IF THE INFO GETS TO THE THUNK', user_id, post_id, body, comment_id);
 }
 
+
 export const deleteComment = comment_id => async (dispatch) => {
     const response = await fetch(`/api/comments/${comment_id}`, {
         method: "DELETE"
