@@ -9,3 +9,18 @@ def allComments():
     return {
         "comments": [comment.to_dict() for comment in comments]
     }
+    
+    
+@comment_routes.route('/post/<int:id>', methods=['POST'])
+def new_comment(id):
+    request_json = request.get_json()
+    comment = Comment(
+        user_id=request_json['user_id'],
+        post_id=request_json['post_id'],
+        body=request_json['body']
+    )
+    db.session.add(comment)
+    db.session.commit()
+    return {
+        'comment': comment.to_dict()
+    }
