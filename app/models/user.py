@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
 
     posts = db.relationship('Post', back_populates='user', lazy='subquery')
     albums = db.relationship('Album', back_populates='user')
-    
+    comments = db.relationship('Comment', back_populates='user')
     
     @property
     def password(self):
