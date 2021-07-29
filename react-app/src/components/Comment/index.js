@@ -29,7 +29,6 @@ function Comments({post_id}) {
             body: newComment
         }))
         window.location.reload(true)
-
     }
 
     const editAComment = async (comment_id, body, e) => {
