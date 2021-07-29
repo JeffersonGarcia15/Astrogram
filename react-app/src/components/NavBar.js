@@ -6,6 +6,8 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import LoginFormModal from '../components/auth/LoginForm/LoginFormModal'
 import SignUpFormModal from './auth/SignUpForm/SignUpFormModal';
 import PostUploadModal from '../context/PostUploadModal'
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import Demo from '../components/Demo'
 
 const NavBar = ({ loaded }) => {
   const user = useSelector(state => state.session.user);
@@ -22,7 +24,13 @@ const NavBar = ({ loaded }) => {
         <div>
           <LogoutButton></LogoutButton>
         </div>
+        <div>
         <PostUploadModal></PostUploadModal>
+
+        </div>
+        <div>
+          <NavLink exact={true} to='/'><HomeOutlinedIcon></HomeOutlinedIcon></NavLink>
+        </div>
       
       </>
     )
@@ -36,6 +44,7 @@ const NavBar = ({ loaded }) => {
         <div>
           <SignUpFormModal></SignUpFormModal>
         </div>
+        <div><Demo></Demo></div>
       
       </>
     )
