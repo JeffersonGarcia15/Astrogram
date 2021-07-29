@@ -6,7 +6,6 @@ import { editProfileUser } from '../../store/session'
 function EditProfile() {
     const history = useHistory()
     const dispatch = useDispatch()
-    const [errors, setErrors] = useState([])
     const user = useSelector(state => state.session.user)
     const [errors, setErrors] = useState([])
     const [username, setUserName] = useState(null)

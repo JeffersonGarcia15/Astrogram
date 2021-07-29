@@ -1,0 +1,89 @@
+
+.stories-bar{
+    max-width: 100%;
+    border: 2px solid #dbdbdb;
+    padding: 20px 10px;
+    border-radius: 3px;
+    margin: 18px 0;
+    background: #fff;
+}
+.storie{
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.storie img{
+    object-fit: cover;
+    width: 60px;
+    height: 60px;
+    border-radius:50%;
+    margin: auto;
+    border: 3px solid #dbdbdb;
+}
+
+.storie .username{
+    font-size: 10px;
+    font-weight: 400;
+    color: gray;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.post{
+    border: 2px solid #dbdbdb;
+    max-width: 100%;
+    background: #fff;
+}
+
+.post .user-info{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.post .userphoto{
+    width: 40px;
+    border-radius: 50%;
+    margin: 15px 15px;
+}
+
+.username{
+    font-size: 1em;
+    display: inline;
+    font-weight: bold;
+    padding-right: 5px;
+    text-decoration: none;
+    outline: none;
+    color: #262626;
+    line-height: 0.8;
+}
+
+.username:hover, .username:focus{
+    border-bottom: 1px solid;
+}
+
+.post-body{
+    width: 100%;
+}
+.post-img{
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+}
+
+.post-descripcion{
+    width: 100%;
+}
+.post-description{
+padding-left: 20px;
+}
+.icon{
+    margin: 10px 15px 10px 0;
+}
+.comment{
+font-size: 1em;
+display: inline;
+}
