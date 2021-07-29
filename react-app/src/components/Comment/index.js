@@ -31,6 +31,7 @@ function Comments({post_id}) {
         window.location.reload(true)
     }
 
+    
     const editAComment = async (comment_id, body, e) => {
         e.preventDefault()
         const data = await dispatch(updateComment(user.id, post_id, body, comment_id))

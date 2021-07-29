@@ -25,6 +25,7 @@ def new_comment(id):
         'comment': comment.to_dict()
     }
     
+    
 @comment_routes.route('/<int:id>', methods=['PUT'])
 def comment_edit(id):
     request_json = request.get_json()

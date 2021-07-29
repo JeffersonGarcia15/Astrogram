@@ -17,6 +17,7 @@ function Feed() {
         dispatch(getAllPosts())
     }, [dispatch])
 
+    
     return (
         <div>
             <Grid container align='center'>
