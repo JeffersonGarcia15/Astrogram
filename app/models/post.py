@@ -1,6 +1,7 @@
 from .db import db
 from .media import Media
 from .location import Location
+from sqlalchemy.orm import backref
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -16,7 +17,10 @@ class Post(db.Model):
     user = db.relationship('User', back_populates='posts', lazy='subquery')
     location = db.relationship('Location', back_populates='posts', lazy='subquery')
     album = db.relationship('Album', back_populates='posts')
-    comments = db.relationship('Comment', back_populates='post')
+    # comments = db.relationship('Comment', back_populates='post', cascade="all, delete", passive_deletes=True)
+    comments = db.relationship('Comment', backref="posts", cascade="all, delete", passive_deletes=True)
+    # comments = db.relationship('Comment', backref=backref("posts", cascade="all, delete"))
+    
 
     # medias = db.relationship('Media', back_populates='post')
     
