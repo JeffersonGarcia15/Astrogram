@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
+import Comments from '../Comment'
 function Feed() {
     const history = useHistory()
     const dispatch = useDispatch()
@@ -62,18 +63,10 @@ function Feed() {
                                         <div>
                                             <strong>{post?.user?.username}</strong> {post.description}
                                         </div>
-                                        <div className="text-gray-300">
-                                            View all 21 comments
-                                        </div>
-                                        <div>
-                                            <p>Comments will go here</p>
-                                        </div>
-                                        <div>
-                                            <p>Just realized I forgot the created at...</p>
-                                        </div>
                                         <hr></hr>
                                         <div>
-                                            <label>This will be replaced with a "Comment Component"</label>
+                                            {/* <label>This will be replaced with a "Comment Component"</label> */}
+                                            <Comments post_id={post.id}></Comments>
                                             <input placeholder="Add a comment" type="text"></input>
                                         </div>
                                     </div>

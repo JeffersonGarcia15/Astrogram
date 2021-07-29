@@ -13,6 +13,7 @@ class Location(db.Model):
     
     posts = db.relationship('Post', back_populates='location', lazy='subquery')
     
+    
     def to_dict(self):
         return {
             'id': self.id,

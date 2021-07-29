@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import Profile from './components/Profile'
 import Feed from './components/Feed'
+import Comments from './components/Comment'
 import { authenticate } from './store/session';
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
+        </Route>
+        <Route exact path='/comments'>
+          <Comments></Comments>
         </Route>
         {/* <Route exact path='/users/:name'>
           <Profile />

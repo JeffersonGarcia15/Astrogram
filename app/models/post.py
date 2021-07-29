@@ -16,6 +16,8 @@ class Post(db.Model):
     user = db.relationship('User', back_populates='posts', lazy='subquery')
     location = db.relationship('Location', back_populates='posts', lazy='subquery')
     album = db.relationship('Album', back_populates='posts')
+    comments = db.relationship('Comment', back_populates='post')
+
     # medias = db.relationship('Media', back_populates='post')
     
     # def get_views(self):
