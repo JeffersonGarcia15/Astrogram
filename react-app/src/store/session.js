@@ -2,6 +2,7 @@
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 const UPDATE_USER = 'session/UPDATE_USER';
+const USER_INFO = 'session/USER_INFO'
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -14,6 +15,11 @@ const removeUser = () => ({
 
 const editUser = (user) => ({
   type: UPDATE_USER,
+  user
+})
+
+const userInfo = user => ({
+  type: USER_INFO,
   user
 })
 
@@ -34,6 +40,7 @@ export const authenticate = () => async (dispatch) => {
     dispatch(setUser(data));
   }
 }
+
 
 export const login = (email, password) => async (dispatch) => {
   const response = await fetch('/api/auth/login', {

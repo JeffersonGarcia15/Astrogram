@@ -20,6 +20,12 @@ def user(id):
     user = User.query.get(id)
     return user.to_dict()
 
+@user_routes.route('/<string:username>')
+def user_info(username):
+    user = User.query.filter_by(username=username).first()
+    print("&&&&&&&&&&&&&&&&&&&&&&", user)
+    return user.to_dict_user_info()
+
 @user_routes.route('/<int:id>', methods=['PUT'])
 def update(id):
     user = User.query.get(id)
