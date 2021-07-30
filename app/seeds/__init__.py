@@ -7,6 +7,7 @@ from .posts import seed_posts, undo_posts
 from .comments import seed_comments, undo_comments
 from .likes import seed_likes, undo_likes
 from .commentlikes import seed_commentlikes, undo_commentlikes
+from .follows import seed_follows, undo_follows
 
 
 # Creates a seed group to hold our commands
@@ -24,6 +25,7 @@ def seed():
     seed_comments()
     seed_likes()
     seed_commentlikes()
+    seed_follows()
     # seed_media()
     # Add other seed functions here
 
@@ -38,5 +40,6 @@ def undo():
     undo_comments()
     undo_likes()
     undo_commentlikes()
+    undo_follows()
     # undo_media()
     # Add other undo functions here
