@@ -5,6 +5,8 @@ from .albums import seed_albums, undo_albums
 from .locations import seed_locations, undo_locations
 from .posts import seed_posts, undo_posts
 from .comments import seed_comments, undo_comments
+from .likes import seed_likes, undo_likes
+from .commentlikes import seed_commentlikes, undo_commentlikes
 
 
 # Creates a seed group to hold our commands
@@ -20,6 +22,8 @@ def seed():
     seed_locations()
     seed_posts()
     seed_comments()
+    seed_likes()
+    seed_commentlikes()
     # seed_media()
     # Add other seed functions here
 
@@ -32,5 +36,7 @@ def undo():
     undo_locations()
     undo_posts()
     undo_comments()
+    undo_likes()
+    undo_commentlikes()
     # undo_media()
     # Add other undo functions here
