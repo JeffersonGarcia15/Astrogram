@@ -5,3 +5,6 @@ from .media import Media
 from .post import Post
 from .location import Location
 from .comment import Comment
+from .like import Like
+from .commentlike import CommentLike
+# from .follower import follower_table

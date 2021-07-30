@@ -19,6 +19,8 @@ class Post(db.Model):
     album = db.relationship('Album', back_populates='posts')
     # Credits to: https://stackoverflow.com/questions/5033547/sqlalchemy-cascade-delete
     comments = db.relationship('Comment', backref="posts", cascade="all, delete", passive_deletes=True)
+    likes = db.relationship('Like', backref="posts", cascade="all, delete", passive_deletes=True)
+    
     
 
     # medias = db.relationship('Media', back_populates='post')

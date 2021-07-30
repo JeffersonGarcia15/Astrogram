@@ -18,6 +18,11 @@ def seed_users():
         username='Wiron', full_name='Wiron Reyes', email='eiron@aa.io', hashed_password=generate_password_hash('password'))
     demo6 = User(
         username='Wilberth', full_name='Wilberth La anda verde', email='alex@aa.io', hashed_password=generate_password_hash('password'))
+    
+    def seed_follows():
+        demo.followers.append(demo1)
+        demo1.followers.append(demo2)
+    
     db.session.add(demo)
     db.session.add(demo1)
     db.session.add(demo2)
@@ -36,3 +41,4 @@ def seed_users():
 def undo_users():
     db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
     db.session.commit()
+

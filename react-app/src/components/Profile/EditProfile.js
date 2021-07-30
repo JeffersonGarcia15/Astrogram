@@ -27,7 +27,7 @@ function EditProfile() {
             setErrors(data?.errors)
         }
 
-        // history.push(`/user/${user?.id}`)
+        history.push(`/`)
         window.location.reload(true)
 
     }
