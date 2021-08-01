@@ -61,7 +61,7 @@ function Comments({post_id}) {
 
     } 
 
-    console.log('{{{{{{{{{{{{{{{{{{{', post_id);
+    // console.log('{{{{{{{{{{{{{{{{{{{', post_id);
 
     return (
         <div>

@@ -1,8 +1,13 @@
+import re
 from flask import Blueprint, request
 from app.models import db, Like
 
 like_routes = Blueprint('likes', __name__)
 
+@like_routes.route('/')
+def get_likes():
+    likes = Like.query.all()
+    return {"likes": [like.to_dict() for like in likes]}
 
 @like_routes.route('/<int:id>')
 def likes(id):
@@ -10,15 +15,24 @@ def likes(id):
     return {
         "likes": [like.to_dict() for like in likes]
     }
+    
+@like_routes.route('/<int:id>/post/<int:pid>')
+def singleLike(id, pid):
+    likes = Like.query.filter_by(user_id = id, post_id = pid).all()
+    return {
+        "like": [like.to_dict() for like in likes]
+    }
 
 
 @like_routes.route('/new', methods=['POST'])
 def postLike():
     request_json = request.get_json()
+    print('@@@@@@@@@@@@@@@@@@@@@@', request_json)
     like = Like(
         user_id=request_json['user_id'],
         post_id=request_json['post_id']
     )
+    print('$$$$$$$$$$$$$$$$$$$$$$$$', like)
     db.session.add(like)
     db.session.commit()
     return request.get_json()

@@ -3,10 +3,11 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts } from '../../store/post';
 import Grid from '@material-ui/core/Grid'
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 import Comments from '../Comment'
+import { getAllLikes, createPostLike, deleteAPostLike, getASingleLike } from '../../store/postlike';
 import './Feed.css'
 
 function Feed() {
@@ -14,16 +15,49 @@ function Feed() {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
     const posts = useSelector(state => state.posts)
-    // const profile = useSelector(state => state.profile)
+    const postLikes = useSelector(state => state.postLikes)
+    const postLikesArray = Object.values(postLikes)
+    const [post_id, setPostId] = useState(0)
+    const postLike2 = useSelector(state => state.postLikes.like)
+    const likesInPost = Object.values(postLikes)?.filter(like => like?.post_id == post_id)
+    const isPostedLiked = postLikesArray?.some(like => like.user_id == sessionUser.id)
+    const[postLike, setPostLike] = useState(false)
 
     useEffect(() => {
-        dispatch(getAllPosts())
-    }, [dispatch])
+        if (isPostedLiked) {
+            setPostLike(true)
+        }
+        else {
+            setPostLike(false)
+        }
+        dispatch(getAllPosts());
+        dispatch(getAllLikes())
+    }, [dispatch, isPostedLiked])
 
-    // useEffect(() => {
-    //     dispatch(getUserInfo(username))
-    // }, [dispatch, username])
 
+    
+    const handlePostLike = (post) => async (e) => {
+        setPostId(post?.id)
+        if (postLike) {
+            let singlePostLike = likesInPost.find(like => like.user_id == sessionUser.id && like.post_id == post_id)
+
+            console.log('POR LA GRAN PUTA NONO QUE QLAZO', singlePostLike?.id)
+            await dispatch(deleteAPostLike(singlePostLike?.id))
+            setPostLike(false)
+            window.location.reload(true)
+        }
+        else {
+            await dispatch(createPostLike({user_id: sessionUser.id, post_id: post?.id}))
+            setPostLike(true)
+        }
+    }
+
+    const info = useEffect(() => {
+        dispatch(getASingleLike(sessionUser.id, post_id))
+    }, [dispatch, post_id])
+
+
+    console.log('####################', postLike2)
     return (
         <div>
             <Grid container align='left'>
@@ -46,11 +80,12 @@ function Feed() {
                     <div>
                         {Object.values(posts)?.map((post) => (
                             <div key={post.id}>
+                                <button onClick={() => console.log('HACKER WIRON', postLike2)}>JONAS</button>
                                 <div className="post">
                                     <div className="user-info">
                                         <img className="userphoto" style={{ width: '50px', borderRadius: '50px' }} src={post?.user?.profile_image} />
                                         <a className="username" href={`/users/${post?.user?.username}`} >{post?.user?.username}</a>
-                                <button onClick={() => console.log('DOWJNOKJIWJEIW', post)}>CLICK</button>
+                                <button onClick={() => console.log('POSTLIKEEEEEEEEESSSSSSS', postLikesArray)}>CLICK MEEEEEEERRRR</button>
                                     </div>
                                     {/* <div> */}
                                     {/* <strong>{post?.user?.username}</strong> */}
@@ -61,9 +96,18 @@ function Feed() {
                                     </div>
                                     <div className=" post-description">
                                         <div className="icons">
-                                            <FavoriteBorderOutlinedIcon className="icon"></FavoriteBorderOutlinedIcon>
+                                            <div onClick={handlePostLike(post)} style={{ color: postLike ? 'red' : 'gray' }}>
+                                                <FavoriteIcon className="icon"></FavoriteIcon>
+
+                                            </div>
+                                            <div>
                                             <ChatBubbleOutlineOutlinedIcon className="icon"></ChatBubbleOutlineOutlinedIcon>
+
+                                            </div>
+                                            <div>
+
                                             <SendOutlinedIcon className="icon"></SendOutlinedIcon>
+                                            </div>
                                         </div>
                                         <div className="comments">
                                             <p style={{ display: "block" }}> Liked by {post?.user?.username} and others </p>

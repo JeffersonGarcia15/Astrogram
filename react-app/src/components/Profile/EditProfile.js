@@ -28,7 +28,7 @@ function EditProfile() {
         }
 
         history.push(`/`)
-        window.location.reload(true)
+        // window.location.reload(true)
 
     }
 
