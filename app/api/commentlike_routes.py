@@ -11,6 +11,11 @@ def commentlike(id):
         "commentLikes": [commenLike.to_dict() for commenLike in commentLikes]
     }
     
+@commentlikes_routes.route('/')
+def get_comment_likes():
+    comment_likes = CommentLike.query.all()
+    return {"commentLikes": [comment_like.to_dict() for comment_like in comment_likes]}
+    
 @commentlikes_routes.route('/new', methods=['POST'])
 def postCommentLike():
     request_json = request.get_json()

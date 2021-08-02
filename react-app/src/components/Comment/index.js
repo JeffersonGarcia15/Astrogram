@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Redirect } from 'react-router-dom';
 import { getAllComments, createComment, updateComment, deleteComment } from '../../store/comment'
 import { getAllPosts } from '../../store/post';
+import { getAllCommentLikes, createCommentLike, deleteACommentLike } from '../../store/commentlike';
 import SendIcon from '@material-ui/icons/Send';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
 
 
 function Comments({post_id}) {
@@ -14,19 +17,31 @@ function Comments({post_id}) {
     const user = useSelector(state => state.session.user)
     const comments = useSelector(state => state.comments)
     const posts = useSelector(state => state.posts)
+    const commentLikes = useSelector(state => state.commentLikes)
+    const [comment_id, setCommentId] = useState(0)
     const [body, setBody] = useState('')
     const [newComment, setNewComment] = useState('')
     const [showForm, setShowForm] = useState('')
     const [formId, setFormId] = useState(null)
     const comment = Object.values(comments)
+    const [commentLike, setCommentLike] = useState(false)
+    const likesInCommentFunction = Object.values(commentLikes)?.filter(like => like?.comment_id == comment_id) // in this case this has comment_id and user_id
+    const isCommentLikedFunction = likesInCommentFunction?.some(like => like.user_id == user.id)
 
     useEffect(() => {
+        if (isCommentLikedFunction) {
+            setCommentLike(true)
+        }
+        else {
+            setCommentLike(false)
+        }
         dispatch(getAllComments())
-    }, [dispatch])
-
-    useEffect(() => {
+        dispatch(getAllCommentLikes())
         dispatch(getAllPosts())
     }, [dispatch])
+
+    // useEffect(() => {
+    // }, [dispatch])
 
     const userComment = async (e) => {
         e.preventDefault()
@@ -61,17 +76,54 @@ function Comments({post_id}) {
 
     } 
 
-    // console.log('{{{{{{{{{{{{{{{{{{{', post_id);
+    const handleCommentLike = (comment) => async (e) => {
+        const likesInComment = Object.values(commentLikes)?.filter(like => like?.comment_id == comment.id) // in this case this has comment_id and user_id
+        const isCommentLiked = likesInComment?.some(like => like.user_id == user.id)
+        setCommentId(comment?.id)
+        if(isCommentLiked) {
+            let singleCommentLike = likesInComment.find(like => like.user_id == user.id && like.comment_id == comment.id)
+
+            await dispatch(deleteACommentLike(singleCommentLike?.id))
+            setCommentLike(false)
+            window.location.reload(true)
+
+        }
+        else {
+            await dispatch(createCommentLike({user_id: user.id, comment_id: comment?.id}))
+            setCommentLike(true)
+            window.location.reload(true)
+        }
+    }
+
+    function heartColor(commentId) {
+        const likesInComment = Object.values(commentLikes)?.filter(like => like?.comment_id == commentId) // in this case this has comment_id and user_id
+        const isCommentLiked = likesInComment?.some(like => like.user_id == user.id)
+        // if (e.target.value.length > 0) {
+        //     if (isPostLikedFunction) {
+        //         e?.target?.classList?.add('liked')
+        //     }
+        //  else {
+        //     e?.target?.classList?.remove('liked')
+        // }
+        return isCommentLiked
+        // console.log('Q3b0M mamdam foto hila', post_id)
+    }
+
+    // console.log('{{{{{{{{{{{{{{{{{{{', commentLikes);
 
     return (
         <div>
-            {Object.values(comments).map(comment => (
+            {Object.values(comments)?.map(comment => (
                 <div>
-                    {/* <button onClick={() => console.log('fpierjhfdwondjlwhjfewij', post_id)}>CLOIJCOJND</button> */}
+                    <button onClick={() => console.log('fpierjhfdwondjlwhjfewij', comment.id)}>CLOIJCOJND</button>
                     {post_id === comment.post_id && (
                         <div>
-                            <p>{comment.username}</p>
+                            <strong>{comment.username}</strong>
                             <p>{comment.body}</p>
+                            <div onClick={handleCommentLike(comment)} style={{ color: heartColor(comment.id) ? 'red' : 'gray' }}>
+                            <FavoriteIcon></FavoriteIcon>
+
+                            </div>
                             {user.id === comment.user_id && (
                                 <div>
                                     <button onClick={() => openForm(comment)}>Edit Comment</button>
