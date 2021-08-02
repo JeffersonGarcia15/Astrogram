@@ -40,6 +40,7 @@ class Post(db.Model):
             'album_id': self.album_id,
             'picture_url': self.picture_url,
             'user': self.user.to_dict(),
+            "likes": [like.id for like in self.likes],
         }
             # 'medias': [media.to_dict() for media in self.medias],
             # 'views': self.get_views()
