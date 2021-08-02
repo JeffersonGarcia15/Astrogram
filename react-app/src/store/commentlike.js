@@ -41,13 +41,15 @@ export const createCommentLike = commentLike => async (dispatch) => {
     }
 }
 
-export const deleteACommentLike = commentlike_id => async (dispatch) => {
+export const deleteACommentLike = (commentlike_id) => async (dispatch) => {
     const response = await fetch(`api/commentlikes/${commentlike_id}`, {
         method: "DELETE",
     })
     if (response.ok) {
         dispatch(deleteCommentLike(commentlike_id))
+        console.log('AFTER THE DELETE THUNK @@@@@@@@@@@@@@@@@@@@', commentlike_id)
     }
+    console.log('DELETE THUNK^^^^^^^^^^^^^^^^^^^^^^^^^^', commentlike_id)
 }
 
 const initialState = {}
