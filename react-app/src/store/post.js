@@ -52,7 +52,7 @@ export const createPost = (user_id, description, picture_url) => async (dispatch
 
     formData.append('user_id', user_id)
     // formData.append('location_id', JSON.stringify(location_id))
-    formData.append('description', JSON.stringify(description))
+    formData.append('description', description)
     // formData.append('album_id', JSON.stringify(album_id))
 
     if (picture_url) formData.append("image", picture_url)

@@ -19,12 +19,12 @@ function Feed() {
     const postLikesArray = Object.values(postLikes)
     const [post_id, setPostId] = useState(0)
     const postLike2 = useSelector(state => state.postLikes.like)
-    const likesInPost = Object.values(postLikes)?.filter(like => like?.post_id == post_id)
-    const isPostedLiked = postLikesArray?.some(like => like.user_id == sessionUser.id)
+    const likesInPost = Object.values(postLikes)?.filter(like => like?.post_id == post_id) // likes => postLikes has user_id, post_id
+    const isPostLiked = likesInPost?.some(like => like.user_id == sessionUser.id)
     const[postLike, setPostLike] = useState(false)
 
     useEffect(() => {
-        if (isPostedLiked) {
+        if (isPostLiked) {
             setPostLike(true)
         }
         else {
@@ -32,16 +32,17 @@ function Feed() {
         }
         dispatch(getAllPosts());
         dispatch(getAllLikes())
-    }, [dispatch, isPostedLiked])
+    }, [dispatch, isPostLiked])
 
 
     
     const handlePostLike = (post) => async (e) => {
+        const likesInPostFunction = Object.values(postLikes)?.filter(like => like?.post_id == post.id) // likes => postLikes has user_id, post_id
+        const isPostLikedFunction = likesInPostFunction?.some(like => like.user_id == sessionUser.id)
         setPostId(post?.id)
-        if (postLike) {
-            let singlePostLike = likesInPost.find(like => like.user_id == sessionUser.id && like.post_id == post_id)
+        if (isPostLikedFunction) {
+            let singlePostLike = likesInPostFunction.find(like => like.user_id == sessionUser.id && like.post_id == post.id)
 
-            console.log('POR LA GRAN PUTA NONO QUE QLAZO', singlePostLike?.id)
             await dispatch(deleteAPostLike(singlePostLike?.id))
             setPostLike(false)
             window.location.reload(true)
@@ -58,10 +59,23 @@ function Feed() {
 
 
     console.log('####################', postLike2)
+    function heartColor(postId) {
+        const likesInPostFunction = Object.values(postLikes)?.filter(like => like?.post_id == postId) // likes => postLikes has user_id, post_id
+        const isPostLikedFunction = likesInPostFunction?.some(like => like.user_id == sessionUser.id)
+        // if (e.target.value.length > 0) {
+        //     if (isPostLikedFunction) {
+        //         e?.target?.classList?.add('liked')
+        //     }
+        //  else {
+        //     e?.target?.classList?.remove('liked')
+        // }
+        return isPostLikedFunction
+        // console.log('Q3b0M mamdam foto hila', post_id)
+    }
     return (
         <div>
             <Grid container align='left'>
-                <Grid item md={2}>Hi</Grid>
+                <Grid item md={2}></Grid>
                 <Grid item md={5}>
                     <input placeholder='This might be the search bar?'>
                         {/* Hey */}
@@ -96,7 +110,7 @@ function Feed() {
                                     </div>
                                     <div className=" post-description">
                                         <div className="icons">
-                                            <div onClick={handlePostLike(post)} style={{ color: postLike ? 'red' : 'gray' }}>
+                                            <div onClick={handlePostLike(post)} style={{ color: heartColor(post.id) ? 'red' : 'gray'}}>
                                                 <FavoriteIcon className="icon"></FavoriteIcon>
 
                                             </div>
@@ -130,8 +144,8 @@ function Feed() {
                     </div>
                     
                 </Grid>
-                <Grid item md={3}>Yo</Grid>
-                <Grid item md={2}>HEEHHEE</Grid>
+                <Grid item md={3}></Grid>
+                <Grid item md={2}></Grid>
 
             </Grid>
         </div>
