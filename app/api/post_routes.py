@@ -50,20 +50,16 @@ def create_post():
         return {'errors': [upload]}, 400
 
     url = upload["url"]
-    print('BEFORE SUBMISION HERE IS THE URL**************', url)
     
     user_id = request.form['user_id']
     description = request.form['description']
-    # location_id = request.form['location_id']
-    # album_id = request.form['album_id']
-    print("@@@@@@@@@@@@@@@@@@@", user_id, description)
+
     
     post = Post(
         user_id = user_id,
         description = description,
         picture_url = url,
     )
-    print('WHAT$$$$$DID*******POSTZ^^^^^ZRETuzrzn', post)
     db.session.add(post)
     db.session.commit()
     
