@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import { createPost } from '../../store/post'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import { getUserInfo } from '../../store/profile'
 
 
 function PhotoUploadModal() {
@@ -13,6 +14,9 @@ function PhotoUploadModal() {
     const [picture_url, setPictureUrl] = useState(null)
     const [showMenu, setShowMenu] = useState(false)
 
+    // useEffect(() => {
+    //     dispatch(getUserInfo(user?.username))
+    // }, [dispatch, user?.username])
 
     const openMenu = () => {
         if (showMenu) return;
@@ -32,8 +36,10 @@ function PhotoUploadModal() {
     const onSubmit = async (e) => {
         e.preventDefault()
         await dispatch(createPost(user.id, description, picture_url))
+        await dispatch(getUserInfo(user?.username))
         setShowMenu(false)
-        window.location.reload(true)
+        setDescription('')
+        // window.location.reload(true)
     }
 
     const updateFile = (e) => {

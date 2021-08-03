@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllPosts } from '../../store/post';
+import { getAllPosts, unloadPosts} from '../../store/post';
 import Grid from '@material-ui/core/Grid'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 import Comments from '../Comment'
-import { getAllLikes, createPostLike, deleteAPostLike, getASingleLike } from '../../store/postlike';
+import { getAllLikes, createPostLike, deleteAPostLike, getASingleLike, unloadPostLikes } from '../../store/postlike';
 import './Feed.css'
 
 function Feed() {
@@ -32,6 +32,7 @@ function Feed() {
         }
         dispatch(getAllPosts());
         dispatch(getAllLikes())
+        // return () => dispatch(unloadPosts(), unloadPostLikes())
     }, [dispatch, isPostLiked])
 
 
@@ -45,7 +46,7 @@ function Feed() {
 
             await dispatch(deleteAPostLike(singlePostLike?.id))
             setPostLike(false)
-            window.location.reload(true)
+            // window.location.reload(true)
         }
         else {
             await dispatch(createPostLike({user_id: sessionUser.id, post_id: post?.id}))

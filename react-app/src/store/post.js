@@ -3,6 +3,7 @@ const GET_USER_POSTS = 'posts/GET_USER_POSTS'
 const CREATE_POST = 'posts/CREATE_POST'
 const UPDATE_POST = 'posts/UPDATE_POST'
 const DELETE_POST = 'posts/DELETE_POST'
+const UNLOAD_POSTS = 'posts/UNLOAD_POSTS'
 
 const getPosts = posts => ({
     type: GET_POSTS,
@@ -27,6 +28,10 @@ const updateSinglePost = post => ({
 const deleteSinglePost = post => ({
     type: DELETE_POST,
     post
+})
+
+export const unloadPosts = () => ({
+    type: UNLOAD_POSTS
 })
 
 export const getAllPosts = () => async (dispatch) => {
@@ -100,10 +105,66 @@ export const deletePost = postId => async (dispatch) => {
     })
     if (response.ok) {
         dispatch(deleteSinglePost(postId))
+        return response
     }
 }
 
+
+// const initialState = {
+//     all: {},
+//     current: null,
+//     allLoaded: false,
+//     singleLoaded: false,
+// }
 const initialState = {}
+
+// export default function posts(state = initialState, { type, posts, post }) {
+//     switch (type) {
+//         case GET_POSTS:
+//             return {
+//                 ...state,
+//                 all: posts,
+//                 allLoaded: true
+//             }
+//         case CREATE_POST:
+//             return {
+//                 ...state,
+//                 all: {
+//                     ...state.all,
+//                     [post.id]: post
+//                 },
+//                 current: state.current,
+//                 singleLoaded: state.singleLoaded
+//             }
+//         case DELETE_POST:
+//             if (state.current === post.id) {
+//                 delete state.all[post.id]
+//                 return {
+//                     ...state,
+//                     all: {
+//                         ...state.all
+//                     },
+//                     current: null,
+//                     singleLoaded: false
+//                 }
+//             }
+//         // case UPDATE_POST: {
+//         //     updatedState[action.post.id] = action.post
+//         //     return updatedState
+//         // }
+//         case UNLOAD_POSTS:
+//             return {
+//                 ...initialState,
+//                 all: {
+//                     ...initialState.all,
+//                 },
+//                 current: null,
+//                 allLoaded: false,
+//             }
+
+
+//     }
+// }
 
 export default function posts(state = initialState, action) {
     let updatedState = { ...state }
@@ -129,8 +190,14 @@ export default function posts(state = initialState, action) {
             return updatedState
         }
         case DELETE_POST: {
-            delete updatedState[action.post]
-            return updatedState
+            const newState = {}
+            Object.values(state).forEach(post => {
+                if (post.id !== action.post) {
+                    newState[post.id] = post
+                }
+            })
+            // delete updatedState[action.post]
+            return newState
         }
         default:
             return state

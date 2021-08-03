@@ -114,10 +114,10 @@ function Comments({post_id}) {
     return (
         <div>
             {Object.values(comments)?.map(comment => (
-                <div>
+                <div key={comment.id}>
                     <button onClick={() => console.log('fpierjhfdwondjlwhjfewij', comment.id)}>CLOIJCOJND</button>
                     {post_id === comment.post_id && (
-                        <div>
+                        <div key={comment.id}>
                             <strong>{comment.username}</strong>
                             <p>{comment.body}</p>
                             <div onClick={handleCommentLike(comment)} style={{ color: heartColor(comment.id) ? 'red' : 'gray' }}>
@@ -125,7 +125,7 @@ function Comments({post_id}) {
 
                             </div>
                             {user.id === comment.user_id && (
-                                <div>
+                                <div key={comment.id}>
                                     <button onClick={() => openForm(comment)}>Edit Comment</button>
     
                                     {showForm&& comment.id === formId ? 
