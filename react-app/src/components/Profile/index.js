@@ -7,6 +7,10 @@ import Grid from '@material-ui/core/Grid'
 import UpdateDeletePost from '../UpdateDeletePost'
 import EditProfileModal from '../Profile/EditProfileModal';
 import PostUploadModal from '../../context/PostUploadModal'
+import { Tooltip } from '@material-ui/core'
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
 
 
 function Profile() {
@@ -25,6 +29,16 @@ function Profile() {
     const [deleteSwitch, setDeleteSwitch] = useState(false)
     // const lengthPostsArray = lengthPosts['posts']
     // const arrayOfPosts = Object.values(lengthPostsArray)
+
+    const HtmlTooltip = withStyles((theme) => ({
+        tooltip: {
+            backgroundColor: 'black',
+            color: 'rgba(255, 255, 255, 1)',
+            maxWidth: 220,
+            fontSize: theme.typography.pxToRem(12),
+            border: '1px solid #dadde9',
+        },
+    }))(Tooltip);
 
     useEffect(() => {
         dispatch(getAllPosts())
@@ -58,7 +72,12 @@ function Profile() {
                             <p>{profiles?.user?.username}</p>
                         </div>
                         <div>
-                            <EditProfileModal></EditProfileModal>
+                            <HtmlTooltip title="Click here to change profile picture and extra information. You must change profile image to change other info.">
+                                <div>
+                            <EditProfileModal usernameInfo={username}></EditProfileModal>
+
+                                </div>
+                            </HtmlTooltip>
                         </div>
                         <div>
                             <p>{Object.values(profiles)?.map(profile => (

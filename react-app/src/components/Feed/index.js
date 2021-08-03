@@ -22,6 +22,7 @@ function Feed() {
     const likesInPost = Object.values(postLikes)?.filter(like => like?.post_id == post_id) // likes => postLikes has user_id, post_id
     const isPostLiked = likesInPost?.some(like => like.user_id == sessionUser.id)
     const[postLike, setPostLike] = useState(false)
+    const [deleteSwitch, setDeleteSwitch] = useState(false)
 
     useEffect(() => {
         if (isPostLiked) {
@@ -32,8 +33,8 @@ function Feed() {
         }
         dispatch(getAllPosts());
         dispatch(getAllLikes())
-        // return () => dispatch(unloadPosts(), unloadPostLikes())
-    }, [dispatch, isPostLiked])
+        return () => dispatch(unloadPostLikes())
+    }, [dispatch, isPostLiked, deleteSwitch])
 
 
     
@@ -45,6 +46,7 @@ function Feed() {
             let singlePostLike = likesInPostFunction.find(like => like.user_id == sessionUser.id && like.post_id == post.id)
 
             await dispatch(deleteAPostLike(singlePostLike?.id))
+            setDeleteSwitch((prev) => !prev)
             setPostLike(false)
             // window.location.reload(true)
         }

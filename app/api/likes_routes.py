@@ -39,9 +39,11 @@ def postLike():
 
 @like_routes.route('/<int:id>', methods=['DELETE'])
 def deleteLike(id):
-    delete_like = Like.query.get(id)
-    db.session.delete(delete_like)
+    # delete_like = Like.query.get(id)
+    delete_like = Like.query.filter_by(id = id).delete()
+    
+    # db.session.delete(delete_like)
     db.session.commit()
     return {
-        "delete_like": delete_like.to_dict()
+        "Message": "Successfully deleted"
     }

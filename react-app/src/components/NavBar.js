@@ -5,6 +5,8 @@ import LogoutButton from './auth/LogoutButton';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import LoginFormModal from '../components/auth/LoginForm/LoginFormModal'
 import SignUpFormModal from './auth/SignUpForm/SignUpFormModal';
+import SignUpForm from '../components/auth/SignUpForm/SignUpForm';
+import LoginForm from '../components/auth/LoginForm/LoginForm'
 import PostUploadModal from '../context/PostUploadModal'
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import Demo from '../components/Demo'
@@ -44,9 +46,11 @@ const NavBar = ({ loaded }) => {
       <>
         <div>
           <LoginFormModal></LoginFormModal>
+          {/* <LoginForm></LoginForm> */}
         </div>
         <div>
           <SignUpFormModal></SignUpFormModal>
+          {/* <SignUpForm></SignUpForm> */}
         </div>
         <div><Demo></Demo></div>
       
