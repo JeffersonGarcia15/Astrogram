@@ -1,6 +1,8 @@
 const GET_COMMENTLIKES = "commentLikes/GET_COMMENTLIKES"
 const ADD_COMMENTLIKE = "commentLikes/ADD_COMMENTLIKE"
 const DELETE_COMMENTLIKE = "commentLikes/DELETE_COMMENTLIKE"
+const UNLOAD_COMMENTLIKES = "likes/UNLOAD_COMMENTLIKES"
+
 
 const getCommentLikes = commentLikes => ({
     type: GET_COMMENTLIKES,
@@ -15,6 +17,10 @@ const addCommentLike = commentLike => ({
 const deleteCommentLike = commentLike => ({
     type: DELETE_COMMENTLIKE,
     commentLike
+})
+
+export const unloadCommentLikes = () => ({
+    type: UNLOAD_COMMENTLIKES
 })
 
 export const getAllCommentLikes = () => async (dispatch) => {

@@ -6,6 +6,8 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import CreateIcon from '@material-ui/icons/Create';
 import { getUserInfo } from '../../store/profile'
+// import Tippy from '@tippyjs/react'
+import { Tooltip } from '@material-ui/core'
 
 function UpdateDeletePost({ postId, setDeleteSwitch, username }) {
 

@@ -79,9 +79,9 @@ def updatePost(id):
     
 @post_routes.route('/<int:id>', methods=['DELETE'])
 def deletePost(id):
-    post = Post.query.get(id)
-    db.session.delete(post)
+    # post = Post.query.get(id)
+    post = Post.query.filter_by(id = id).delete()
+    print('#####################################', post)
+    # db.session.delete(post)
     db.session.commit() 
-    return {
-        'delete_reservation': post.to_dict()
-    }  
+    return {"Message": "Success" } 

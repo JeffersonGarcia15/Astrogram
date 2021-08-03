@@ -29,9 +29,10 @@ def postCommentLike():
 
 @commentlikes_routes.route('/<int:id>', methods=['DELETE'])
 def deleteCommentLike(id):
-    delete_commentLike = CommentLike.query.get(id)
-    db.session.delete(delete_commentLike)
+    # delete_commentLike = CommentLike.query.get(id)
+    delete_commentLike = CommentLike.query.filter_by(id = id).delete()
+    # db.session.delete(delete_commentLike)
     db.session.commit()
     return {
-        "delete_commentLike": delete_commentLike.to_dict()
+        "Message": "Success"
     }

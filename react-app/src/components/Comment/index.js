@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Redirect } from 'react-router-dom';
 import { getAllComments, createComment, updateComment, deleteComment } from '../../store/comment'
 import { getAllPosts } from '../../store/post';
-import { getAllCommentLikes, createCommentLike, deleteACommentLike } from '../../store/commentlike';
+import { getAllCommentLikes, createCommentLike, deleteACommentLike, unloadCommentLikes } from '../../store/commentlike';
 import SendIcon from '@material-ui/icons/Send';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -27,6 +27,8 @@ function Comments({post_id}) {
     const [commentLike, setCommentLike] = useState(false)
     const likesInCommentFunction = Object.values(commentLikes)?.filter(like => like?.comment_id == comment_id) // in this case this has comment_id and user_id
     const isCommentLikedFunction = likesInCommentFunction?.some(like => like.user_id == user.id)
+    const [deleteSwitch, setDeleteSwitch] = useState(false)
+
 
     useEffect(() => {
         if (isCommentLikedFunction) {
@@ -38,7 +40,8 @@ function Comments({post_id}) {
         dispatch(getAllComments())
         dispatch(getAllCommentLikes())
         dispatch(getAllPosts())
-    }, [dispatch])
+        return () => dispatch(unloadCommentLikes)
+    }, [dispatch, deleteSwitch])
 
     // useEffect(() => {
     // }, [dispatch])
@@ -84,14 +87,15 @@ function Comments({post_id}) {
             let singleCommentLike = likesInComment.find(like => like.user_id == user.id && like.comment_id == comment.id)
 
             await dispatch(deleteACommentLike(singleCommentLike?.id))
+            setDeleteSwitch((prev) => !prev)
             setCommentLike(false)
-            window.location.reload(true)
+            // window.location.reload(true)
 
         }
         else {
             await dispatch(createCommentLike({user_id: user.id, comment_id: comment?.id}))
             setCommentLike(true)
-            window.location.reload(true)
+            // window.location.reload(true)
         }
     }
 

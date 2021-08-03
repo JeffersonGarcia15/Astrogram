@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { editProfileUser } from '../../store/session'
+import { getUserInfo } from '../../store/profile'
 
-function EditProfile() {
+
+function EditProfile({usernameInfo}) {
     const history = useHistory()
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
@@ -26,6 +28,7 @@ function EditProfile() {
         if (data?.errors) {
             setErrors(data?.errors)
         }
+        // await dispatch(getUserInfo(usernameInfo))
 
         history.push(`/`)
         // window.location.reload(true)
