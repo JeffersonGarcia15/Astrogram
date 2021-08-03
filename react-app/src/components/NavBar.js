@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import LoginFormModal from '../components/auth/LoginForm/LoginFormModal'
@@ -10,6 +10,7 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import Demo from '../components/Demo'
 
 const NavBar = ({ loaded }) => {
+  const { username } = useParams()
   const user = useSelector(state => state.session.user);
 
   let sessionLinks
@@ -30,6 +31,9 @@ const NavBar = ({ loaded }) => {
         </div>
         <div>
           <NavLink exact={true} to='/'><HomeOutlinedIcon></HomeOutlinedIcon></NavLink>
+        </div>
+        <div>
+          <button onClick={() => console.log('CHECKING IF USERNAME GETS TO NAVBAR', username)}>CLICK FOR USERNAME?</button>
         </div>
       
       </>

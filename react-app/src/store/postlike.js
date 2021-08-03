@@ -2,6 +2,7 @@ const GET_LIKES = "likes/GET_LIKES"
 const ADD_POSTLIKE = "likes/ADD_POSTLIKE"
 const DELETE_POSTLIKE = "likes/DELETE_POSTLIKE"
 const GET_SINGLE_LIKE = "likes/GET_SINGLE_LIKE"
+const UNLOAD_POSTLIKES = "likes/UNLOAD_POSTLIKES"
 
 const getLikes = likes => ({
     type: GET_LIKES,
@@ -21,6 +22,10 @@ const deletePostLike = like => ({
 const getSingleLike = like => ({
     type: GET_SINGLE_LIKE,
     like
+})
+
+export const unloadPostLikes = () => ({
+    type: UNLOAD_POSTLIKES
 })
 
 
