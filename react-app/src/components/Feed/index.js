@@ -33,7 +33,7 @@ function Feed() {
         }
         dispatch(getAllPosts());
         dispatch(getAllLikes())
-        return () => dispatch(unloadPostLikes())
+        // return () => dispatch(unloadPostLikes())
     }, [dispatch, isPostLiked, deleteSwitch])
 
 

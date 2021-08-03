@@ -41,7 +41,7 @@ function Comments({post_id}) {
         dispatch(getAllCommentLikes())
         dispatch(getAllPosts())
         return () => dispatch(unloadCommentLikes)
-    }, [dispatch, deleteSwitch])
+    }, [dispatch, isCommentLikedFunction, deleteSwitch])
 
     // useEffect(() => {
     // }, [dispatch])
@@ -65,10 +65,10 @@ function Comments({post_id}) {
 
     }
 
-    const deleteAComment = (comment_id) => {
+    const deleteAComment = async (comment_id) => {
         let alert = window.confirm('Are you sure you want to delete your comment?')
         if (alert) {
-            dispatch(deleteComment(comment_id))
+            await dispatch(deleteComment(comment_id))
         }
     }
 
