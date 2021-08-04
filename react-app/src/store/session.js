@@ -83,28 +83,56 @@ export const logout = () => async (dispatch) => {
 };
 
 
+// export const signUp = (username, full_name, email, password) => async (dispatch) => {
+
+//   const formData = new FormData()
+
+//   formData.append('username', username)
+//   formData.append('full_name', full_name)
+//   formData.append('email', email)
+//   formData.append('password', password)
+
+//   const response = await fetch('/api/auth/signup', {
+//     method: 'POST',
+//     headers: {
+//       'enctype': 'multipart/form-data'
+//     },
+//     body: formData
+//   })
+//   const data = await response.json()
+//   if (data.errors) {
+//     return data
+//   }
+//   dispatch(editUser(data))
+//   return data
+// }
+
 export const signUp = (username, full_name, email, password) => async (dispatch) => {
-
-  const formData = new FormData()
-
-  formData.append('username', username)
-  formData.append('full_name', full_name)
-  formData.append('email', email)
-  formData.append('password', password)
-
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
     headers: {
-      'enctype': 'multipart/form-data'
+      'Content-Type': 'application/json',
     },
-    body: formData
-  })
-  const data = await response.json()
-  if (data.errors) {
-    return data
+    body: JSON.stringify({
+      username,
+      full_name,
+      email,
+      password,
+    }),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(setUser(data))
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred. Please try again.']
   }
-  dispatch(editUser(data))
-  return data
 }
 
 export const editProfileUser = (user_id, username, full_name, website, bio, phone, gender, profile_image) => async (dispatch) => {

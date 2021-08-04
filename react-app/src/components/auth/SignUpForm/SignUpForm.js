@@ -54,8 +54,8 @@ const SignUpForm = () => {
 
     if (!validatorErrors.length) {
       const data = await dispatch(signUp(username, full_name, email, password, profile_image));
-      if (data.errors) {
-        setErrors(data.errors)
+      if (data?.errors) {
+        setErrors(data?.errors)
       // } else {
       //   <Redirect to='/'></Redirect>
       }

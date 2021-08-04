@@ -49,8 +49,8 @@ const NavBar = ({ loaded }) => {
           {/* <LoginForm></LoginForm> */}
         </div>
         <div>
-          <SignUpFormModal></SignUpFormModal>
-          {/* <SignUpForm></SignUpForm> */}
+          {/* <SignUpFormModal></SignUpFormModal> */}
+          <SignUpForm></SignUpForm>
         </div>
         <div><Demo></Demo></div>
       

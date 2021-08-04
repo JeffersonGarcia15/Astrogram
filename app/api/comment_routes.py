@@ -21,9 +21,7 @@ def new_comment(id):
     )
     db.session.add(comment)
     db.session.commit()
-    return {
-        'comment': comment.to_dict()
-    }
+    return comment.to_dict()
     
     
 @comment_routes.route('/<int:id>', methods=['PUT'])
@@ -33,11 +31,12 @@ def comment_edit(id):
     comment.body = request_json['body']
     print('$$$$$$$$$$$$$$$$$$$$$', comment.body)
     db.session.commit()
-    return {"Success": "Success"}
+    return comment.to_dict()
 
 @comment_routes.route('/<int:id>', methods=['DELETE'])
 def delete_comment(id):
-    comment = Comment.query.get(id)
-    db.session.delete(comment)
+    # comment = Comment.query.get(id)
+    comment = Comment.query.filter_by(id = id).delete()
+    # db.session.delete(comment)
     db.session.commit()
-    return {'delete': comment.to_dict()}
+    return {'Message': 'Success'}

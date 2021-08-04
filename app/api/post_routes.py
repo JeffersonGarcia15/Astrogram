@@ -63,9 +63,8 @@ def create_post():
     db.session.add(post)
     db.session.commit()
     
-    return {
-        post.id: post.to_dict()
-    }
+    return post.to_dict()
+    
     
     
 @post_routes.route('/<int:id>', methods=['PUT'])

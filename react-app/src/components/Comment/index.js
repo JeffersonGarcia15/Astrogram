@@ -41,19 +41,20 @@ function Comments({post_id}) {
         dispatch(getAllCommentLikes())
         dispatch(getAllPosts())
         return () => dispatch(unloadCommentLikes)
-    }, [dispatch, isCommentLikedFunction, deleteSwitch])
+    }, [dispatch, deleteSwitch])
 
     // useEffect(() => {
     // }, [dispatch])
 
     const userComment = async (e) => {
         e.preventDefault()
-        dispatch(createComment({
+        await dispatch(createComment({
             user_id: user.id,
             post_id: post_id,
             body: newComment
         }))
-        window.location.reload(true)
+        setNewComment('')
+        // window.location.reload(true)
     }
 
 
@@ -61,7 +62,7 @@ function Comments({post_id}) {
         e.preventDefault()
         const data = await dispatch(updateComment(user.id, post_id, body, comment_id))
         setShowForm(false)
-        window.location.reload(true)
+        // window.location.reload(true)
 
     }
 
@@ -69,6 +70,7 @@ function Comments({post_id}) {
         let alert = window.confirm('Are you sure you want to delete your comment?')
         if (alert) {
             await dispatch(deleteComment(comment_id))
+            setDeleteSwitch((prev) => !prev)
         }
     }
 
@@ -138,7 +140,11 @@ function Comments({post_id}) {
                                         <button type="submit" onSubmit={(e) => editAComment(comment.id, body, e)} >
                                                 <SendIcon></SendIcon>
                                         </button>
-                                        <button onClick={() => deleteAComment(comment.id)}>
+                                        <button onClick={(e) => { 
+                                                e.preventDefault()
+                                                deleteAComment(comment.id)
+                                        }
+                                            }>
                                             <DeleteForeverIcon></DeleteForeverIcon>
                                         </button>
                                     </form>

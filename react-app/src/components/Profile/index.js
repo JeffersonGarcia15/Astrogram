@@ -69,7 +69,7 @@ function Profile() {
                     </div>
                     <div className="flex space-x-4">
                         <div>
-                            <p>{profiles?.user?.username}</p>
+                            <h4>{profiles?.user?.username}</h4>
                         </div>
                         <div>
                             <HtmlTooltip title="Click here to change profile picture and extra information. You must change profile image to change other info.">
@@ -80,11 +80,11 @@ function Profile() {
                             </HtmlTooltip>
                         </div>
                         <div>
-                            <p>{Object.values(profiles)?.map(profile => (
-                                <div>
+                            <h4>{Object.values(profiles)?.map(profile => (
+                                <div key={profile.id}>
                                     {Object.values(profile?.posts)?.length}
                                 </div>
-                            ))} posts</p>
+                            ))} posts</h4>
                         </div>
                         <div># of followers</div>
                         <div># following</div>
@@ -95,7 +95,7 @@ function Profile() {
                     <hr />
                     {Object.values(profiles)?.map(profile => {
                         return (
-                            <div>
+                            <div key={profile.id}>
                                 {Object.values(profile?.posts).map(post => (
                                     <div>
                                         <div>

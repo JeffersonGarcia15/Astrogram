@@ -74,6 +74,7 @@ export const createPost = (user_id, description, picture_url) => async (dispatch
     if (data.errors) {
         return data
     }
+    // debugger
     dispatch(addPost(data))
     // console.log("CREATE THUNK AFTER DISPATCH", user_id, location_id, description, album_id, picture_url, data);
     return data
