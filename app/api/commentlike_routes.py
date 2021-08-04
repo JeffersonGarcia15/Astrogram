@@ -25,7 +25,7 @@ def postCommentLike():
     )
     db.session.add(commentLike)
     db.session.commit()
-    return request.get_json()
+    return commentLike.to_dict()
 
 @commentlikes_routes.route('/<int:id>', methods=['DELETE'])
 def deleteCommentLike(id):
