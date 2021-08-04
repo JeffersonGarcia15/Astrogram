@@ -100,7 +100,7 @@ function Feed() {
                                 <button onClick={() => console.log('HACKER WIRON', postLike2)}>JONAS</button>
                                 <div className="post">
                                     <div className="user-info">
-                                        <img className="userphoto" style={{ width: '50px', borderRadius: '50px' }} src={post?.user?.profile_image} />
+                                        <img className="userphoto" src={post?.user?.profile_image} />
                                         <a className="username" href={`/users/${post?.user?.username}`} >{post?.user?.username}</a>
                                 <button onClick={() => console.log('POSTLIKEEEEEEEEESSSSSSS', postLikesArray)}>CLICK MEEEEEEERRRR</button>
                                     </div>
@@ -113,18 +113,18 @@ function Feed() {
                                     </div>
                                     <div className=" post-description">
                                         <div className="icons">
-                                            <div onClick={handlePostLike(post)} style={{ color: heartColor(post.id) ? 'red' : 'gray'}}>
-                                                <FavoriteIcon className="icon"></FavoriteIcon>
+                                            {/* <div onClick={handlePostLike(post)} style={{ color: heartColor(post.id) ? 'red' : 'gray'}}> */}
+                                            <FavoriteIcon onClick={handlePostLike(post)} style={{ color: heartColor(post.id) ? 'red' : 'gray' }} className="icon"></FavoriteIcon>
 
-                                            </div>
-                                            <div>
+                                            {/* </div> */}
+                                            {/* <div> */}
                                             <ChatBubbleOutlineOutlinedIcon className="icon"></ChatBubbleOutlineOutlinedIcon>
 
-                                            </div>
-                                            <div>
+                                            {/* </div> */}
+                                            {/* <div> */}
 
                                             <SendOutlinedIcon className="icon"></SendOutlinedIcon>
-                                            </div>
+                                            {/* </div> */}
                                         </div>
                                         <div className="comments">
                                             <p style={{ display: "block" }}> Liked by {post?.user?.username} and others </p>

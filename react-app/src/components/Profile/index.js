@@ -74,7 +74,13 @@ function Profile() {
                         <div>
                             <HtmlTooltip title="Click here to change profile picture and extra information. You must change profile image to change other info.">
                                 <div>
-                            <EditProfileModal usernameInfo={username}></EditProfileModal>
+                                    {user.username === profiles?.user?.username && (
+                                        <>
+                                        <EditProfileModal usernameInfo={username}></EditProfileModal>
+                                        
+                                        </>
+                                    )}
+
 
                                 </div>
                             </HtmlTooltip>
