@@ -85,8 +85,8 @@ function Profile() {
                             </HtmlTooltip>
                         </div>
                         <div>
-                            <h4>{Object.values(profiles)?.map(profile => (
-                                <div key={profile.id}>
+                            <h4>{Object.values(profiles)?.map((profile, ind) => (
+                                <div key={ind}>
                                     {Object.values(profile?.posts)?.length}
                                 </div>
                             ))} posts</h4>
@@ -98,11 +98,11 @@ function Profile() {
 
                     </div>
                     <hr />
-                    {Object.values(profiles)?.map(profile => {
+                    {Object.values(profiles)?.map((profile, ind) => {
                         return (
-                            <div key={profile.id}>
-                                {Object.values(profile?.posts).map(post => (
-                                    <div>
+                            <div key={ind}>
+                                {Object.values(profile?.posts).map((post, ind) => (
+                                    <div key={ind}>
                                         <div>
 
                                         <img src={post.picture_url}></img>
