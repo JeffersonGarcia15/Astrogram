@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../../store/session';
 import ValidateEmail from '../../utils'
+import Demo from '../../Demo';
+import '../auth.css'
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -18,9 +20,9 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    setErrors([ ])
+    setErrors([])
 
-    let validatorErrors = [ ] 
+    let validatorErrors = []
 
     if (!ValidateEmail(email)) {
       validatorErrors.push('Please provide a valid email address')
@@ -29,7 +31,7 @@ const SignUpForm = () => {
     if (full_name.length < 3) {
       validatorErrors.push('Please provide a valid full name with more than 3 characters')
     }
-    else if(username.length > 50) {
+    else if (username.length > 50) {
       validatorErrors.push('Please provide a valid full name with not more than 50 characters')
     }
 
@@ -41,7 +43,7 @@ const SignUpForm = () => {
       validatorErrors.push('Please provide a password not longer than 15 characters')
     }
 
-    if (username.length < 3 ) {
+    if (username.length < 3) {
       validatorErrors.push('Please provide a username with at least 3 characters')
     }
     else if (username.length > 15) {
@@ -56,8 +58,8 @@ const SignUpForm = () => {
       const data = await dispatch(signUp(username, full_name, email, password, profile_image));
       if (data?.errors) {
         setErrors(data?.errors)
-      // } else {
-      //   <Redirect to='/'></Redirect>
+        // } else {
+        //   <Redirect to='/'></Redirect>
       }
       else {
 
@@ -65,10 +67,10 @@ const SignUpForm = () => {
           history.push('/')
         }, 0)
       }
-      
-    }  
+
+    }
     else {
-    setErrors(validatorErrors)
+      setErrors(validatorErrors)
     }
   };
 
@@ -88,67 +90,107 @@ const SignUpForm = () => {
     setRepeatPassword(e.target.value);
   };
 
-
+  function FloatingEvt(evt) {
+    if (evt.target.value.length > 0) {
+      evt.target.classList.add('has-value')
+    } else {
+      evt.target.classList.remove('has-value')
+    }
+  }
 
   if (user) {
     return <Redirect to='/' />;
   }
 
   return (
-    <form onSubmit={onSignUp}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <div className="container">
+      <div className="form-container">
+        <img className="logo" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
+        <p className="title">
+          Sign up to see photos and videos from your friends.
+        </p>
+        <Demo></Demo>
+        <div className="line">
+          <p className="l-line"></p>
+          <p className="t-line">OR</p>
+          <p className="r-line"></p>
+        </div>
+        <form onSubmit={onSignUp}>
+          <div>
+            {errors.map((error, ind) => (
+              <div className="error-container" key={ind}>{error}</div>
+            ))}
+          </div>
+          <div className="floating-label">
+            <input
+              type='text'
+              name='email'
+              className="form-control"
+              onChange={updateEmail}
+              value={email}
+              onBlur={FloatingEvt}
+              autoComplete="off"
+            ></input>
+            <label>Email</label>
+          </div>
+          <div className="floating-label">
+            <input
+              type='text'
+              name='fullName'
+              onChange={(e) => setFullName(e.target.value)}
+              value={full_name}
+              className="form-control"
+              onBlur={FloatingEvt}
+              autoComplete="off"
+            ></input>
+            <label>Full Name</label>
+          </div>
+          <div className="floating-label">
+            <input
+              type='text'
+              name='username'
+              onChange={updateUsername}
+              value={username}
+              className="form-control"
+              onBlur={FloatingEvt}
+              autoComplete="off"
+            ></input>
+            <label>Username</label>
+          </div>
+          <div className="floating-label">
+            <input
+              type='password'
+              name='password'
+              onChange={updatePassword}
+              value={password}
+              className="form-control"
+              onBlur={FloatingEvt}
+              autoComplete="off"
+            ></input>
+            <label>Password</label>
+          </div>
+          <div className="floating-label">
+            <input
+              type='password'
+              name='repeat_password'
+              onChange={updateRepeatPassword}
+              value={repeatPassword}
+              required={true}
+              className="form-control"
+              onBlur={FloatingEvt}
+              autoComplete="off"
+            ></input>
+            <label>Repeat Password</label>
+          </div>
+          <button type='submit' className="btn-form">Sign Up</button>
+        </form>
       </div>
-      <div>
-        <label>Email</label>
-        <input
-          type='text'
-          name='email'
-          onChange={updateEmail}
-          value={email}
-        ></input>
+      <div className="form-bottom">
+        <p>Have an account?
+          <a href="/login">Login</a>
+        </p>
       </div>
-      <div>
-        <label>Full Name</label>
-        <input
-          type='text'
-          name='fullName'
-          onChange={(e) => setFullName(e.target.value)}
-          value={full_name}
-        ></input>
-      </div>
-      <div>
-        <label>User Name</label>
-        <input
-          type='text'
-          name='username'
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type='password'
-          name='password'
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type='password'
-          name='repeat_password'
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button type='submit'>Sign Up</button>
-    </form>
+    </div>
   );
 };
 

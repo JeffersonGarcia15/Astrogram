@@ -94,9 +94,7 @@ export const editPost = post => async (dispatch) => {
     if (response.ok) {
         const edit_post = await response.json()
         dispatch(updateSinglePost(edit_post))
-        console.log('RESPONSE OK ON EDIT');
     }
-    console.log('AT LEAST GETTING TO THE THUNK');
 }
 
 

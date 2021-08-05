@@ -61,7 +61,6 @@ function Feed() {
     }, [dispatch, post_id])
 
 
-    console.log('####################', postLike2)
     function heartColor(postId) {
         const likesInPostFunction = Object.values(postLikes)?.filter(like => like?.post_id == postId) // likes => postLikes has user_id, post_id
         const isPostLikedFunction = likesInPostFunction?.some(like => like.user_id == sessionUser.id)
@@ -73,7 +72,6 @@ function Feed() {
         //     e?.target?.classList?.remove('liked')
         // }
         return isPostLikedFunction
-        // console.log('Q3b0M mamdam foto hila', post_id)
     }
     return (
         <div>
@@ -97,12 +95,10 @@ function Feed() {
                     <div>
                         {Object.values(posts)?.map((post) => (
                             <div key={post.id}>
-                                <button onClick={() => console.log('HACKER WIRON', postLike2)}>JONAS</button>
                                 <div className="post">
                                     <div className="user-info">
                                         <img className="userphoto" src={post?.user?.profile_image} />
                                         <a className="username" href={`/users/${post?.user?.username}`} >{post?.user?.username}</a>
-                                <button onClick={() => console.log('POSTLIKEEEEEEEEESSSSSSS', postLikesArray)}>CLICK MEEEEEEERRRR</button>
                                     </div>
                                     {/* <div> */}
                                     {/* <strong>{post?.user?.username}</strong> */}

@@ -35,7 +35,6 @@ const NavBar = ({ loaded }) => {
           <NavLink exact={true} to='/'><HomeOutlinedIcon></HomeOutlinedIcon></NavLink>
         </div>
         <div>
-          <button onClick={() => console.log('CHECKING IF USERNAME GETS TO NAVBAR', username)}>CLICK FOR USERNAME?</button>
         </div>
       
       </>
@@ -45,14 +44,14 @@ const NavBar = ({ loaded }) => {
     sessionLinks = (
       <>
         <div>
-          <LoginFormModal></LoginFormModal>
+          {/* <LoginFormModal></LoginFormModal> */}
           {/* <LoginForm></LoginForm> */}
         </div>
         <div>
           {/* <SignUpFormModal></SignUpFormModal> */}
-          <SignUpForm></SignUpForm>
+          {/* <SignUpForm></SignUpForm> */}
         </div>
-        <div><Demo></Demo></div>
+        {/* <div><Demo></Demo></div> */}
       
       </>
     )

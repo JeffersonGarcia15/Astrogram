@@ -43,7 +43,6 @@ export const createCommentLike = commentLike => async (dispatch) => {
     })
     if (response.ok) {
         const newCommentLike = await response.json()
-        console.log('THIS IS RESPONSE.OK FROM CREATECOMMENTLIKE', newCommentLike)
         await dispatch(addCommentLike(newCommentLike))
     }
 }
@@ -54,9 +53,7 @@ export const deleteACommentLike = (commentlike_id) => async (dispatch) => {
     })
     if (response.ok) {
         await dispatch(deleteCommentLike(commentlike_id))
-        console.log('AFTER THE DELETE THUNK @@@@@@@@@@@@@@@@@@@@', commentlike_id)
     }
-    console.log('DELETE THUNK^^^^^^^^^^^^^^^^^^^^^^^^^^', commentlike_id)
 }
 
 const initialState = {}

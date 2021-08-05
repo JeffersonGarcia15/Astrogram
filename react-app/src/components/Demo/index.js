@@ -27,7 +27,10 @@ const DemoUser = () => {
                     <div key={ind}>{error}</div>
                 ))}
             </div>
-            <button type='submit' className="button3"> <AccountCircleOutlinedIcon></AccountCircleOutlinedIcon> </button>
+            <button type='submit' className="btn-form icon-demo link-login">
+                <AccountCircleOutlinedIcon></AccountCircleOutlinedIcon>
+                Demo user
+            </button>
         </form>
     )
 }
