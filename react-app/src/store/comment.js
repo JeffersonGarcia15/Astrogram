@@ -46,9 +46,7 @@ export const createComment = comment => async (dispatch) => {
     if (response.ok) {
         const newComment = await response.json()
         dispatch(addComment(newComment))
-        console.log('TO CHECK IF THE POST IS OK AND RESPONSE IS OK', newComment);
     }
-    console.log('COMMENT MAKING IT TO THE THUNK COMMENT', comment);
 }
 
 export const updateComment = (user_id, post_id, body, comment_id) => async (dispatch) => {
@@ -62,10 +60,8 @@ export const updateComment = (user_id, post_id, body, comment_id) => async (disp
     if (response.ok) {
         const updatedComment = await response.json()
         dispatch(editComment(updatedComment))
-        console.log('THIS WILL PRINT IF RESPONSE IN EDIT COPMMENT IS OK', updatedComment);
 
     }
-    console.log('THIS IS HERE TO CHECK IF THE INFO GETS TO THE THUNK', user_id, post_id, body, comment_id);
 }
 
 

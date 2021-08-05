@@ -53,7 +53,6 @@ function Profile() {
     // useEffect(() => {
     // }, [dispatch, username])
 
-    console.log('HERE IS THE USERNAME SPECIFIED', profiles)
     // console.log('HERE IS THE ARRAY THING', filter)
     // console.log('lengthththththt', lengthPosts)
 
@@ -110,7 +109,6 @@ function Profile() {
                                         </div>
                                         <p>{post.id}</p>
                                         <UpdateDeletePost username={username} postId={post?.id} setDeleteSwitch={setDeleteSwitch}></UpdateDeletePost>
-                                        <button onClick={() => console.log('HEEEEEEYY$$$$$$$$', post?.id)}>HEY THERE CLICK</button>
                                     </div>
                                 ))}
 

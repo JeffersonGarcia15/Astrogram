@@ -14,6 +14,7 @@ function Comments({post_id}) {
     const dispatch = useDispatch()
     // const { post_id } = useParams()
     const [errors, setErrors] = useState([])
+    const [newErrors, setNewErrors] = useState([])
     const user = useSelector(state => state.session.user)
     const comments = useSelector(state => state.comments)
     const posts = useSelector(state => state.posts)
@@ -47,21 +48,47 @@ function Comments({post_id}) {
     // }, [dispatch])
 
     const userComment = async (e) => {
+        setErrors([])
+        let validatorErrors = []
+
+        if (!newComment.length) {
+            validatorErrors.push('Please provide a valid comment')
+
+        }
+
         e.preventDefault()
-        await dispatch(createComment({
-            user_id: user.id,
-            post_id: post_id,
-            body: newComment
-        }))
-        setNewComment('')
+        if (!validatorErrors.length) {
+            await dispatch(createComment({
+                user_id: user.id,
+                post_id: post_id,
+                body: newComment
+            }))
+            setNewComment('')
+
+        }
+        else {
+            setErrors(validatorErrors)
+        }
         // window.location.reload(true)
     }
 
 
     const editAComment = async (comment_id, body, e) => {
+        setNewErrors([])
+        let validatorErrors = []
+
+        if (!body.length) {
+            validatorErrors.push('Please provide a valid edited comment')
+        }
+
         e.preventDefault()
-        const data = await dispatch(updateComment(user.id, post_id, body, comment_id))
-        setShowForm(false)
+        if (!validatorErrors.length) {
+            const data = await dispatch(updateComment(user.id, post_id, body, comment_id))
+            setShowForm(false)
+        }
+        else {
+            setNewErrors(validatorErrors)
+        }
         // window.location.reload(true)
 
     }
@@ -121,7 +148,6 @@ function Comments({post_id}) {
         <div>
             {Object.values(comments)?.map(comment => (
                 <div key={comment.id}>
-                    <button onClick={() => console.log('fpierjhfdwondjlwhjfewij', comment)}>Comment</button>
                     {post_id === comment.post_id && (
                         <div key={comment.id}>
                             <a className="username" href={`/users/${comment?.username}`}>{comment.username}</a>
@@ -136,7 +162,12 @@ function Comments({post_id}) {
     
                                     {showForm&& comment.id === formId ? 
                                     <form onSubmit={(e) => editAComment(comment.id, body, e)} key={comment.id}>
-                                        <textarea value={body} onChange={(e) => setBody(e.target.value)} ></textarea>
+                                        <div>
+                                                {newErrors.map((error, ind) => (
+                                                    <div key={ind}>{error}</div>
+                                                ))}
+                                        </div>
+                                        <input value={body} onChange={(e) => setBody(e.target.value)} ></input>
                                         <button type="submit" onSubmit={(e) => editAComment(comment.id, body, e)} >
                                                 <SendIcon></SendIcon>
                                         </button>
@@ -161,8 +192,14 @@ function Comments({post_id}) {
                     </div>
                 </div>
             ))}
+            <hr />
             <form onSubmit={userComment}>
-                <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)} cols="30" rows="10" ></textarea>
+                <div>
+                    {errors.map((error, ind) => (
+                        <div key={ind}>{error}</div>
+                    ))}
+                </div>
+                <input value={newComment} onChange={(e) => setNewComment(e.target.value)} cols="30" rows="10" ></input>
             <div>
                 <button type="submit">Submit</button>
             </div>

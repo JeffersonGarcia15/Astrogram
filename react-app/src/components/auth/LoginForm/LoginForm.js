@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../../store/session';
+import Demo from '../../Demo';
+import '../auth.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -26,39 +28,71 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
+  function FloatingEvt(evt) {
+    if (evt.target.value.length > 0) {
+      evt.target.classList.add('has-value')
+    } else {
+      evt.target.classList.remove('has-value')
+    }
+  }
+
   if (user) {
     return <Redirect to={`/`} />;
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <div className="container">
+      <div className="form-container">
+        <img className="logo" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
+        <form onSubmit={onLogin}>
+          {errors.map((error, ind) => (
+            <div className="error-container" key={ind}>{error}</div>
+          ))}
+          <div className="floating-label">
+            <input
+              name='email'
+              type='text'
+              value={email}
+              onChange={updateEmail}
+              className="form-control"
+              onBlur={FloatingEvt}
+              autoComplete="off"
+            />
+            <label htmlFor='email'>Email</label>
+          </div>
+          <div className="floating-label">
+            <input
+              name='password'
+              type='password'
+              value={password}
+              onChange={updatePassword}
+              className="form-control"
+              onBlur={FloatingEvt}
+              autoComplete="off"
+            />
+            <label htmlFor='password'>Password</label>
+          </div>
+          <button type='submit' className="btn-form">Login</button>
+        </form>
+        {/*     
+      <p className="title">
+          Sign up to see photos and videos from your friends.
+      </p> */}
+        <div className="line">
+          <p className="l-line"></p>
+          <p className="t-line">OR</p>
+          <p className="r-line"></p>
+        </div>
+        <p style={{ textAlign: 'center' }}>Login with</p>
+        <Demo></Demo>
       </div>
-      <div>
-        <label htmlFor='email'>Email</label>
-        <input
-          name='email'
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateEmail}
-        />
+      <div className="form-bottom">
+        <p>Don't have an account?
+          <a href="/sign-up">
+            Sign up</a>
+        </p>
       </div>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input
-          name='password'
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type='submit'>Login</button>
-      </div>
-    </form>
+    </div>
   );
 };
 

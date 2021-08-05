@@ -59,9 +59,7 @@ export const createPostLike = like => async (dispatch) => {
     if (response.ok) {
         const newLike = await response.json()
         dispatch(addPostLike(newLike))
-        console.log('WE MADE IT AFTER POSTLIKE DISPATCH', newLike)
     }
-    console.log('ARE WE MAKING IT TO CREATEPOSTLIKE THUNK???', like)
 }
 
 export const deleteAPostLike = (like_id) => async (dispatch) => {
@@ -70,10 +68,8 @@ export const deleteAPostLike = (like_id) => async (dispatch) => {
     })
     if (response.ok) {
         dispatch(deletePostLike(like_id))
-        console.log('If this prints then it deleted the like', like_id)
 
     }
-    console.log('Made it to the delete thunk')
 
 }
 

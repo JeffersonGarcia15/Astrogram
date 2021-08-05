@@ -155,12 +155,10 @@ export const editProfileUser = (user_id, username, full_name, website, bio, phon
     body: formData
   })
   const data = await response.json()
-  console.log('FROM THUNK UPDATE', data);
   if (data.errors) {
     return data
   }
   dispatch(setUser(data))
-  console.log('TO CHECK IF THE INFO GETS TO THE EDIT THUNK', user_id, username, full_name, website, bio, phone, gender, profile_image );
 
 }
 
