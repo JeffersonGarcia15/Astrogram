@@ -10,6 +10,7 @@ import User from './components/User';
 import Profile from './components/Profile'
 import Home from './components/Home'
 import Comments from './components/Comment'
+import Footer from './components/Footer'
 import { authenticate } from './store/session';
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
       </Switch>
 
       )}
+      <Footer />
     </>
   );
 }
