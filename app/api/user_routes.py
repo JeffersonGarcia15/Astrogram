@@ -68,5 +68,7 @@ def update(id):
     # )
     # db.session.add(user)
     db.session.commit()
-    return {"Success": 'success'}
+    # return {"Success": 'success'}
+    return user.to_dict()
+
     
