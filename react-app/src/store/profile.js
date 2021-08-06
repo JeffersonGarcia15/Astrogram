@@ -13,7 +13,7 @@ const allUsers = users => ({
 
 
 export const getAllUsers = () => async (dispatch) => {
-    const response = await fetch("api/users")
+    const response = await fetch("/api/users/")
 
     if (response.ok) {
         const users = await response.json()
@@ -22,13 +22,14 @@ export const getAllUsers = () => async (dispatch) => {
     }
 }
 
-export const getUserInfo = username => async (dispatch) => {
+export const getUserInfo = (username) => async (dispatch) => {
+    console.log('!!!!!!!!!!!!!!!!! username here', username)
     const response = await fetch(`/api/users/${username}`)
     const user = await response.json()
     dispatch(userInfo(user))
 }
 
-const initialState = {}
+const initialState = { }
 
 export default function profile(state = initialState, action) {
     let updatedState = { ...state }
@@ -36,6 +37,7 @@ export default function profile(state = initialState, action) {
     switch (action.type) {
         case ALL_USERS: {
             const allUsers = {}
+            
             action.users.users.forEach(user => {
                 allUsers[user.id] = user
             })
