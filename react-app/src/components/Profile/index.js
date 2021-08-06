@@ -22,6 +22,7 @@ function Profile() {
     const { username } = useParams()
     const userId = useSelector((state) => { if (state.session.user) return state.session.user.id })
     const posts = useSelector(state => state.posts)
+    const userPosts = Object.values(posts)?.filter(post => user?.id === post.user_id)
     const postInfo = Object.values(posts)
     const filter = postInfo.filter(post => post.user_id == user.id)
     const profiles = useSelector(state => state.profile)
@@ -50,12 +51,12 @@ function Profile() {
     }, [dispatch, deleteSwitch])
 
     useEffect(() => {
+        console.log('######################', profiles)
         dispatch(getAllPosts())
         dispatch(getUserInfo(username))
         return () => dispatch(unloadPosts())
     }, [dispatch, username, followers])
 
-    
 
 
 
@@ -109,11 +110,7 @@ function Profile() {
                             </HtmlTooltip>
                         </div>
                         <div>
-                            <h4>{Object.values(profiles)?.map((profile, ind) => (
-                                <div key={ind}>
-                                    {Object?.values(profile?.posts)?.length}
-                                </div>
-                            ))} posts</h4>
+                            <h4>{userPosts?.length} posts</h4>
                             {user?.id !== profiles?.user?.id && (
                                 <div>
                                     <button onClick={followButton} >{following}</button>
@@ -135,10 +132,8 @@ function Profile() {
 
                     </div>
                     <hr />
-                    {Object.values(profiles)?.map((profile, ind) => {
-                        return (
-                            <div key={ind}>
-                                {Object.values(profile?.posts).map((post, ind) => (
+                            <div>
+                                {userPosts?.map((post, ind) => (
                                     <div key={ind}>
                                         <div>
 
@@ -154,8 +149,7 @@ function Profile() {
                                 </div>
 
                             </div>
-                        )
-                    })}
+
                 </Grid>
                 <Grid item md={3}></Grid>
             </Grid>
