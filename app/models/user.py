@@ -29,7 +29,10 @@ class User(db.Model, UserMixin):
     albums = db.relationship('Album', back_populates='user')
     comments = db.relationship('Comment', back_populates='user')
     likes = db.relationship('Like', back_populates='user')
-    followers = db.relationship('User', secondary=follows, primaryjoin=(follows.c.follower_id == id), secondaryjoin=(follows.c.followed_id == id), backref=db.backref('follows', lazy="dynamic"), lazy="dynamic" )
+    # followers = db.relationship('User', secondary=follows, primaryjoin=(follows.c.follower_id == id), secondaryjoin=(follows.c.followed_id == id), backref=db.backref('follows', lazy="dynamic"), lazy="dynamic" )
+    # following = db.relationship('User', secondary=follows, primaryjoin=(follows.c.followed_id == id), secondaryjoin=(follows.c.follower_id == id), backref=db.backref('follows', lazy="dynamic"), lazy="dynamic" )
+    followers = db.relationship("User", secondary=follows, primaryjoin=id==follows.c.followed_id, secondaryjoin=id==follows.c.follower_id, back_populates="following")
+    following = db.relationship("User", secondary=follows, primaryjoin=id==follows.c.follower_id, secondaryjoin=id==follows.c.followed_id, back_populates="followers")
     
     @property
     def password(self):
@@ -41,6 +44,9 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+    
+    def follower_names(self):
+        return self.username
 
     def to_dict(self):
         return {
@@ -53,7 +59,9 @@ class User(db.Model, UserMixin):
             'phone': self.phone,
             'gender': self.gender,
             'profile_image': self.profile_image,
-            'followers': [follower.id for follower in self.followers]
+            'followers': [follower.follower_names() for follower in self.followers],
+            'following': [following.follower_names() for following in self.following],
+            
             # 'posts': {post.id: post.to_dict() for post in self.posts}
         }
         
