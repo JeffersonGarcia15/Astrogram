@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { getOwnPosts, getAllPosts, unloadPosts } from '../../store/post';
 import { getUserInfo } from '../../store/profile'
+import { createFollower, deleteFollower } from '../../store/follow';
 import Grid from '@material-ui/core/Grid'
 import UpdateDeletePost from '../UpdateDeletePost'
 import EditProfileModal from '../Profile/EditProfileModal';
@@ -27,6 +28,9 @@ function Profile() {
     const profileArray = Object.values(profiles)
     const lengthPosts = profileArray['0']
     const [deleteSwitch, setDeleteSwitch] = useState(false)
+    const [follower_id, setFollowerId] = useState(user?.id)
+    const [followed_id, setFollowedId] = useState(profiles?.user?.id) //person in profile meaning getUserInfo
+    const [following, setFollowing] = useState("Follow")
     // const lengthPostsArray = lengthPosts['posts']
     // const arrayOfPosts = Object.values(lengthPostsArray)
 
@@ -50,6 +54,24 @@ function Profile() {
         return () => dispatch(unloadPosts())
     }, [dispatch, username])
 
+    console.log('############### THis is follower_id meaning user.id', follower_id)
+    console.log('$$$$$$$$$$$ THdsdsdsssdis is followed_id meaning profiles.user.id', followed_id)
+
+    useEffect(() => {
+        if (profiles?.user?.followers && profiles?.user?.followers?.includes(user?.username)) {
+            setFollowing("Unfollow")
+        }
+    }, [user, user?.username])
+
+    async function followButton() {
+        await dispatch(createFollower( follower_id, profiles?.user?.id))
+        following === "Unfollow" ? setFollowing("Follow") : setFollowing("Unfollow")
+    }
+
+    async function unFollowButton() {
+        await dispatch(deleteFollower( follower_id, profiles?.user?.id))
+        // following === "Unfollow" ? setFollowing("Follow") : setFollowing("Unfollow")
+    }
     // useEffect(() => {
     // }, [dispatch, username])
 
@@ -87,12 +109,16 @@ function Profile() {
                         <div>
                             <h4>{Object.values(profiles)?.map((profile, ind) => (
                                 <div key={ind}>
-                                    {Object.values(profile?.posts)?.length}
+                                    {Object?.values(profile?.posts)?.length}
                                 </div>
                             ))} posts</h4>
+                            <button onClick={followButton} >{following}</button>
+                            <button onClick={unFollowButton} >unfollow</button>
+
                         </div>
                         <div># of followers</div>
                         <div># following</div>
+
                     </div>
                     <div>
 
