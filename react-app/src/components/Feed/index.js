@@ -32,7 +32,7 @@ function Feed() {
             setPostLike(false)
         }
         dispatch(getAllPosts());
-        dispatch(getAllLikes())
+        dispatch(getAllLikes());
         // return () => dispatch(unloadPostLikes())
     }, [dispatch, isPostLiked, deleteSwitch])
 
@@ -81,6 +81,7 @@ function Feed() {
                     <input placeholder='This might be the search bar?'>
                         {/* Hey */}
                     </input>
+
                     <div className="pb-5">
                         <Grid style={{ paddingBottom: '25px' }} container align='center'>
                             <Grid item md={2} placeholder='This is here for user stories'>This is here for user stories</Grid>

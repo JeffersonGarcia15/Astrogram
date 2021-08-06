@@ -77,5 +77,8 @@ class User(db.Model, UserMixin):
             'phone': self.phone,
             'gender': self.gender,
             'profile_image': self.profile_image,    
-            'posts': {post.id: post.to_dict() for post in self.posts}         
+            'posts': {post.id: post.to_dict() for post in self.posts},
+            'followers': [follower.follower_names() for follower in self.followers],
+            'following': [following.follower_names() for following in self.following],
+        
         }
