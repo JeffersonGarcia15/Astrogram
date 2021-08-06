@@ -27,6 +27,7 @@ function Profile() {
     const profiles = useSelector(state => state.profile)
     const profileArray = Object.values(profiles)
     const lengthPosts = profileArray['0']
+    const followers = useSelector(state => state.followers)
     const [deleteSwitch, setDeleteSwitch] = useState(false)
     const [follower_id, setFollowerId] = useState(user?.id)
     const [followed_id, setFollowedId] = useState(profiles?.user?.id) //person in profile meaning getUserInfo
@@ -52,10 +53,11 @@ function Profile() {
         dispatch(getAllPosts())
         dispatch(getUserInfo(username))
         return () => dispatch(unloadPosts())
-    }, [dispatch, username])
+    }, [dispatch, username, followers])
 
-    console.log('############### THis is follower_id meaning user.id', follower_id)
-    console.log('$$$$$$$$$$$ THdsdsdsssdis is followed_id meaning profiles.user.id', followed_id)
+    
+
+
 
     useEffect(() => {
         if (profiles?.user?.followers && profiles?.user?.followers?.includes(user?.username)) {
@@ -112,15 +114,24 @@ function Profile() {
                                     {Object?.values(profile?.posts)?.length}
                                 </div>
                             ))} posts</h4>
-                            <button onClick={followButton} >{following}</button>
-                            <button onClick={unFollowButton} >unfollow</button>
+                            {user?.id !== profiles?.user?.id && (
+                                <div>
+                                    <button onClick={followButton} >{following}</button>
+                                    <button onClick={unFollowButton} >unfollow</button>
+
+                                </div>
+                            )}
 
                         </div>
-                        <div>{profiles?.user?.followers?.length} followers</div>
-                        <div>{profiles?.user?.following?.length} following</div>
+                        {/* <div>{Object.values(followers)?.map(follower => (
+                            <div>
+                                {follower.followers.length} followers
+                            </div>
+                        ))} </div> */}
 
-                    </div>
-                    <div>
+                        <div>{profiles?.user?.followers?.length} followers</div>
+
+                        <div>{profiles?.user?.following?.length} following</div>
 
                     </div>
                     <hr />

@@ -70,13 +70,11 @@ export const createPost = (user_id, description, picture_url) => async (dispatch
         body: formData
     })
     const data = await response.json()
-    console.log('FROM CREATE THUNK BEFORE CHECKING IF ERRORS', data, user_id, description, picture_url);
     if (data.errors) {
         return data
     }
     // debugger
     dispatch(addPost(data))
-    // console.log("CREATE THUNK AFTER DISPATCH", user_id, location_id, description, album_id, picture_url, data);
     return data
 
 }

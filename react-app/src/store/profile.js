@@ -1,5 +1,5 @@
 const USER_INFO = 'profile/USER_INFO'
-const ALL_USERS = 'users/ALL_USERS'
+const ALL_USERS = 'profile/ALL_USERS'
 
 const userInfo = user => ({
     type: USER_INFO,
@@ -38,10 +38,11 @@ export default function profile(state = initialState, action) {
             const allUsers = {}
             action.users.users.forEach(user => {
                 allUsers[user.id] = user
-            }) 
-            const newState = { ...allUsers}
+            })
+            const newState = { ...allUsers }
             return newState
         }
+
         case USER_INFO: {
             // updatedState[action.user.id] = action.user
             // return updatedState
