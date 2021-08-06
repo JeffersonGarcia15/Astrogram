@@ -30,14 +30,20 @@ export const createFollower = (follower_id, followed_id) => async (dispatch) => 
 
 export const deleteFollower = (follower_id, followed_id) => async (dispatch) => {
     const response = await fetch(`/api/follows/user/${followed_id}/follower/delete`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify( {follower_id, followed_id} )
+
     })
     if (response.ok) {
-        dispatch(deleteSingleFollower( follower_id, followed_id ))
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!We made it after delete4 follower post dispatch", follower_id, followed_id)
+        dispatch(deleteSingleFollower(follower_id, followed_id ))
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!We made it after delete4 follower post dispatch")
+        return response
 
     }
-    console.log("Hey we at least made it to the thunk", follower_id, followed_id)
+    console.log("Hey we at least made it to the thunk")
 
 }
 
@@ -52,14 +58,14 @@ export default function followers(state = initialState, action) {
         }
         case DELETE_FOLLOWER: {
             const newState = {}
-            // Object.values(state).forEach(follower => {
-            //     if (follower.followed_id !== action.follower) {
-            //         newState[follower.followed_id] = follower
-            //     }
-            // })
-            // return newState
-            delete updatedState[action.follower]
-            return updatedState
+            Object.values(state).forEach(follower => {
+                if (follower.followed_id !== action.follower) {
+                    newState[follower.followed_id] = follower
+                }
+            })
+            return newState
+            // delete updatedState[action.follower]
+            // return updatedState
         }
         default:
             return state
