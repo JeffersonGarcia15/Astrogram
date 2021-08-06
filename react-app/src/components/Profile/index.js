@@ -116,8 +116,8 @@ function Profile() {
                             <button onClick={unFollowButton} >unfollow</button>
 
                         </div>
-                        <div># of followers</div>
-                        <div># following</div>
+                        <div>{profiles?.user?.followers?.length} followers</div>
+                        <div>{profiles?.user?.following?.length} following</div>
 
                     </div>
                     <div>
@@ -139,14 +139,7 @@ function Profile() {
                                 ))}
 
                                 <div >
-                                    {/* {profile?.user_id == userId && ( */}
-                                        {/* <div key={profile?.id}> */}
-                                            {/* <div>
-                                                <img src={post?.picture_url} />
-                                            </div>
-                                            <UpdateDeletePost postId={post?.id}></UpdateDeletePost> */}
-                                        {/* </div> */}
-                                    {/* )} */}
+
                                 </div>
 
                             </div>
