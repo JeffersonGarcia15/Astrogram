@@ -22,9 +22,7 @@ export const createFollower = (follower_id, followed_id) => async (dispatch) => 
     if (response.ok) {
         const newFollower = await response.json()
         dispatch(addFollower(newFollower))
-        console.log("****************We made it after follower post dispatch", follower_id, followed_id)
     }
-    console.log("############We made it to the thunk", follower_id, followed_id)
 
 }
 
@@ -39,11 +37,9 @@ export const deleteFollower = (follower_id, followed_id) => async (dispatch) => 
     })
     if (response.ok) {
         dispatch(deleteSingleFollower(follower_id, followed_id ))
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!We made it after delete4 follower post dispatch")
         return response
 
     }
-    console.log("Hey we at least made it to the thunk")
 
 }
 

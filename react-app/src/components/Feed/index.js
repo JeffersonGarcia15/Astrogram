@@ -37,7 +37,8 @@ function Feed() {
     }, [dispatch, isPostLiked, deleteSwitch])
 
 
-    
+        // < div > { profiles?.user?.followers?.length } followers</div >
+
     const handlePostLike = (post) => async (e) => {
         const likesInPostFunction = Object.values(postLikes)?.filter(like => like?.post_id == post.id) // likes => postLikes has user_id, post_id
         const isPostLikedFunction = likesInPostFunction?.some(like => like.user_id == sessionUser.id)

@@ -13,6 +13,7 @@ def users():
     users = User.query.all()
     user1 = User.query.get(1)
     print('##############################################',user1.username)
+    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', users)
     return {'users': [user.to_dict() for user in users]}
 
 
