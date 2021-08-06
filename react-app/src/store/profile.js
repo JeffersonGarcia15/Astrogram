@@ -41,7 +41,7 @@ export default function profile(state = initialState, action) {
             action.users.users.forEach(user => {
                 allUsers[user.id] = user
             })
-            const newState = { ...allUsers }
+            const newState = { allUsers, ...state }
             return newState
         }
 

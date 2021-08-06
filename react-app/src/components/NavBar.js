@@ -22,17 +22,20 @@ const NavBar = ({ loaded, setResults }) => {
   const dispatch = useDispatch()
   const users = useSelector(state => state.profile)
   const userArray = Object.values(users)
+  const userInfo = userArray[0]
   const [search, setSearch] = useState('')
 
 
   useEffect(() => {
     dispatch(getAllUsers())
+    console.log('+++++++++++++++++++++++', userInfo)
 
   }, [dispatch])
 
+
   let userForSearchBar = []
   const handleClick = () => {
-    const userFilter = userArray.filter((user) => user.username.toLowerCase().includes(search.toLowerCase()))
+    const userFilter = Object?.values(userInfo)?.filter((user) => user.username.toLowerCase().includes(search.toLowerCase()))
     userForSearchBar.push(userFilter)
     setResults(userForSearchBar)
     setSearch('')
