@@ -33,21 +33,20 @@ def user_info(username):
 def update(id):
     user = User.query.get(id)
     if "image" not in request.files:
-        return {'errors': ['image required']}, 400
+        url = request.form['image']
+    else:
+        image = request.files["image"]
+        if not allowed_file(image.filename):
+            return {"errors": ["file type not permitted"]}, 400
 
-    image = request.files["image"]
+        image.filename = get_unique_filename(image.filename)
 
-    if not allowed_file(image.filename):
-        return {"errors": ["file type not permitted"]}, 400
+        upload = upload_file_to_s3(image)
 
-    image.filename = get_unique_filename(image.filename)
+        if "url" not in upload:
+            return {'errors': [upload]}, 400
 
-    upload = upload_file_to_s3(image)
-
-    if "url" not in upload:
-        return {'errors': [upload]}, 400
-
-    url = upload["url"]
+        url = upload["url"]
     print('################## BEFORE THE CHANGE', user.username, user.full_name, user.website, user.bio, user.phone, user.gender, user.profile_image)
     user.username = request.form['username']
     user.full_name = request.form['full_name']
