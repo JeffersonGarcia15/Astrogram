@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { createPost } from '../../store/post'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import { getUserInfo } from '../../store/profile'
+import './PostUpload.css'
 
 
 function PhotoUploadModal() {
@@ -49,17 +50,31 @@ function PhotoUploadModal() {
 
     return (
         <div>
-            <button onClick={openMenu}>
-                <AddAPhotoIcon />
+            <button onClick={openMenu} style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}>
+                <AddAPhotoIcon style={{ outline: 'none', outline: 'none' }} />
             </button>
             {showMenu && (
                 <div>
                     <Modal onClose={() => setShowMenu(false)}>
                         <div>
-                            <form onSubmit={onSubmit}>
-                                <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
-                                <input type="file" accept="image/png, image/gif, image/jpeg" onChange={updateFile} required />
-                                <button className='btn' type='submit'>Submit</button>
+                            <img className="logo-post-modal" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
+                            <div className='form-title-upload'>
+                            <strong >New Post</strong>
+
+                            </div>
+                            <form onSubmit={onSubmit} className='form-post-upload'>
+                                <div >
+                                    <input className='form-input-upload' type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder='Optional Title' />
+
+                                </div>
+                                <div className='form-file-upload'>
+                                    <input id='file' type="file" accept="image/png, image/gif, image/jpeg" onChange={updateFile} required />
+
+                                </div>
+                                <div>
+                                <button className='form-btn-upload' type='submit'>Submit</button>
+
+                                </div>
                             </form>
 
                         </div>

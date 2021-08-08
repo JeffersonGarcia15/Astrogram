@@ -7,10 +7,11 @@ import { getAllCommentLikes, createCommentLike, deleteACommentLike, unloadCommen
 import SendIcon from '@material-ui/icons/Send';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import './Comment.css'
 
 
 
-function Comments({post_id}) {
+function Comments({ post_id }) {
     const dispatch = useDispatch()
     // const { post_id } = useParams()
     const [errors, setErrors] = useState([])
@@ -106,13 +107,13 @@ function Comments({post_id}) {
         setBody(comment.body)
         setFormId(comment.id)
 
-    } 
+    }
 
     const handleCommentLike = (comment) => async (e) => {
         const likesInComment = Object.values(commentLikes)?.filter(like => like?.comment_id == comment.id) // in this case this has comment_id and user_id
         const isCommentLiked = likesInComment?.some(like => like.user_id == user.id)
         setCommentId(comment?.id)
-        if(isCommentLiked) {
+        if (isCommentLiked) {
             let singleCommentLike = likesInComment.find(like => like.user_id == user.id && like.comment_id == comment.id)
 
             await dispatch(deleteACommentLike(singleCommentLike?.id))
@@ -122,7 +123,7 @@ function Comments({post_id}) {
 
         }
         else {
-            await dispatch(createCommentLike({user_id: user.id, comment_id: comment?.id}))
+            await dispatch(createCommentLike({ user_id: user.id, comment_id: comment?.id }))
             setCommentLike(true)
             // window.location.reload(true)
         }
@@ -150,45 +151,56 @@ function Comments({post_id}) {
                 <div key={comment.id}>
                     {post_id === comment.post_id && (
                         <div key={comment.id}>
-                            <a className="username" href={`/users/${comment?.username}`}>{comment.username}</a>
-                            <p className="comment">{comment.body}</p>
-                            <div onClick={handleCommentLike(comment)} style={{ color: heartColor(comment.id) ? 'red' : 'gray' }}>
-                            <FavoriteIcon></FavoriteIcon>
+                            <div className='comment-like'>
+                                <div>
+                                    <a className="username" href={`/users/${comment?.username}`}>{comment.username}</a>
+                                    <p className="comment">{comment.body}</p>
+
+                                </div>
+                                <div className='comment-heart'>
+
+                                    <div onClick={handleCommentLike(comment)} style={{ color: heartColor(comment.id) ? 'red' : 'gray' }}>
+                                        <FavoriteIcon></FavoriteIcon>
+                                    </div>
+                                </div>
 
                             </div>
                             {user.id === comment.user_id && (
                                 <div key={comment.id}>
-                                    <button onClick={() => openForm(comment)}>Edit Comment</button>
-    
-                                    {showForm&& comment.id === formId ? 
-                                    <form onSubmit={(e) => editAComment(comment.id, body, e)} key={comment.id}>
-                                        <div>
+                                    <button className='btn-comment-submit' onClick={() => openForm(comment)}>Edit Comment</button>
+
+                                    {showForm && comment.id === formId ?
+                                        <form onSubmit={(e) => editAComment(comment.id, body, e)} key={comment.id}>
+                                            <div>
                                                 {newErrors.map((error, ind) => (
                                                     <div key={ind}>{error}</div>
                                                 ))}
-                                        </div>
-                                        <input value={body} onChange={(e) => setBody(e.target.value)} ></input>
-                                        <button type="submit" onSubmit={(e) => editAComment(comment.id, body, e)} >
-                                                <SendIcon></SendIcon>
-                                        </button>
-                                        <button onClick={(e) => { 
-                                                e.preventDefault()
-                                                deleteAComment(comment.id)
-                                        }
-                                            }>
-                                            <DeleteForeverIcon></DeleteForeverIcon>
-                                        </button>
-                                    </form>
-                                
-                                
-                                :null}
+                                            </div>
+                                            <div>
+                                                <input style={{ height: '22px', marginBottom: "5px" }} value={body} onChange={(e) => setBody(e.target.value)} ></input>
+                                                <button style={{ background: '#0095f6'}}type="submit" onSubmit={(e) => editAComment(comment.id, body, e)} >
+                                                    <SendIcon style={{ fontSize: '18px', color: 'white'  }}></SendIcon>
+                                                </button>
+                                                <button style={{ background: '#0095f6' }} onClick={(e) => {
+                                                    e.preventDefault()
+                                                    deleteAComment(comment.id)
+                                                }
+                                                }>
+                                                    <DeleteForeverIcon style={{ fontSize: '18px', color: 'white' }}></DeleteForeverIcon>
+                                                </button>
+
+                                            </div>
+                                        </form>
+
+
+                                        : null}
                                 </div>
                             )}
 
                         </div>
                     )}
                     <div>
-                        
+
                     </div>
                 </div>
             ))}
@@ -199,10 +211,11 @@ function Comments({post_id}) {
                         <div key={ind}>{error}</div>
                     ))}
                 </div>
-                <input value={newComment} onChange={(e) => setNewComment(e.target.value)} cols="30" rows="10" ></input>
-            <div>
-                <button type="submit">Submit</button>
-            </div>
+                <div className='new-comment'>
+                    <input className="submit-comment" value={newComment} onChange={(e) => setNewComment(e.target.value)} cols="30" rows="10" ></input>
+                    <button className='btn-comment-submit' type="submit">Submit</button>
+
+                </div>
             </form>
         </div>
     )

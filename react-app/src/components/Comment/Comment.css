@@ -1,0 +1,36 @@
+.submit-comment{
+    width: 75%;
+    height: 24px;
+}
+.btn-comment-submit{
+    width: 100px;
+    height: 30px;
+    background: #0095f6;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 0px;
+    border: none;
+    border-radius: 4px;
+    /* margin-top: 10px; */
+}
+.btn-comment-submit:hover{
+    background: #4cb5f9;
+
+}
+
+.new-comment{
+    display: flex;
+}
+
+.comment-like{
+    display: flex;
+    width: 100%;
+}
+
+.comment-heart{
+    float: right;
+    align-self: flex-end;
+    padding-left: 50%;
+}

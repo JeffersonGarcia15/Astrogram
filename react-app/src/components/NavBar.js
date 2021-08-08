@@ -14,6 +14,7 @@ import { getAllUsers } from '../store/profile'
 
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import Demo from '../components/Demo'
+import './NavBar.css'
 
 const NavBar = ({ loaded, setResults }) => {
   const history = useHistory()
@@ -28,7 +29,6 @@ const NavBar = ({ loaded, setResults }) => {
 
   useEffect(() => {
     dispatch(getAllUsers())
-    console.log('+++++++++++++++++++++++', userInfo)
 
   }, [dispatch])
 
@@ -46,31 +46,36 @@ const NavBar = ({ loaded, setResults }) => {
   if (user) {
     sessionLinks = (
       <>
-        <div>
-          <NavLink to={`/users/${user.username}`} exact={true} activeClassName='active'>
-            <AccountCircleOutlinedIcon></AccountCircleOutlinedIcon>
-          </NavLink>
-        </div>
-        <div>
-          <LogoutButton></LogoutButton>
-        </div>
-        <div>
-        <PostUploadModal></PostUploadModal>
+        <div className='navbar-container'>
+          <div>
+            <img className="logo-navbar" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
+          </div>
+          <div className='searchbar'>
+            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={(e) => {
+              if (e.key === 'Enter' && e.target.value.length != '') {
+                return handleClick()
+              }
+            }} placeholder="            🔍  Search" ></input>
+          </div>
+          <div className='home'>
+            <NavLink exact={true} to='/'><HomeOutlinedIcon style={{outline: 'none', color:'black'}}></HomeOutlinedIcon></NavLink>
+          </div>
+          <div className='profile'>
+            <NavLink to={`/users/${user.username}`} exact={true} activeClassName='active' style={{ outline: 'none', color: 'black' }}>
+              <AccountCircleOutlinedIcon></AccountCircleOutlinedIcon>
+            </NavLink>
+          </div>
+          <div className='logout'>
+            <LogoutButton></LogoutButton>
+          </div>
+          <div className='camera'>
+            <PostUploadModal></PostUploadModal>
+          </div>
+          <div>
+          </div>
 
         </div>
-        <div>
-          <NavLink exact={true} to='/'><HomeOutlinedIcon></HomeOutlinedIcon></NavLink>
-        </div>
-        <div>
-          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={(e) => {
-            if (e.key === 'Enter' && e.target.value.length != '') {
-              return handleClick()
-            }
-          }} placeholder="Search" ></input>
-        </div>
-        <div>
-        </div>
-      
+
       </>
     )
   }
@@ -86,7 +91,7 @@ const NavBar = ({ loaded, setResults }) => {
           {/* <SignUpForm></SignUpForm> */}
         </div>
         {/* <div><Demo></Demo></div> */}
-      
+
       </>
     )
   }
@@ -96,7 +101,7 @@ const NavBar = ({ loaded, setResults }) => {
         {loaded && sessionLinks}
 
       </div>
-    
+
     </>
   );
 }
