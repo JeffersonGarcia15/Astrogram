@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
+import UpdateDeletePost from '../UpdateDeletePost';
 import Comments from '../Comment'
 import { getAllLikes, createPostLike, deleteAPostLike, getASingleLike, unloadPostLikes } from '../../store/postlike';
 import './Feed.css'
@@ -15,6 +16,7 @@ function Feed() {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
     const posts = useSelector(state => state.posts)
+    const userPosts = Object.values(posts)?.filter(post => sessionUser?.id === post.user_id)
     const postLikes = useSelector(state => state.postLikes)
     const postLikesArray = Object.values(postLikes)
     const [post_id, setPostId] = useState(0)
@@ -79,18 +81,8 @@ function Feed() {
             <Grid container align='left'>
                 <Grid item md={2}></Grid>
                 <Grid item md={5}>
-                    <input placeholder='This might be the search bar?'>
-                        {/* Hey */}
-                    </input>
-
                     <div className="pb-5">
                         <Grid style={{ paddingBottom: '25px' }} container align='center'>
-                            <Grid item md={2} placeholder='This is here for user stories'>This is here for user stories</Grid>
-                            <Grid item md={2}>This is here for user stories</Grid>
-                            <Grid item md={2}>This is here for user stories</Grid>
-                            <Grid item md={2}>This is here for user stories</Grid>
-                            <Grid item md={2}>This is here for user stories</Grid>
-                            <Grid item md={2}>This is here for user stories</Grid>
 
                         </Grid>
                     </div>
@@ -141,7 +133,7 @@ function Feed() {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        )).reverse()}
                     </div>
                     
                 </Grid>
