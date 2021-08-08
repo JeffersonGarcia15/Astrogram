@@ -3,9 +3,9 @@ import './NotFound.css'
 
 function NotFound() {
     return (
-        <div className='centered'>
+        <h1 className='centered'>
             Page Not Found. Please click on the Astrogram logo, and do not try to enter your own url paths. 
-        </div>
+        </h1>
     )
 }
 
