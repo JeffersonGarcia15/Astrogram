@@ -13,7 +13,6 @@
     padding: 4px 0px;
     border: none;
     border-radius: 4px;
-    /* margin-top: 10px; */
 }
 .btn-comment-submit:hover{
     background: #4cb5f9;
@@ -32,5 +31,6 @@
 .comment-heart{
     float: right;
     align-self: flex-end;
-    padding-left: 50%;
+    margin-left: auto;
+    padding-right: 10px;
 }

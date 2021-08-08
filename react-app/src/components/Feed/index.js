@@ -117,7 +117,6 @@ function Feed() {
                                             {/* </div> */}
                                         </div>
                                         <div className="comments">
-                                            <p style={{ display: "block" }}> Liked by {post?.user?.username} and others </p>
                                             <div>
                                                 <a className="username" href={`/users/${post?.user?.username}`}>{post?.user?.username}</a>
                                                 <p className="comment">{post.description}</p>
