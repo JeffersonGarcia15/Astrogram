@@ -55,11 +55,14 @@ function PhotoUploadModal() {
             {showMenu && (
                 <div>
                     <Modal onClose={() => setShowMenu(false)}>
-                    <form onSubmit={onSubmit}>
-                        <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
-                        <input type="file" accept="image/png, image/gif, image/jpeg" onChange={updateFile} />
-                            <button className='btn' type='submit'>Submit</button>
-                    </form>
+                        <div>
+                            <form onSubmit={onSubmit}>
+                                <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+                                <input type="file" accept="image/png, image/gif, image/jpeg" onChange={updateFile} required />
+                                <button className='btn' type='submit'>Submit</button>
+                            </form>
+
+                        </div>
                     </Modal>
                 </div>
             )}

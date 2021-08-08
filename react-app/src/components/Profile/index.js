@@ -22,9 +22,9 @@ function Profile() {
     const { username } = useParams()
     const userId = useSelector((state) => { if (state.session.user) return state.session.user.id })
     const posts = useSelector(state => state.posts)
-    const userPosts = Object.values(posts)?.filter(post => user?.id === post.user_id)
+    const userPosts = Object.values(posts)?.filter(post => username === post?.user?.username)
     const postInfo = Object.values(posts)
-    const filter = postInfo.filter(post => post.user_id == user.id)
+    const filter = postInfo.filter(post => post.user_id === user.id)
     const profiles = useSelector(state => state.profile)
     const profileArray = Object.values(profiles)
     const lengthPosts = profileArray['0']
@@ -67,19 +67,14 @@ function Profile() {
     }, [user, user?.username])
 
     async function followButton() {
-        await dispatch(createFollower( follower_id, profiles?.user?.id))
+        if (following === 'Follow') {
+            await dispatch(createFollower( follower_id, profiles?.user?.id))       
+        } else {
+            await dispatch(deleteFollower( follower_id, profiles?.user?.id))
+
+        }
         following === "Unfollow" ? setFollowing("Follow") : setFollowing("Unfollow")
     }
-
-    async function unFollowButton() {
-        await dispatch(deleteFollower( follower_id, profiles?.user?.id))
-        // following === "Unfollow" ? setFollowing("Follow") : setFollowing("Unfollow")
-    }
-    // useEffect(() => {
-    // }, [dispatch, username])
-
-    // console.log('HERE IS THE ARRAY THING', filter)
-    // console.log('lengthththththt', lengthPosts)
 
 
 
@@ -96,7 +91,7 @@ function Profile() {
                             <h4>{profiles?.user?.username}</h4>
                         </div>
                         <div>
-                            <HtmlTooltip title="Click here to change profile picture and extra information. You must change profile image to change other info.">
+                            <HtmlTooltip title="Please be respectful when choosing a profile picture.">
                                 <div>
                                     {user.username === profiles?.user?.username && (
                                         <>
@@ -114,7 +109,6 @@ function Profile() {
                             {user?.id !== profiles?.user?.id && (
                                 <div>
                                     <button onClick={followButton} >{following}</button>
-                                    <button onClick={unFollowButton} >unfollow</button>
 
                                 </div>
                             )}
@@ -126,9 +120,12 @@ function Profile() {
                             </div>
                         ))} </div> */}
 
-                        <div>{profiles?.user?.followers?.length} followers</div>
+                            <div>
+                                { profiles?.user?.followers?.length} followers
 
-                        <div>{profiles?.user?.following?.length} following</div>
+                            </div>
+
+                                <div>{profiles?.user?.following?.length} following</div>
 
                     </div>
                     <hr />
@@ -139,10 +136,12 @@ function Profile() {
 
                                         <img src={post.picture_url}></img>
                                         </div>
-                                        <p>{post.id}</p>
-                                        <UpdateDeletePost username={username} postId={post?.id} setDeleteSwitch={setDeleteSwitch}></UpdateDeletePost>
+                                        {user?.id === post.user_id && (
+                                            <UpdateDeletePost username={username} postId={post?.id} setDeleteSwitch={setDeleteSwitch}></UpdateDeletePost>
+ 
+                                        )}
                                     </div>
-                                ))}
+                                )).reverse()}
 
                                 <div >
 
