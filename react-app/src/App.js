@@ -12,6 +12,7 @@ import Home from './components/Home'
 import Comments from './components/Comment'
 import Footer from './components/Footer'
 import Search from './components/Search'
+import NotFound from './components/NotFound'
 import { authenticate } from './store/session';
 
 function App() {
@@ -60,6 +61,9 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <Home></Home>
         </ProtectedRoute>
+        <Route path='*'>
+          <NotFound></NotFound>
+        </Route>
       </Switch>
 
       )}

@@ -48,7 +48,10 @@ const NavBar = ({ loaded, setResults }) => {
       <>
         <div className='navbar-container'>
           <div>
-            <img className="logo-navbar" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
+              <a href="/">
+                <img className="logo-navbar" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
+
+              </a>
           </div>
           <div className='searchbar'>
             <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={(e) => {
