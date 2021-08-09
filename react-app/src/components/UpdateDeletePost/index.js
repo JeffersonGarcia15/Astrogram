@@ -9,7 +9,7 @@ import { getUserInfo } from '../../store/profile'
 // import Tippy from '@tippyjs/react'
 import { Tooltip } from '@material-ui/core'
 
-function UpdateDeletePost({ postId, setDeleteSwitch, username }) {
+function UpdateDeletePost({ postId, setDeleteSwitch, username, setShowModal }) {
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -24,7 +24,7 @@ function UpdateDeletePost({ postId, setDeleteSwitch, username }) {
     const updateUserPost = async (e) => {
         e.preventDefault()
         dispatch(editPost({ description, postId }))
-        setShowForm(false)
+        setShowModal(false)
         // history.push('/')
     }
     // useEffect(() => {
@@ -55,18 +55,24 @@ function UpdateDeletePost({ postId, setDeleteSwitch, username }) {
             {user?.id === post?.user_id && (
                 <div key={post.id}>
                     {/* <button onClick={() => }>FORMID AND POSTIF</button> */}
-                    <button onClick={() => openForm(post)}><MoreHorizIcon></MoreHorizIcon></button>
-                    {showForm && post.id === formId ? 
+
+                    {/* {showForm && post.id === formId ?  */}
                     <div key={post.id}>
 
-                    <form onSubmit={updateUserPost} >
-                        <input type='text' value={description} onChange={(e) => setDescription(e.target.value)}></input>
-                        <button type='submit'>Save Updates</button>
-                        <button onClick={deleteSinglePost}>Delete</button>
-                    </form>
+                        <form onSubmit={updateUserPost} className="modal-edit">
+                            <h3>Edit your description</h3>
+                            <div className="input-edit">
+                                <input type='text'
+                                    placeholder="Enter a new description..."
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}></input>
+                                <button type='submit'>Save Updates</button>
+                            </div>
+                            <button onClick={deleteSinglePost}>Delete Post</button>
+                        </form>
                     </div>
-                
-                : null}
+
+                    {/* : null} */}
 
                 </div>
             )}
