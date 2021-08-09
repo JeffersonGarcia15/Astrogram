@@ -6,6 +6,16 @@
 
 #
 
+## Quick tour part 1
+
+[Validations and likes](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.53.17+AM.mov)
+
+
+## Quick tour part 2
+
+[posts, search bar and more](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.56.42+AM.mov)
+
+
 ## Table of content
 
 1. [Getting Started](https://github.com/JeffersonGarcia15/Astrogram#getting-started)
