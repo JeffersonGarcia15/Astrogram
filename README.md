@@ -1,135 +1,207 @@
-# Flask React Project
+# Welcome to Astrogram
 
-This is the starter for the Flask React project.
+## Live link: [Astrogram](https://astrogram-jeff.herokuapp.com)
 
-## Getting started
+[Astrogram](https://astrogram-jeff.herokuapp.com), inspired by [instagram](https://www.instagram.com/), is a web application that allows users to post pictures of their favorite Astrophysics related topics, galaxy, or anything universe/space related and even casual photos. As a registered user you can post photos give likes to posts, remove likes in posts, edit a post description, delete posts, create comments, like and dislike likes in comments, edit comments, remove comments, follow and unfollow users, and also make use of a search bar feature.
 
-1. Clone this repository (only this branch)
+#
 
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
+## Table of content
 
-2. Install dependencies
+1. [Getting Started](https://github.com/JeffersonGarcia15/UniverseJF#getting-started)
+2. [Technologies Used](https://github.com/JeffersonGarcia15/UniverseJF#technologies-used)
+3. [Key Features](https://github.com/JeffersonGarcia15/UniverseJF#key-features)
+4. [Code Snippets](https://github.com/JeffersonGarcia15/UniverseJF#code-snippets)
+5. [Wiki](https://github.com/JeffersonGarcia15/UniverseJF#wikii)
+6. [Future Goals](https://github.com/JeffersonGarcia15/UniverseJF#future-goals)
 
-      ```bash
-      pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
-      ```
+#
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
+## Getting Started
 
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app
+1. Clone this repository
+2. Install dependencies (`npm install`)
+3. Create a `.env` file based on the `.env.example` and replace the value of `SESSION_SECRET` with your own `SESSION_SECRET` value. You can generate a value by using [UUID](https://www.npmjs.com/package/uuid) to have a more secure value.
+4. Set up your PostgreSQL astrogram_user user, a password and database and make sure it matches the `.env` file. Make sure to give CREATEDB privileges to your astrogram_user user.
+5. Enter the following commands:
 
-   ```bash
-   pipenv shell
-   ```
+```
+pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
+pipenv shell
+flask db upgrade
+flask seed all
+flask run
+```
 
-   ```bash
-   flask db upgrade
-   ```
+#
 
-   ```bash
-   flask seed all
-   ```
+## Technologies Used
 
-   ```bash
-   flask run
-   ```
+**Front End**
 
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+- JavaScript
+- HTML
+- CSS
+- [Favicon.io](https://favicon.io)
+- Material UI
+- React
+- Redux
+- Heroku
 
-***
-*IMPORTANT!*
-   If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
-   You can do this by running:
+**Back End**
 
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
+- Python
+- SQLAlchemy
+- Flask
+- Node.js
+- Docker
+- PostgreSQL and Postbird
+- Postman
+- AWS
 
-*ALSO IMPORTANT!*
-   psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
-   There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
-***
+#
 
-## Deploy to Heroku
+## Key Features
 
-1. Before you deploy, don't forget to run the following command in order to
-ensure that your production environment has all of your up-to-date
-dependencies. You only have to run this command when you have installed new
-Python packages since your last deployment, but if you aren't sure, it won't
-hurt to run it again.
+- Users can view, upload, edit and delete posts
+- Users can view, post, edit and delete comments
+- Users can create and destroy likes in comments and posts
+- Users can create and destroy follows
+- Users can edit their profile
+- Users can make use of a search bar feature
 
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
+#
 
-2. Create a new project on Heroku
-3. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres"
-4. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)
-5. Run
+## Code Snippets
 
-   ```bash
-   heroku login
-   ```
+- First, I filtered for the likes that belong to one user, and then I use the `.find` method to look and see if one of those likes belong to that specific post. The `.some` method returns a boolean which was useful when changing the color of the heart icon.
 
-6. Login to the heroku container registry
+```js
+const handlePostLike = (post) => async (e) => {
+  const likesInPostFunction = Object.values(postLikes)?.filter(
+    (like) => like?.post_id === post.id
+  ); // likes => postLikes has user_id, post_id
+  const isPostLikedFunction = likesInPostFunction?.some(
+    (like) => like.user_id === sessionUser.id
+  );
+  setPostId(post?.id);
+  if (isPostLikedFunction) {
+    let singlePostLike = likesInPostFunction.find(
+      (like) => like.user_id === sessionUser.id && like.post_id === post.id
+    );
 
-   ```bash
-   heroku container:login
-   ```
+    await dispatch(deleteAPostLike(singlePostLike?.id));
+    setDeleteSwitch((prev) => !prev);
+  } else {
+    await dispatch(
+      createPostLike({ user_id: sessionUser.id, post_id: post?.id })
+    );
+  }
+};
 
-7. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
-   This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
-8. Push your docker container to heroku from the root directory of your project.
-   (If you are using an M1 mac, follow [these steps below](#for-m1-mac-users) instead, then continue on to step 9.)
-   This will build the Dockerfile and push the image to your heroku container registry.
+function heartColor(postId) {
+  const likesInPostFunction = Object.values(postLikes)?.filter(
+    (like) => like?.post_id === postId
+  ); // likes => postLikes has user_id, post_id
+  const isPostLikedFunction = likesInPostFunction?.some(
+    (like) => like.user_id === sessionUser.id
+  );
 
-   ```bash
-   heroku container:push web -a {NAME_OF_HEROKU_APP}
-   ```
+  return isPostLikedFunction;
+}
 
-9. Release your docker container to heroku
+<FavoriteIcon
+  onClick={handlePostLike(post)}
+  style={{ color: heartColor(post.id) ? "red" : "gray" }}
+  className="icon"
+></FavoriteIcon>;
+```
 
-      ```bash
-      heroku container:release web -a {NAME_OF_HEROKU_APP}
-      ```
+* For the followers, I started by creating a variable that would hold a boolean value. And all it does is to check, for a given profile user, which depends on the username passed in the url, and see if the current user, the one that is signed in, is part of the array of followers. If it is, I enabled the `Follow` option, else the `Unfollow` one. 
 
-10. set up your database
+```js
+let Following = profiles?.user?.followers?.includes(user?.username)
+  ? true
+  : false;
+async function followButton() {
+  if (Following === false) {
+    await dispatch(createFollower(follower_id, profiles?.user?.id));
+    Following = true;
+  } else {
+    await dispatch(deleteFollower(follower_id, profiles?.user?.id));
+    Following = false;
+  }
+}
+{
+  user?.id !== profiles?.user?.id && (
+    <div>
+      <button
+        className={Following ? "btn-unfollow" : "btn-follow"}
+        onClick={followButton}
+      >
+        {Following ? "Unfollow" : "Follow"}
+      </button>
+    </div>
+  );
+}
+```
 
-      ```bash
-      heroku run -a {NAME_OF_HEROKU_APP} flask db upgrade
-      heroku run -a {NAME_OF_HEROKU_APP} flask seed all
-      ```
+* I decided to include this code snippet, as I was kind of ignoring the fact that awsS3 will give you issues if you do NOT upload a new photo when changing a user's info as it is looking for a unique file(`get_unique_filename`) so all I did was to put some conditionals to check if we are asking our app to actually change our photo or not. This might also be useful for other people that might be interested on implementing awsS3 ion their projects as I actually helped a few people with awsS3. Hopefully, this code snippet will help clarify whatever questions they have.
 
-11. Under Settings find "Config Vars" and add any additional/secret .env
-variables.
+```py
+@user_routes.route('/<int:id>', methods=['PUT'])
+def update(id):
+    user = User.query.get(id)
+    if "image" not in request.files:
+        url = request.form['image']
+    else:
+        image = request.files["image"]
+        if not allowed_file(image.filename):
+            return {"errors": ["file type not permitted"]}, 400
 
-12. profit
+        image.filename = get_unique_filename(image.filename)
 
-### For M1 Mac users
+        upload = upload_file_to_s3(image)
 
-(Replaces **Step 8**)
+        if "url" not in upload:
+            return {'errors': [upload]}, 400
 
-1. Build image with linux platform for heroku servers. Replace
-{NAME_OF_HEROKU_APP} with your own tag:
+        url = upload["url"]
+    user.username = request.form['username']
+    user.full_name = request.form['full_name']
+    user.website = request.form['website']
+    user.bio = request.form['bio']
+    user.phone = request.form['phone']
+    user.gender = request.form['gender']
+    user.profile_image = url
 
-   ```bash=
-   docker buildx build --platform linux/amd64 -t {NAME_OF_HEROKU_APP} .
-   ```
+    db.session.commit()
+    return user.to_dict()
 
-2. Tag your app with the url for your apps registry. Make sure to use the name
-of your Heroku app in the url and tag name:
+```
 
-   ```bash=2
-   docker tag {NAME_OF_HEROKU_APP} registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
+#
 
-3. Use docker to push the image to the Heroku container registry:
+## Wiki
 
-   ```bash=3
-   docker push registry.heroku.com/{NAME_OF_HEROKU_APP}/web
-   ```
-# Astrogram
+[Wire Frame](https://github.com/JeffersonGarcia15/Astrogram/wiki/Wire-Frame)
+
+[Feature List](https://github.com/JeffersonGarcia15/Astrogram/wiki/Feature-List)
+
+[API Routes](https://github.com/JeffersonGarcia15/Astrogram/wiki/API-Routes)
+
+[Schema](https://github.com/JeffersonGarcia15/Astrogram/wiki/Database-Schema)
+
+
+![Database Schema](https://i.ibb.co/9qwRk85/Screen-Shot-2021-07-26-at-12-06-57-PM.png)
+
+#
+
+## Future Goals
+
+- Full CRUD for Google Map/Location for post locations
+- Messages using websockets
+- Hashtags
+- Albums/MultiUpload
+- Saved Posts
+- Ability to 'send' money to friends just like Facebook does
