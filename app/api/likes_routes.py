@@ -27,12 +27,10 @@ def singleLike(id, pid):
 @like_routes.route('/new', methods=['POST'])
 def postLike():
     request_json = request.get_json()
-    print('@@@@@@@@@@@@@@@@@@@@@@', request_json)
     like = Like(
         user_id=request_json['user_id'],
         post_id=request_json['post_id']
     )
-    print('$$$$$$$$$$$$$$$$$$$$$$$$', like)
     db.session.add(like)
     db.session.commit()
     return request.get_json()

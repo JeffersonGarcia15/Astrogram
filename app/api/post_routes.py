@@ -80,7 +80,6 @@ def updatePost(id):
 def deletePost(id):
     # post = Post.query.get(id)
     post = Post.query.filter_by(id = id).delete()
-    print('#####################################', post)
     # db.session.delete(post)
     db.session.commit() 
     return {"Message": "Success" } 

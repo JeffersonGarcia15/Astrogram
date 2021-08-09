@@ -1,79 +1,57 @@
 import React, { useEffect, useState } from 'react'
-import { Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllPosts, unloadPosts} from '../../store/post';
+import { getAllPosts} from '../../store/post';
 import Grid from '@material-ui/core/Grid'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
-import UpdateDeletePost from '../UpdateDeletePost';
 import Comments from '../Comment'
-import { getAllLikes, createPostLike, deleteAPostLike, getASingleLike, unloadPostLikes } from '../../store/postlike';
+import { getAllLikes, createPostLike, deleteAPostLike, getASingleLike } from '../../store/postlike';
 import './Feed.css'
 
 function Feed() {
-    const history = useHistory()
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
     const posts = useSelector(state => state.posts)
-    const userPosts = Object.values(posts)?.filter(post => sessionUser?.id === post.user_id)
     const postLikes = useSelector(state => state.postLikes)
-    const postLikesArray = Object.values(postLikes)
     const [post_id, setPostId] = useState(0)
-    const postLike2 = useSelector(state => state.postLikes.like)
-    const likesInPost = Object.values(postLikes)?.filter(like => like?.post_id == post_id) // likes => postLikes has user_id, post_id
-    const isPostLiked = likesInPost?.some(like => like.user_id == sessionUser.id)
-    const[postLike, setPostLike] = useState(false)
+    const likesInPost = Object.values(postLikes)?.filter(like => like?.post_id === post_id) // likes => postLikes has user_id, post_id
+    const isPostLiked = likesInPost?.some(like => like.user_id === sessionUser.id)
+    const[setPostLike] = useState(false)
     const [deleteSwitch, setDeleteSwitch] = useState(false)
 
     useEffect(() => {
-        if (isPostLiked) {
-            setPostLike(true)
-        }
-        else {
-            setPostLike(false)
-        }
+
         dispatch(getAllPosts());
         dispatch(getAllLikes());
-        // return () => dispatch(unloadPostLikes())
-    }, [dispatch, isPostLiked, deleteSwitch])
+    }, [dispatch, isPostLiked, deleteSwitch, setPostLike])
 
 
-        // < div > { profiles?.user?.followers?.length } followers</div >
 
     const handlePostLike = (post) => async (e) => {
-        const likesInPostFunction = Object.values(postLikes)?.filter(like => like?.post_id == post.id) // likes => postLikes has user_id, post_id
-        const isPostLikedFunction = likesInPostFunction?.some(like => like.user_id == sessionUser.id)
+        const likesInPostFunction = Object.values(postLikes)?.filter(like => like?.post_id === post.id) // likes => postLikes has user_id, post_id
+        const isPostLikedFunction = likesInPostFunction?.some(like => like.user_id === sessionUser.id)
         setPostId(post?.id)
         if (isPostLikedFunction) {
-            let singlePostLike = likesInPostFunction.find(like => like.user_id == sessionUser.id && like.post_id == post.id)
+            let singlePostLike = likesInPostFunction.find(like => like.user_id === sessionUser.id && like.post_id === post.id)
 
             await dispatch(deleteAPostLike(singlePostLike?.id))
             setDeleteSwitch((prev) => !prev)
-            setPostLike(false)
-            // window.location.reload(true)
         }
         else {
             await dispatch(createPostLike({user_id: sessionUser.id, post_id: post?.id}))
-            setPostLike(true)
         }
     }
 
-    const info = useEffect(() => {
+    useEffect(() => {
         dispatch(getASingleLike(sessionUser.id, post_id))
-    }, [dispatch, post_id])
+    }, [dispatch, post_id, sessionUser?.id])
 
 
     function heartColor(postId) {
-        const likesInPostFunction = Object.values(postLikes)?.filter(like => like?.post_id == postId) // likes => postLikes has user_id, post_id
-        const isPostLikedFunction = likesInPostFunction?.some(like => like.user_id == sessionUser.id)
-        // if (e.target.value.length > 0) {
-        //     if (isPostLikedFunction) {
-        //         e?.target?.classList?.add('liked')
-        //     }
-        //  else {
-        //     e?.target?.classList?.remove('liked')
-        // }
+        const likesInPostFunction = Object.values(postLikes)?.filter(like => like?.post_id === postId) // likes => postLikes has user_id, post_id
+        const isPostLikedFunction = likesInPostFunction?.some(like => like.user_id === sessionUser.id)
+
         return isPostLikedFunction
     }
     return (
@@ -91,30 +69,21 @@ function Feed() {
                             <div key={post.id}>
                                 <div className="post">
                                     <div className="user-info">
-                                        <img className="userphoto" src={post?.user?.profile_image} />
+                                        <img className="userphoto" alt='' src={post?.user?.profile_image} />
                                         <a className="username" href={`/users/${post?.user?.username}`} >{post?.user?.username}</a>
                                     </div>
-                                    {/* <div> */}
-                                    {/* <strong>{post?.user?.username}</strong> */}
-                                    {/* <p>{post.location.city}, {post.location.state}</p> */}
-                                    {/* </div> */}
+             
                                     <div>
-                                        <img className="post-img" src={post?.picture_url}></img>
+                                        <img className="post-img" alt='' src={post?.picture_url}></img>
                                     </div>
                                     <div className=" post-description">
                                         <div className="icons">
-                                            {/* <div onClick={handlePostLike(post)} style={{ color: heartColor(post.id) ? 'red' : 'gray'}}> */}
                                             <FavoriteIcon onClick={handlePostLike(post)} style={{ color: heartColor(post.id) ? 'red' : 'gray' }} className="icon"></FavoriteIcon>
 
-                                            {/* </div> */}
-                                            {/* <div> */}
+                                          
                                             <ChatBubbleOutlineOutlinedIcon className="icon"></ChatBubbleOutlineOutlinedIcon>
 
-                                            {/* </div> */}
-                                            {/* <div> */}
-
                                             <SendOutlinedIcon className="icon"></SendOutlinedIcon>
-                                            {/* </div> */}
                                         </div>
                                         <div className="comments">
                                             <div>
@@ -124,10 +93,7 @@ function Feed() {
                                             <hr></hr>
                                             {}
                                 <Comments post_id={post.id}></Comments>
-                                            <div>
-                                                {/* <label>This will be replaced with a "Comment Component"</label> */}
-                                                {/* <input placeholder="Add a comment" type="text"></input> */}
-                                            </div>
+                                
                                         </div>
                                     </div>
                                 </div>

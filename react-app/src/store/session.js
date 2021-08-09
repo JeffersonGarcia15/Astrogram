@@ -2,7 +2,6 @@
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 const UPDATE_USER = 'session/UPDATE_USER';
-const USER_INFO = 'session/USER_INFO'
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -13,15 +12,6 @@ const removeUser = () => ({
   type: REMOVE_USER,
 })
 
-const editUser = (user) => ({
-  type: UPDATE_USER,
-  user
-})
-
-const userInfo = user => ({
-  type: USER_INFO,
-  user
-})
 
 const initialState = { user: null };
 
@@ -83,29 +73,7 @@ export const logout = () => async (dispatch) => {
 };
 
 
-// export const signUp = (username, full_name, email, password) => async (dispatch) => {
 
-//   const formData = new FormData()
-
-//   formData.append('username', username)
-//   formData.append('full_name', full_name)
-//   formData.append('email', email)
-//   formData.append('password', password)
-
-//   const response = await fetch('/api/auth/signup', {
-//     method: 'POST',
-//     headers: {
-//       'enctype': 'multipart/form-data'
-//     },
-//     body: formData
-//   })
-//   const data = await response.json()
-//   if (data.errors) {
-//     return data
-//   }
-//   dispatch(editUser(data))
-//   return data
-// }
 
 export const signUp = (username, full_name, email, password) => async (dispatch) => {
   const response = await fetch('/api/auth/signup', {

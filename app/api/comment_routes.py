@@ -29,7 +29,6 @@ def comment_edit(id):
     request_json = request.get_json()
     comment = Comment.query.get(id)
     comment.body = request_json['body']
-    print('$$$$$$$$$$$$$$$$$$$$$', comment.body)
     db.session.commit()
     return comment.to_dict()
 

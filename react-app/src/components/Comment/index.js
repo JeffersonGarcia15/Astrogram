@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Redirect } from 'react-router-dom';
 import { getAllComments, createComment, updateComment, deleteComment } from '../../store/comment'
 import { getAllPosts } from '../../store/post';
 import { getAllCommentLikes, createCommentLike, deleteACommentLike, unloadCommentLikes } from '../../store/commentlike';
@@ -13,37 +12,29 @@ import './Comment.css'
 
 function Comments({ post_id }) {
     const dispatch = useDispatch()
-    // const { post_id } = useParams()
     const [errors, setErrors] = useState([])
     const [newErrors, setNewErrors] = useState([])
     const user = useSelector(state => state.session.user)
     const comments = useSelector(state => state.comments)
-    const posts = useSelector(state => state.posts)
     const commentLikes = useSelector(state => state.commentLikes)
     const [comment_id, setCommentId] = useState(0)
     const [body, setBody] = useState('')
     const [newComment, setNewComment] = useState('')
     const [showForm, setShowForm] = useState('')
     const [formId, setFormId] = useState(null)
-    const comment = Object.values(comments)
-    const [commentLike, setCommentLike] = useState(false)
-    const likesInCommentFunction = Object.values(commentLikes)?.filter(like => like?.comment_id == comment_id) // in this case this has comment_id and user_id
-    const isCommentLikedFunction = likesInCommentFunction?.some(like => like.user_id == user.id)
+    const [setCommentLike] = useState(false)
+    const likesInCommentFunction = Object.values(commentLikes)?.filter(like => like?.comment_id === comment_id) // in this case this has comment_id and user_id
+    const isCommentLikedFunction = likesInCommentFunction?.some(like => like.user_id === user.id)
     const [deleteSwitch, setDeleteSwitch] = useState(false)
 
 
     useEffect(() => {
-        if (isCommentLikedFunction) {
-            setCommentLike(true)
-        }
-        else {
-            setCommentLike(false)
-        }
+
         dispatch(getAllComments())
         dispatch(getAllCommentLikes())
         dispatch(getAllPosts())
         return () => dispatch(unloadCommentLikes)
-    }, [dispatch, deleteSwitch])
+    }, [dispatch, deleteSwitch, isCommentLikedFunction, setCommentLike])
 
     // useEffect(() => {
     // }, [dispatch])
@@ -70,7 +61,6 @@ function Comments({ post_id }) {
         else {
             setErrors(validatorErrors)
         }
-        // window.location.reload(true)
     }
 
 
@@ -84,13 +74,12 @@ function Comments({ post_id }) {
 
         e.preventDefault()
         if (!validatorErrors.length) {
-            const data = await dispatch(updateComment(user.id, post_id, body, comment_id))
+            await dispatch(updateComment(user.id, post_id, body, comment_id))
             setShowForm(false)
         }
         else {
             setNewErrors(validatorErrors)
         }
-        // window.location.reload(true)
 
     }
 
@@ -110,40 +99,30 @@ function Comments({ post_id }) {
     }
 
     const handleCommentLike = (comment) => async (e) => {
-        const likesInComment = Object.values(commentLikes)?.filter(like => like?.comment_id == comment.id) // in this case this has comment_id and user_id
-        const isCommentLiked = likesInComment?.some(like => like.user_id == user.id)
+        const likesInComment = Object.values(commentLikes)?.filter(like => like?.comment_id === comment.id) // in this case this has comment_id and user_id
+        const isCommentLiked = likesInComment?.some(like => like.user_id === user.id)
         setCommentId(comment?.id)
         if (isCommentLiked) {
-            let singleCommentLike = likesInComment.find(like => like.user_id == user.id && like.comment_id == comment.id)
+            let singleCommentLike = likesInComment.find(like => like.user_id === user.id && like.comment_id === comment.id)
 
             await dispatch(deleteACommentLike(singleCommentLike?.id))
             setDeleteSwitch((prev) => !prev)
-            setCommentLike(false)
             // window.location.reload(true)
 
         }
         else {
             await dispatch(createCommentLike({ user_id: user.id, comment_id: comment?.id }))
-            setCommentLike(true)
             // window.location.reload(true)
         }
     }
 
     function heartColor(commentId) {
-        const likesInComment = Object.values(commentLikes)?.filter(like => like?.comment_id == commentId) // in this case this has comment_id and user_id
-        const isCommentLiked = likesInComment?.some(like => like.user_id == user.id)
-        // if (e.target.value.length > 0) {
-        //     if (isPostLikedFunction) {
-        //         e?.target?.classList?.add('liked')
-        //     }
-        //  else {
-        //     e?.target?.classList?.remove('liked')
-        // }
+        const likesInComment = Object.values(commentLikes)?.filter(like => like?.comment_id === commentId) // in this case this has comment_id and user_id
+        const isCommentLiked = likesInComment?.some(like => like.user_id === user.id)
+
         return isCommentLiked
-        // console.log('Q3b0M mamdam foto hila', post_id)
     }
 
-    // console.log('{{{{{{{{{{{{{{{{{{{', commentLikes);
 
     return (
         <div>
@@ -212,7 +191,7 @@ function Comments({ post_id }) {
                     ))}
                 </div>
                 <div className='new-comment'>
-                    <input className="submit-comment" value={newComment} onChange={(e) => setNewComment(e.target.value)} cols="30" rows="10" ></input>
+                    <input placeholder='Add comment...' className="submit-comment" value={newComment} onChange={(e) => setNewComment(e.target.value)} cols="30" rows="10" ></input>
                     <button className='btn-comment-submit' type="submit">Submit</button>
 
                 </div>

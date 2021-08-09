@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
-import { Redirect, useHistory } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import LogoutButton from './auth/LogoutButton';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import LoginFormModal from '../components/auth/LoginForm/LoginFormModal'
-import SignUpFormModal from './auth/SignUpForm/SignUpFormModal';
-import SignUpForm from '../components/auth/SignUpForm/SignUpForm';
-import LoginForm from '../components/auth/LoginForm/LoginForm'
 import PostUploadModal from '../context/PostUploadModal'
 import { getAllUsers } from '../store/profile'
 
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import Demo from '../components/Demo'
 import './NavBar.css'
 
 const NavBar = ({ loaded, setResults }) => {
   const history = useHistory()
-  const { username } = useParams()
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch()
   const users = useSelector(state => state.profile)
@@ -55,7 +49,7 @@ const NavBar = ({ loaded, setResults }) => {
           </div>
           <div className='searchbar'>
             <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={(e) => {
-              if (e.key === 'Enter' && e.target.value.length != '') {
+              if (e.key === 'Enter' && e.target.value.length > 0) {
                 return handleClick()
               }
             }} placeholder="            🔍  Search" ></input>
@@ -86,14 +80,9 @@ const NavBar = ({ loaded, setResults }) => {
     sessionLinks = (
       <>
         <div>
-          {/* <LoginFormModal></LoginFormModal> */}
-          {/* <LoginForm></LoginForm> */}
+          
         </div>
-        <div>
-          {/* <SignUpFormModal></SignUpFormModal> */}
-          {/* <SignUpForm></SignUpForm> */}
-        </div>
-        {/* <div><Demo></Demo></div> */}
+
 
       </>
     )

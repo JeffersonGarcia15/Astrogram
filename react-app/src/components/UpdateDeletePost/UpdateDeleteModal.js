@@ -7,10 +7,6 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 function UDModal({ username, postId, setDeleteSwitch }) {
     const [showModal, setShowModal] = useState(false)
 
-    const openMenu = () => {
-        if (showModal) return;
-        setShowModal(true)
-    }
 
     useEffect(() => {
         if (!showModal) return;

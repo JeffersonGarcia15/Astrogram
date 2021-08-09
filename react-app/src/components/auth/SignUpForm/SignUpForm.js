@@ -13,7 +13,6 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const [profile_image, setProfileImage] = useState('')
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory()
@@ -55,11 +54,10 @@ const SignUpForm = () => {
     }
 
     if (!validatorErrors.length) {
-      const data = await dispatch(signUp(username, full_name, email, password, profile_image));
+      const data = await dispatch(signUp(username, full_name, email, password));
       if (data?.errors) {
         setErrors(data?.errors)
-        // } else {
-        //   <Redirect to='/'></Redirect>
+      
       }
       else {
 
@@ -89,6 +87,7 @@ const SignUpForm = () => {
   const updateRepeatPassword = (e) => {
     setRepeatPassword(e.target.value);
   };
+
 
   function FloatingEvt(evt) {
     if (evt.target.value.length > 0) {

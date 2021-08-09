@@ -9,7 +9,7 @@ const LogoutButton = () => {
   };
 
   return <button onClick={onLogout} style={{ background: 'transparent', border: 'none', cursor: 'pointer'}}>
-    <ExitToAppOutlinedIcon style={{ outline: 'none', outline: 'none'}} />
+    <ExitToAppOutlinedIcon style={{ outline: 'none'}} />
   </button>;
 };
 

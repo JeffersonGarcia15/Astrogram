@@ -75,11 +75,7 @@ export const deleteAPostLike = (like_id) => async (dispatch) => {
 
 const initialState = {}
 
-const starterState = {
-    all: {},
-    current: null,
-    loaded: false
-}
+
 
 export default function postLikes(state = initialState, action) {
     let updatedState = { ...state }
@@ -102,11 +98,7 @@ export default function postLikes(state = initialState, action) {
         case DELETE_POSTLIKE:
             delete updatedState[action.like.id]
             return updatedState
-        // case UNLOAD_POSTLIKES:
-        //     return {
-        //         ...starterState,
-        //         current: null
-        //     }
+
         default:
             return state
     }

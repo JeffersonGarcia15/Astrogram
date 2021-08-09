@@ -60,8 +60,6 @@ export default function followers(state = initialState, action) {
                 }
             })
             return newState
-            // delete updatedState[action.follower]
-            // return updatedState
         }
         default:
             return state
