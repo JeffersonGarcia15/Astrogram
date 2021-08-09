@@ -23,7 +23,6 @@ export const getAllUsers = () => async (dispatch) => {
 }
 
 export const getUserInfo = (username) => async (dispatch) => {
-    console.log('!!!!!!!!!!!!!!!!! username here', username)
     const response = await fetch(`/api/users/${username}`)
     const user = await response.json()
     dispatch(userInfo(user))
@@ -32,7 +31,6 @@ export const getUserInfo = (username) => async (dispatch) => {
 const initialState = { }
 
 export default function profile(state = initialState, action) {
-    let updatedState = { ...state }
     let newState;
     switch (action.type) {
         case ALL_USERS: {
@@ -46,8 +44,6 @@ export default function profile(state = initialState, action) {
         }
 
         case USER_INFO: {
-            // updatedState[action.user.id] = action.user
-            // return updatedState
             newState = Object.assign({}, state)
             newState.user = action.payload
             return newState

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { editProfileUser } from '../../store/session'
-import { getUserInfo } from '../../store/profile'
 
 
-function EditProfile({ usernameInfo }) {
+function EditProfile() {
     const history = useHistory()
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
@@ -18,9 +17,7 @@ function EditProfile({ usernameInfo }) {
     const [gender, setGender] = useState(user.gender)
     const [profile_image, setProfileImage] = useState(user.profile_image)
 
-    // useEffect(() => {
-    //     dispatch(editProfileUser(user?.id))
-    // }, [dispatch, user?.id])
+
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -31,7 +28,6 @@ function EditProfile({ usernameInfo }) {
 history.push('/')
     };
 
-    // await dispatch(getUserInfo(usernameInfo))
 
 
 

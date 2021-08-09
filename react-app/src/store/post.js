@@ -56,9 +56,7 @@ export const createPost = (user_id, description, picture_url) => async (dispatch
     const formData = new FormData()
 
     formData.append('user_id', user_id)
-    // formData.append('location_id', JSON.stringify(location_id))
     formData.append('description', description)
-    // formData.append('album_id', JSON.stringify(album_id))
 
     if (picture_url) formData.append("image", picture_url)
 
@@ -73,7 +71,6 @@ export const createPost = (user_id, description, picture_url) => async (dispatch
     if (data.errors) {
         return data
     }
-    // debugger
     dispatch(addPost(data))
     return data
 
@@ -81,7 +78,6 @@ export const createPost = (user_id, description, picture_url) => async (dispatch
 
 
 export const editPost = post => async (dispatch) => {
-    // const {description, postId} = post
     const response = await fetch(`/api/posts/${post.postId}`, {
         method: 'PUT',
         headers: {
@@ -107,61 +103,10 @@ export const deletePost = postId => async (dispatch) => {
 }
 
 
-// const initialState = {
-//     all: {},
-//     current: null,
-//     allLoaded: false,
-//     singleLoaded: false,
-// }
+
 const initialState = {}
 
-// export default function posts(state = initialState, { type, posts, post }) {
-//     switch (type) {
-//         case GET_POSTS:
-//             return {
-//                 ...state,
-//                 all: posts,
-//                 allLoaded: true
-//             }
-//         case CREATE_POST:
-//             return {
-//                 ...state,
-//                 all: {
-//                     ...state.all,
-//                     [post.id]: post
-//                 },
-//                 current: state.current,
-//                 singleLoaded: state.singleLoaded
-//             }
-//         case DELETE_POST:
-//             if (state.current === post.id) {
-//                 delete state.all[post.id]
-//                 return {
-//                     ...state,
-//                     all: {
-//                         ...state.all
-//                     },
-//                     current: null,
-//                     singleLoaded: false
-//                 }
-//             }
-//         // case UPDATE_POST: {
-//         //     updatedState[action.post.id] = action.post
-//         //     return updatedState
-//         // }
-//         case UNLOAD_POSTS:
-//             return {
-//                 ...initialState,
-//                 all: {
-//                     ...initialState.all,
-//                 },
-//                 current: null,
-//                 allLoaded: false,
-//             }
 
-
-//     }
-// }
 
 export default function posts(state = initialState, action) {
     let updatedState = { ...state }
@@ -193,7 +138,6 @@ export default function posts(state = initialState, action) {
                     newState[post.id] = post
                 }
             })
-            // delete updatedState[action.post]
             return newState
         }
         default:

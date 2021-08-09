@@ -74,10 +74,7 @@ const LoginForm = () => {
           </div>
           <button type='submit' className="btn-form">Login</button>
         </form>
-        {/*     
-      <p className="title">
-          Sign up to see photos and videos from your friends.
-      </p> */}
+
         <div className="line">
           <p className="l-line"></p>
           <p className="t-line">OR</p>

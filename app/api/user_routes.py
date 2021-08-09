@@ -12,8 +12,6 @@ user_routes = Blueprint('users', __name__)
 def users():
     users = User.query.all()
     user1 = User.query.get(1)
-    print('##############################################',user1.username)
-    print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', users)
     return {'users': [user.to_dict() for user in users]}
 
 
@@ -26,7 +24,6 @@ def user(id):
 @user_routes.route('/<string:username>')
 def user_info(username):
     user = User.query.filter_by(username=username).first()
-    print("&&&&&&&&&&&&&&&&&&&&&&", user)
     return user.to_dict_user_info()
 
 @user_routes.route('/<int:id>', methods=['PUT'])
@@ -47,7 +44,6 @@ def update(id):
             return {'errors': [upload]}, 400
 
         url = upload["url"]
-    print('################## BEFORE THE CHANGE', user.username, user.full_name, user.website, user.bio, user.phone, user.gender, user.profile_image)
     user.username = request.form['username']
     user.full_name = request.form['full_name']
     user.website = request.form['website']
@@ -55,20 +51,8 @@ def update(id):
     user.phone = request.form['phone']
     user.gender = request.form['gender']
     user.profile_image = url
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AFTER THE CHANGE', user.username, user.full_name, user.website, user.bio, user.phone, user.gender, user.profile_image)
-    # user = User(
-    #     user_id = id,
-    #     username=username,
-    #     full_name=full_name,
-    #     website=website,
-    #     bio=bio,
-    #     phone=phone,
-    #     gender=gender,
-    #     profile_image=url
-    # )
-    # db.session.add(user)
+
     db.session.commit()
-    # return {"Success": 'success'}
     return user.to_dict()
 
     

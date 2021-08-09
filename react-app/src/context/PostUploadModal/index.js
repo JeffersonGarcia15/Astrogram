@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Modal } from '../Modal'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useParams } from 'react-router-dom'
 import { createPost } from '../../store/post'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import { getUserInfo } from '../../store/profile'
@@ -15,9 +14,6 @@ function PhotoUploadModal() {
     const [picture_url, setPictureUrl] = useState(null)
     const [showMenu, setShowMenu] = useState(false)
 
-    // useEffect(() => {
-    //     dispatch(getUserInfo(user?.username))
-    // }, [dispatch, user?.username])
 
     const openMenu = () => {
         if (showMenu) return;
@@ -40,7 +36,6 @@ function PhotoUploadModal() {
         await dispatch(getUserInfo(user?.username))
         setShowMenu(false)
         setDescription('')
-        // window.location.reload(true)
     }
 
     const updateFile = (e) => {
@@ -51,7 +46,7 @@ function PhotoUploadModal() {
     return (
         <div>
             <button onClick={openMenu} style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}>
-                <AddAPhotoIcon style={{ outline: 'none', outline: 'none' }} />
+                <AddAPhotoIcon style={{ outline: 'none' }} />
             </button>
             {showMenu && (
                 <div>

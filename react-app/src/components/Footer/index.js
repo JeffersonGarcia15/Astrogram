@@ -4,7 +4,6 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import BuildIcon from '@material-ui/icons/Build';
 import { DiPython, DiReact, DiNodejs } from 'react-icons/di'
 import { SiJavascript, SiRedux, SiDocker, SiHeroku, SiFlask, SiPostgresql, SiPostman, SiAmazonaws, SiHtml5, SiCss3, SiMaterialUi } from 'react-icons/si'
-import { Tooltip } from '@material-ui/core'
 import './footer.css'
 
 

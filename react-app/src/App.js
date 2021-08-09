@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm/LoginForm';
 import SignUpForm from './components/auth/SignUpForm/SignUpForm';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
 import Profile from './components/Profile'
 import Home from './components/Home'
 import Comments from './components/Comment'
@@ -49,12 +47,7 @@ function App() {
         <Route exact path='/search'>
           <Search results={results}></Search>
         </Route>
-        {/* <Route exact path='/users/:name'>
-          <Profile />
-        </Route> */}
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
+
         <ProtectedRoute path='/users/:username' exact={true} >
             <Profile />
         </ProtectedRoute>

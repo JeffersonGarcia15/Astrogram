@@ -6,7 +6,6 @@ function Search({ results }) {
         <div>
             {results[0]?.length >= 1 ? (
                 <div>
-                    {/* <button onClick={() => console.log('results', results)}>ifdjifj</button> */}
                     {
                         results.map((user, idx) => (
                             <div key={idx}>
@@ -14,7 +13,7 @@ function Search({ results }) {
                                     <h4>The results from the search were the following: </h4>
                                     {user.map(singleUser => (
                                         <div className="user-search" key={singleUser.id}>
-                                            <img className='user-photo-search' src={singleUser?.profile_image} />
+                                            <img className='user-photo-search' src={singleUser?.profile_image} alt='' />
                                             <a className="username-search"href={`/users/${singleUser?.username}`}>
                                                 <h1>{singleUser.username}</h1>
                                             </a>
