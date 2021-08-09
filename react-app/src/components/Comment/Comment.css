@@ -37,5 +37,6 @@
 .comment-heart{
     float: right;
     align-self: flex-end;
-    padding-left: 50%;
+    margin-left: auto;
+    padding-right: 10px;
 }
