@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { login } from '../../../store/session';
 import Demo from '../../Demo';
 import '../auth.css'
 
 const LoginForm = () => {
+  const history = useHistory();
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -87,7 +88,7 @@ const LoginForm = () => {
         </div>
         <div className="form-bottom">
           <p>Don't have an account?
-            <a href="/sign-up">
+            <a onClick={e => { e.preventDefault(); history.push(`/sign-up`) }} href="/sign-up">
               Sign up</a>
           </p>
         </div>

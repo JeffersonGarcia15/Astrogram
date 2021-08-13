@@ -134,6 +134,7 @@ align-items: center;
 margin-left: 5px;
 text-decoration: none;
 color: #4cb5f9;
+cursor: pointer;
 }
 .form-group{
     display: flex;

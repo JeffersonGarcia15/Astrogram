@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink} from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-
+import { NavLink, useHistory} from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import PostUploadModal from '../context/PostUploadModal'
@@ -42,10 +40,10 @@ const NavBar = ({ loaded, setResults }) => {
       <>
         <div className='navbar-container'>
           <div>
-              <a href="/">
+            <div style={{cursor: 'pointer'}} onClick={e => { e.preventDefault(); history.push(`/feed`) }}>
                 <img className="logo-navbar" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
 
-              </a>
+              </div>
           </div>
           <div className='searchbar'>
             <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={(e) => {

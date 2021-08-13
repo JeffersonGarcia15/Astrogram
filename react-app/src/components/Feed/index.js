@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getAllPosts} from '../../store/post';
 import Grid from '@material-ui/core/Grid'
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -11,6 +12,7 @@ import './Feed.css'
 
 function Feed() {
     const dispatch = useDispatch()
+    const history = useHistory()
     const sessionUser = useSelector(state => state.session.user)
     const posts = useSelector(state => state.posts)
     const postLikes = useSelector(state => state.postLikes)
@@ -70,7 +72,7 @@ function Feed() {
                                 <div className="post">
                                     <div className="user-info">
                                         <img className="userphoto" alt='' src={post?.user?.profile_image} />
-                                        <a className="username" href={`/users/${post?.user?.username}`} >{post?.user?.username}</a>
+                                        <div className="username" onClick={e => { e.preventDefault(); history.push(`/users/${post?.user?.username}`)}} >{post?.user?.username}</div>
                                     </div>
              
                                     <div>
@@ -87,7 +89,7 @@ function Feed() {
                                         </div>
                                         <div className="comments">
                                             <div>
-                                                <a className="username" href={`/users/${post?.user?.username}`}>{post?.user?.username}</a>
+                                                <a className="username" onClick={e => { e.preventDefault(); history.push(`/users/${post?.user?.username}`)}} href={`/users/${post?.user?.username}`}>{post?.user?.username}</a>
                                                 <p className="comment">{post.description}</p>
                                             </div>
                                             <hr></hr>
