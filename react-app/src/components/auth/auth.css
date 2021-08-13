@@ -135,6 +135,12 @@ margin-left: 5px;
 text-decoration: none;
 color: #4cb5f9;
 }
+.form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center ;
+}
 /* .pw-icon{
     position: absolute;
     cursor: pointer;

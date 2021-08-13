@@ -43,52 +43,55 @@ const LoginForm = () => {
   return (
     <div className="container">
       <img src={'https://astrogram.s3.us-east-2.amazonaws.com/Screen+Shot+2021-07-04+at+6.30.15+PM.png'} alt='logo'></img>
-      <div className="form-container">
-        <img className="logo" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
-        <form onSubmit={onLogin}>
-          {errors.map((error, ind) => (
-            <div className="error-container" key={ind}>{error}</div>
-          ))}
-          <div className="floating-label">
-            <input
-              name='email'
-              type='text'
-              value={email}
-              onChange={updateEmail}
-              className="form-control"
-              onBlur={FloatingEvt}
-              autoComplete="off"
-            />
-            <label htmlFor='email'>Email</label>
-          </div>
-          <div className="floating-label">
-            <input
-              name='password'
-              type='password'
-              value={password}
-              onChange={updatePassword}
-              className="form-control"
-              onBlur={FloatingEvt}
-              autoComplete="off"
-            />
-            <label htmlFor='password'>Password</label>
-          </div>
-          <button type='submit' className="btn-form">Login</button>
-        </form>
+      <div className="form-group">
+        <div className="form-container">
+          <img className="logo" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
+          <form onSubmit={onLogin}>
+            {errors.map((error, ind) => (
+              <div className="error-container" key={ind}>{error}</div>
+            ))}
+            <div className="floating-label">
+              <input
+                name='email'
+                type='text'
+                value={email}
+                onChange={updateEmail}
+                className="form-control"
+                onBlur={FloatingEvt}
+                autoComplete="off"
+              />
+              <label htmlFor='email'>Email</label>
+            </div>
+            <div className="floating-label">
+              <input
+                name='password'
+                type='password'
+                value={password}
+                onChange={updatePassword}
+                className="form-control"
+                onBlur={FloatingEvt}
+                autoComplete="off"
+              />
+              <label htmlFor='password'>Password</label>
+            </div>
+            <button type='submit' className="btn-form">Login</button>
+          </form>
 
-        <div className="line">
-          <p className="l-line"></p>
-          <p className="t-line">OR</p>
-          <p className="r-line"></p>
+          <div className="line">
+            <p className="l-line"></p>
+            <p className="t-line">OR</p>
+            <p className="r-line"></p>
+          </div>
+          <p style={{ textAlign: 'center' }}>Login with</p>
+          <Demo></Demo>
         </div>
-        <p style={{ textAlign: 'center' }}>Login with</p>
-        <Demo></Demo>
-      </div>
-      <div className="form-bottom">
-        <p>Don't have an account?
-          <a href="/sign-up">
-            Sign up</a>
-        </p>
+        <div className="form-bottom">
+          <p>Don't have an account?
+            <a href="/sign-up">
+              Sign up</a>
+          </p>
+        </div>
+
       </div>
     </div>
   );

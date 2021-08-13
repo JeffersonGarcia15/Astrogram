@@ -57,7 +57,7 @@ const SignUpForm = () => {
       const data = await dispatch(signUp(username, full_name, email, password));
       if (data?.errors) {
         setErrors(data?.errors)
-      
+
       }
       else {
 
@@ -103,91 +103,94 @@ const SignUpForm = () => {
 
   return (
     <div className="container">
-      <div className="form-container">
-        <img className="logo" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
-        <p className="title">
-          Sign up to see photos and videos from your friends.
-        </p>
-        <Demo></Demo>
-        <div className="line">
-          <p className="l-line"></p>
-          <p className="t-line">OR</p>
-          <p className="r-line"></p>
+      <img src={'https://astrogram.s3.us-east-2.amazonaws.com/Screen+Shot+2021-07-04+at+6.30.15+PM.png'} alt='logo'></img>
+      <div className='form-group'>
+        <div className="form-container">
+          <img className="logo" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
+          <p className="title">
+            Sign up to see photos and videos from your friends.
+          </p>
+          <Demo></Demo>
+          <div className="line">
+            <p className="l-line"></p>
+            <p className="t-line">OR</p>
+            <p className="r-line"></p>
+          </div>
+          <form onSubmit={onSignUp}>
+            <div>
+              {errors.map((error, ind) => (
+                <div className="error-container" key={ind}>{error}</div>
+              ))}
+            </div>
+            <div className="floating-label">
+              <input
+                type='text'
+                name='email'
+                className="form-control"
+                onChange={updateEmail}
+                value={email}
+                onBlur={FloatingEvt}
+                autoComplete="off"
+              ></input>
+              <label>Email</label>
+            </div>
+            <div className="floating-label">
+              <input
+                type='text'
+                name='fullName'
+                onChange={(e) => setFullName(e.target.value)}
+                value={full_name}
+                className="form-control"
+                onBlur={FloatingEvt}
+                autoComplete="off"
+              ></input>
+              <label>Full Name</label>
+            </div>
+            <div className="floating-label">
+              <input
+                type='text'
+                name='username'
+                onChange={updateUsername}
+                value={username}
+                className="form-control"
+                onBlur={FloatingEvt}
+                autoComplete="off"
+              ></input>
+              <label>Username</label>
+            </div>
+            <div className="floating-label">
+              <input
+                type='password'
+                name='password'
+                onChange={updatePassword}
+                value={password}
+                className="form-control"
+                onBlur={FloatingEvt}
+                autoComplete="off"
+              ></input>
+              <label>Password</label>
+            </div>
+            <div className="floating-label">
+              <input
+                type='password'
+                name='repeat_password'
+                onChange={updateRepeatPassword}
+                value={repeatPassword}
+                required={true}
+                className="form-control"
+                onBlur={FloatingEvt}
+                autoComplete="off"
+              ></input>
+              <label>Repeat Password</label>
+            </div>
+            <button type='submit' className="btn-form">Sign Up</button>
+          </form>
         </div>
-        <form onSubmit={onSignUp}>
-          <div>
-            {errors.map((error, ind) => (
-              <div className="error-container" key={ind}>{error}</div>
-            ))}
-          </div>
-          <div className="floating-label">
-            <input
-              type='text'
-              name='email'
-              className="form-control"
-              onChange={updateEmail}
-              value={email}
-              onBlur={FloatingEvt}
-              autoComplete="off"
-            ></input>
-            <label>Email</label>
-          </div>
-          <div className="floating-label">
-            <input
-              type='text'
-              name='fullName'
-              onChange={(e) => setFullName(e.target.value)}
-              value={full_name}
-              className="form-control"
-              onBlur={FloatingEvt}
-              autoComplete="off"
-            ></input>
-            <label>Full Name</label>
-          </div>
-          <div className="floating-label">
-            <input
-              type='text'
-              name='username'
-              onChange={updateUsername}
-              value={username}
-              className="form-control"
-              onBlur={FloatingEvt}
-              autoComplete="off"
-            ></input>
-            <label>Username</label>
-          </div>
-          <div className="floating-label">
-            <input
-              type='password'
-              name='password'
-              onChange={updatePassword}
-              value={password}
-              className="form-control"
-              onBlur={FloatingEvt}
-              autoComplete="off"
-            ></input>
-            <label>Password</label>
-          </div>
-          <div className="floating-label">
-            <input
-              type='password'
-              name='repeat_password'
-              onChange={updateRepeatPassword}
-              value={repeatPassword}
-              required={true}
-              className="form-control"
-              onBlur={FloatingEvt}
-              autoComplete="off"
-            ></input>
-            <label>Repeat Password</label>
-          </div>
-          <button type='submit' className="btn-form">Sign Up</button>
-        </form>
-      </div>
-      <div className="form-bottom">
-        <p>Have an account?
-          <a href="/">Login</a>
-        </p>
+        <div className="form-bottom">
+          <p>Have an account?
+            <a href="/">Login</a>
+          </p>
+        </div>
       </div>
     </div>
   );
