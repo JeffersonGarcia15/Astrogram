@@ -61,10 +61,12 @@
     outline: none;
     color: #262626;
     line-height: 0.8;
+    cursor: pointer;
 }
 
 .username:hover, .username:focus{
     border-bottom: 1px solid;
+    
 }
 
 .post-body{
