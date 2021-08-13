@@ -62,7 +62,7 @@ const SignUpForm = () => {
       else {
 
         setTimeout(() => {
-          history.push('/')
+          history.push('/feed')
         }, 0)
       }
 
@@ -98,7 +98,7 @@ const SignUpForm = () => {
   }
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/feed' />;
   }
 
   return (
@@ -186,7 +186,7 @@ const SignUpForm = () => {
       </div>
       <div className="form-bottom">
         <p>Have an account?
-          <a href="/login">Login</a>
+          <a href="/">Login</a>
         </p>
       </div>
     </div>

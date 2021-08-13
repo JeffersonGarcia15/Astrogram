@@ -33,6 +33,7 @@
 .comment-like{
     display: flex;
     width: 100%;
+    cursor: pointer;
 }
 
 .comment-heart{

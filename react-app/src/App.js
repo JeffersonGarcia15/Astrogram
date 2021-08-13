@@ -35,7 +35,7 @@ function App() {
       <NavBar setResults={setResults} loaded={loaded} />
       {loaded && (
       <Switch>
-        <Route path='/login' exact={true}>
+        <Route path='/' exact={true}>
           <LoginForm />
         </Route>
         <Route path='/sign-up' exact={true}>
@@ -51,7 +51,7 @@ function App() {
         <ProtectedRoute path='/users/:username' exact={true} >
             <Profile />
         </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
+        <ProtectedRoute path='/feed' exact={true} >
           <Home></Home>
         </ProtectedRoute>
         <Route path='*'>

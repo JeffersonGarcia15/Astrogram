@@ -2,7 +2,7 @@
 .container{
     display: flex;
     height: 100vh;
-    flex-flow: column;
+    flex-flow: row;
     justify-content: center;
     align-items: center;
     font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto

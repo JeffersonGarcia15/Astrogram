@@ -13,6 +13,7 @@ function PhotoUploadModal() {
     const [description, setDescription] = useState('')
     const [picture_url, setPictureUrl] = useState(null)
     const [showMenu, setShowMenu] = useState(false)
+    const [disable, setDisable] = useState(false)
 
 
     const openMenu = () => {
@@ -32,10 +33,13 @@ function PhotoUploadModal() {
 
     const onSubmit = async (e) => {
         e.preventDefault()
+        setDisable(disable !== !disable) //False -> True
         await dispatch(createPost(user.id, description, picture_url))
         await dispatch(getUserInfo(user?.username))
+        setDisable(true)
         setShowMenu(false)
         setDescription('')
+        setDisable(disable !== !disable)
     }
 
     const updateFile = (e) => {
@@ -67,7 +71,7 @@ function PhotoUploadModal() {
 
                                 </div>
                                 <div>
-                                <button className='form-btn-upload' type='submit'>Submit</button>
+                                    <button disabled={disable ? 'disabled' : ''} className='form-btn-upload' type='submit'>Submit</button>
 
                                 </div>
                             </form>

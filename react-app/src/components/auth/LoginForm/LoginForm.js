@@ -37,11 +37,12 @@ const LoginForm = () => {
   }
 
   if (user) {
-    return <Redirect to={`/`} />;
+    return <Redirect to={`/feed`} />;
   }
 
   return (
     <div className="container">
+      <img src={'https://astrogram.s3.us-east-2.amazonaws.com/Screen+Shot+2021-07-04+at+6.30.15+PM.png'} alt='logo'></img>
       <div className="form-container">
         <img className="logo" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
         <form onSubmit={onLogin}>

@@ -18,7 +18,7 @@ const DemoUser = () => {
         if (data) setErrors(data);
     };
 
-    if (user) history.push('/');
+    if (user) history.push('/feed');
 
     return (
         <form onSubmit={onLogin}>
