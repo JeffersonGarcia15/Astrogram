@@ -157,10 +157,10 @@ function Comments({ post_id }) {
                                             </div>
                                             <div>
                                                 <input style={{ height: '22px', marginBottom: "5px" }} value={body} onChange={(e) => setBody(e.target.value)} ></input>
-                                                <button style={{ background: '#0095f6'}}type="submit" onSubmit={(e) => editAComment(comment.id, body, e)} >
+                                                <button style={{ background: '#0095f6', cursor: 'pointer'}}type="submit" onSubmit={(e) => editAComment(comment.id, body, e)} >
                                                     <SendIcon style={{ fontSize: '18px', color: 'white'  }}></SendIcon>
                                                 </button>
-                                                <button style={{ background: '#0095f6' }} onClick={(e) => {
+                                                <button style={{ background: '#0095f6', cursor: 'pointer' }} onClick={(e) => {
                                                     e.preventDefault()
                                                     deleteAComment(comment.id)
                                                 }

@@ -2,7 +2,7 @@
 .container{
     display: flex;
     height: 100vh;
-    flex-flow: column;
+    flex-flow: row;
     justify-content: center;
     align-items: center;
     font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto
@@ -134,6 +134,12 @@ align-items: center;
 margin-left: 5px;
 text-decoration: none;
 color: #4cb5f9;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center ;
 }
 /* .pw-icon{
     position: absolute;

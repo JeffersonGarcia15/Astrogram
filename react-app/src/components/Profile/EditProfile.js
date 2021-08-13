@@ -25,7 +25,7 @@ function EditProfile() {
         if (data?.errors) {
             setErrors(data?.errors)
         }
-history.push('/')
+history.push('/feed')
     };
 
 

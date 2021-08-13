@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts} from '../../store/post';
 import Grid from '@material-ui/core/Grid'
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
-import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
+// import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
+// import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 import Comments from '../Comment'
 import { getAllLikes, createPostLike, deleteAPostLike, getASingleLike } from '../../store/postlike';
 import './Feed.css'
@@ -78,12 +78,12 @@ function Feed() {
                                     </div>
                                     <div className=" post-description">
                                         <div className="icons">
-                                            <FavoriteIcon onClick={handlePostLike(post)} style={{ color: heartColor(post.id) ? 'red' : 'gray' }} className="icon"></FavoriteIcon>
+                                            <FavoriteIcon onClick={handlePostLike(post)} style={{ color: heartColor(post.id) ? 'red' : 'gray', cursor: 'pointer' }} className="icon"></FavoriteIcon>
 
                                           
-                                            <ChatBubbleOutlineOutlinedIcon className="icon"></ChatBubbleOutlineOutlinedIcon>
+                                            {/* <ChatBubbleOutlineOutlinedIcon className="icon"></ChatBubbleOutlineOutlinedIcon> */}
 
-                                            <SendOutlinedIcon className="icon"></SendOutlinedIcon>
+                                            {/* <SendOutlinedIcon className="icon"></SendOutlinedIcon> */}
                                         </div>
                                         <div className="comments">
                                             <div>
