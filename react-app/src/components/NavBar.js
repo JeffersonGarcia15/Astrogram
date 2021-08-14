@@ -61,7 +61,7 @@ const NavBar = ({ loaded, setResults }) => {
             </NavLink>
           </div>
           <div className='logout'>
-            <LogoutButton></LogoutButton>
+            <NavLink exact={true} to='/'><LogoutButton></LogoutButton></NavLink>
           </div>
           <div className='camera'>
             <PostUploadModal></PostUploadModal>
