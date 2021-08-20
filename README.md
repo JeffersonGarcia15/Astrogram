@@ -8,7 +8,11 @@
 
 ## Quick tour part 1
 
-[Validations and likes](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.53.17+AM.mov)
+<p align="center">
+<video src="https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.53.17+AM.mov" alt="Quick Tour Part 1" style='vertical-align:top; margin:4px' >
+</p>
+
+<!-- [Validations and likes](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.53.17+AM.mov) -->
 
 
 ## Quick tour part 2
