@@ -8,13 +8,17 @@
 
 ## Quick tour part 1
 
-[Validations and likes](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.53.17+AM.mov)
+<video width="320" height="240" controls>
+  <source src="https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.53.17+AM.mov" type="video/mp4">
+  <!-- <source src="movie.ogg" type="video/ogg"> -->
+Your browser does not support the video tag.
+</video>
 
+[Validations and likes](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.53.17+AM.mov)
 
 ## Quick tour part 2
 
 [posts, search bar and more](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.56.42+AM.mov)
-
 
 ## Table of content
 
@@ -127,7 +131,7 @@ function heartColor(postId) {
 ></FavoriteIcon>;
 ```
 
-* For the followers, I started by creating a variable that would hold a boolean value. And all it does is to check, for a given profile user, which depends on the username passed in the url, and see if the current user, the one that is signed in, is part of the array of followers. If it is, I enabled the `Follow` option, else the `Unfollow` one. 
+- For the followers, I started by creating a variable that would hold a boolean value. And all it does is to check, for a given profile user, which depends on the username passed in the url, and see if the current user, the one that is signed in, is part of the array of followers. If it is, I enabled the `Follow` option, else the `Unfollow` one.
 
 ```js
 let Following = profiles?.user?.followers?.includes(user?.username)
@@ -156,7 +160,7 @@ async function followButton() {
 }
 ```
 
-* I decided to include this code snippet, as I was kind of ignoring the fact that awsS3 will give you issues if you do NOT upload a new photo when changing a user's info as it is looking for a unique file(`get_unique_filename`) so all I did was to put some conditionals to check if we are asking our app to actually change our photo or not. This might also be useful for other people that might be interested on implementing awsS3 ion their projects as I actually helped a few people with awsS3. Hopefully, this code snippet will help clarify whatever questions they have.
+- I decided to include this code snippet, as I was kind of ignoring the fact that awsS3 will give you issues if you do NOT upload a new photo when changing a user's info as it is looking for a unique file(`get_unique_filename`) so all I did was to put some conditionals to check if we are asking our app to actually change our photo or not. This might also be useful for other people that might be interested on implementing awsS3 ion their projects as I actually helped a few people with awsS3. Hopefully, this code snippet will help clarify whatever questions they have.
 
 ```py
 @user_routes.route('/<int:id>', methods=['PUT'])
@@ -201,7 +205,6 @@ def update(id):
 [API Routes](https://github.com/JeffersonGarcia15/Astrogram/wiki/API-Routes)
 
 [Schema](https://github.com/JeffersonGarcia15/Astrogram/wiki/Database-Schema)
-
 
 ![Database Schema](https://i.ibb.co/9qwRk85/Screen-Shot-2021-07-26-at-12-06-57-PM.png)
 
