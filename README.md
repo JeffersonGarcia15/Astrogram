@@ -14,7 +14,7 @@
 Your browser does not support the video tag.
 </video>
 
-<!-- [Validations and likes](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.53.17+AM.mov) -->
+[Validations and likes](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.53.17+AM.mov)
 
 ## Quick tour part 2
 
