@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { login } from '../../../store/session';
+// import GoogleLogin from 'react-google-login';
+import { GoogleLogin } from 'react-google-login'
 import Demo from '../../Demo';
 import '../auth.css'
 
@@ -39,6 +41,10 @@ const LoginForm = () => {
 
   if (user) {
     return <Redirect to={`/feed`} />;
+  }
+
+  const responseGoogle = (response) => {
+    return response
   }
 
   return (
@@ -85,6 +91,19 @@ const LoginForm = () => {
           </div>
           <p style={{ textAlign: 'center' }}>Login with</p>
           <Demo></Demo>
+          <div className="line">
+            <p className="l-line"></p>
+            <p className="t-line">OR</p>
+            <p className="r-line"></p>
+          </div>
+          <p style={{ textAlign: 'center' }}>Login with Google</p>
+          <GoogleLogin
+            clientId="421931574627-u93gqbc7jkfcab9qnholne745bh46otv.apps.googleusercontent.com"
+            buttonText="Login with Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+          ></GoogleLogin>
         </div>
         <div className="form-bottom">
           <p>Don't have an account?
@@ -99,3 +118,10 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+{/* <GoogleLogin
+  clientId={process.env.GOOGLE_OAUTH_CLIENT_ID}
+  buttonText="Login with Google"
+  onSuccess={responseGoogle}
+  onFailure={responseGoogle}
+  cookiePolicy={'single_host_origin'}
+></GoogleLogin> */}
