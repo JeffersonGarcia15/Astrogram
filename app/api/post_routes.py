@@ -1,9 +1,18 @@
 from flask import Blueprint, request
+import boto3
+import os
 from app.models import (
     db, Post, Media, Location
 )
 from app.awsS3 import (
     upload_file_to_s3, allowed_file, get_unique_filename)
+s3 = boto3.client(
+   "s3",
+   aws_access_key_id=os.environ.get("S3_KEY"),
+   aws_secret_access_key=os.environ.get("S3_SECRET")
+)
+S3_LOCATION = f"https://astrogram.s3.amazonaws.com/"
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 auth_routes = Blueprint('auth', __name__)
 
 post_routes = Blueprint('posts', __name__)
@@ -78,7 +87,21 @@ def updatePost(id):
     
 @post_routes.route('/<int:id>', methods=['DELETE'])
 def deletePost(id):
+    #     user_id = int(current_user.get_id())
+    # post_user = Post.query.get(pid).userId
+    # if user_id == post_user:
+    #     post_url = Post.query.get(pid).url
+    #     key = post_url[33:]
+    #     if post_url.startswith(S3_LOCATION):
+    #         s3.delete_object(Bucket=BUCKET_NAME, Key=key)
+    #     post = Post.query.get(pid)
+    #     db.session.delete(post)
+    #     db.session.commit()
     # post = Post.query.get(id)
+    post_url = Post.query.get(id).picture_url
+    key = post_url[35:]
+    if post_url.startswith(S3_LOCATION):
+        s3.delete_object(Bucket="astrogram", Key=key)
     post = Post.query.filter_by(id = id).delete()
     # db.session.delete(post)
     db.session.commit() 
