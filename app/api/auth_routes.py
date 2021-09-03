@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify, session, request
+from flask import Blueprint, jsonify, session, request, Flask, redirect, url_for
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
+# from flask_dance.contrib.google import make_google_blueprint, google
 from flask_login import current_user, login_user, logout_user, login_required
 from app.awsS3 import (
     upload_file_to_s3, allowed_file, get_unique_filename)
@@ -45,6 +46,15 @@ def login():
         login_user(user)
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+# @auth_routes.route('/login/google')
+# def loginGoogle():
+#     if not google.authorized:
+#         return redirect(url_for('google.login'))
+#     response = google.get('/plus/v1/people/me')
+#     assert response.ok, response.text
+#     return "You are {email} on Google".format(email=response.json()["emails"][0]["value"])
+    
 
 
 @auth_routes.route('/logout')

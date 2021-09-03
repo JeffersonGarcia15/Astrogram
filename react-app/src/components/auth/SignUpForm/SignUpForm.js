@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, useHistory } from 'react-router-dom';
-import { signUp } from '../../../store/session';
+import { signUp, signUpGoogle } from '../../../store/session';
+
 import ValidateEmail from '../../utils'
+import { GoogleLogin } from 'react-google-login'
 import Demo from '../../Demo';
 import '../auth.css'
 
@@ -71,6 +73,14 @@ const SignUpForm = () => {
       setErrors(validatorErrors)
     }
   };
+  const responseGoogle = async (response) => {
+    console.log('****************************', response)
+    const values = await dispatch(signUpGoogle({username: response?.Rs?.mU, full_name: response?.Rs?.Qe, email: response?.Rs?.Ct, password: 'password1!'}));
+    history.push('/feed')
+
+
+    return response
+  }
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -116,6 +126,16 @@ const SignUpForm = () => {
             <p className="t-line">OR</p>
             <p className="r-line"></p>
           </div>
+          <p style={{ textAlign: 'center' }}>Login with Google</p>
+          <GoogleLogin
+            clientId="421931574627-u93gqbc7jkfcab9qnholne745bh46otv.apps.googleusercontent.com"
+            buttonText="Login with Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+            onClick={e => { e.preventDefault(); history.push(`/feed`) }}
+
+          ></GoogleLogin>
           <form onSubmit={onSignUp}>
             <div>
               {errors.map((error, ind) => (
