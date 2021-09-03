@@ -72,7 +72,33 @@ export const logout = () => async (dispatch) => {
   }
 };
 
+export const loginGoogle = (email, password) => async (dispatch) => {
+  const response = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(
+      email,
+      password
+    )
+  });
 
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(setUser(data))
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+
+}
 
 
 export const signUp = (username, full_name, email, password) => async (dispatch) => {
@@ -87,6 +113,34 @@ export const signUp = (username, full_name, email, password) => async (dispatch)
       email,
       password,
     }),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(setUser(data))
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
+
+export const signUpGoogle = (username, full_name, email, password) => async (dispatch) => {
+  const response = await fetch('/api/auth/signup', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(
+      username,
+      full_name,
+      email,
+      password,
+    ),
   });
 
   if (response.ok) {

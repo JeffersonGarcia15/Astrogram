@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import { login } from '../../../store/session';
+import { login, loginGoogle } from '../../../store/session';
 // import GoogleLogin from 'react-google-login';
 import { GoogleLogin } from 'react-google-login'
 import Demo from '../../Demo';
@@ -43,7 +43,12 @@ const LoginForm = () => {
     return <Redirect to={`/feed`} />;
   }
 
-  const responseGoogle = (response) => {
+  const responseGoogle = async(response) => {
+    console.log('****************************', response)
+    const data = await dispatch(loginGoogle({email: response?.Rs?.Ct, password: 'password1!'}));
+    history.push('/feed')
+
+
     return response
   }
 
@@ -98,11 +103,13 @@ const LoginForm = () => {
           </div>
           <p style={{ textAlign: 'center' }}>Login with Google</p>
           <GoogleLogin
-            clientId="421931574627-u93gqbc7jkfcab9qnholne745bh46otv.apps.googleusercontent.com"
+            clientId={`${process.env.GOOGLE_OAUTH_CLIENT_ID}`}
             buttonText="Login with Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
+            onClick={e => { e.preventDefault(); history.push(`/feed`) }}
+
           ></GoogleLogin>
         </div>
         <div className="form-bottom">
