@@ -43,10 +43,12 @@ const LoginForm = () => {
     return <Redirect to={`/feed`} />;
   }
 
-  const responseGoogle = async(response) => {
-    console.log('****************************', response)
+  const responseGoogle = async (response) => {
     const data = await dispatch(loginGoogle({email: response?.Rs?.Ct, password: 'password1!'}));
-    history.push('/feed')
+    if (user) {
+      history.push('/feed')
+
+    }
 
 
     return response
@@ -108,7 +110,7 @@ const LoginForm = () => {
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
-            onClick={e => { e.preventDefault(); history.push(`/feed`) }}
+            // onClick={e => { e.preventDefault(); history.push(`/feed`) }}
 
           ></GoogleLogin>
         </div>

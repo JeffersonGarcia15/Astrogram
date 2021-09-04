@@ -33,6 +33,12 @@ class User(db.Model, UserMixin):
     # following = db.relationship('User', secondary=follows, primaryjoin=(follows.c.followed_id == id), secondaryjoin=(follows.c.follower_id == id), backref=db.backref('follows', lazy="dynamic"), lazy="dynamic" )
     followers = db.relationship("User", secondary=follows, primaryjoin=id==follows.c.followed_id, secondaryjoin=id==follows.c.follower_id, back_populates="following")
     following = db.relationship("User", secondary=follows, primaryjoin=id==follows.c.follower_id, secondaryjoin=id==follows.c.followed_id, back_populates="followers")
+    sent_messages = db.relationship('Message',
+                                    foreign_keys="Message.sender_id",
+                                    back_populates="sender")
+    received_messages = db.relationship('Message',
+                                        foreign_keys="Message.recipient_id",
+                                        back_populates="recipient")
     
     @property
     def password(self):
@@ -59,6 +65,14 @@ class User(db.Model, UserMixin):
             'phone': self.phone,
             'gender': self.gender,
             'profile_image': self.profile_image,
+            "sent_messages": {
+                message.id: message.to_simple_dict()
+                for message in self.sent_messages
+            },
+            "received_messages": {
+                message.id: message.to_simple_dict()
+                for message in self.received_messages
+            },
             'followers': [follower.follower_names() for follower in self.followers],
             'following': [following.follower_names() for following in self.following],
             
