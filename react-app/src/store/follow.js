@@ -11,6 +11,7 @@ const deleteSingleFollower = follower => ({
     follower
 })
 
+
 export const createFollower = (follower_id, followed_id) => async (dispatch) => {
     const response = await fetch(`/api/follows/user/${followed_id}/follower`, {
         method: 'POST',
