@@ -36,10 +36,10 @@ function App() {
       {loaded && (
       <Switch>
         <Route path='/' exact={true}>
-          <LoginForm />
-        </Route>
-        <Route path='/sign-up' exact={true}>
           <SignUpForm />
+        </Route>
+        <Route path='/login' exact={true}>
+          <LoginForm />
         </Route>
         <Route exact path='/comments'>
           <Comments></Comments>
