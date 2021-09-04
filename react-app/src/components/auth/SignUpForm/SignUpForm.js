@@ -74,9 +74,11 @@ const SignUpForm = () => {
     }
   };
   const responseGoogle = async (response) => {
-    console.log('****************************', response)
     const values = await dispatch(signUpGoogle({username: response?.Rs?.mU, full_name: response?.Rs?.Qe, email: response?.Rs?.Ct, password: 'password1!'}));
-    history.push('/feed')
+    if (user) {
+      history.push('/feed')
+
+    }
 
 
     return response

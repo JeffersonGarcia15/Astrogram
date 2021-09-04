@@ -7,6 +7,7 @@ import profile from './profile'
 import postLikes from './postlike'
 import commentLikes from './commentlike'
 import followers from './follow'
+import messages from './message'
 
 const rootReducer = combineReducers({
   session,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   postLikes,
   commentLikes,
   followers,
+  messages
 });
 
 
