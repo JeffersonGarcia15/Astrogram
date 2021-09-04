@@ -116,7 +116,7 @@ const LoginForm = () => {
         </div>
         <div className="form-bottom">
           <p>Don't have an account?
-            <a onClick={e => { e.preventDefault(); history.push(`/sign-up`) }} href="/sign-up">
+            <a onClick={e => { e.preventDefault(); history.push(`/`) }} href="/">
               Sign up</a>
           </p>
         </div>
