@@ -18,8 +18,11 @@ socketio = SocketIO(cors_allowed_origins=origins)
 # Handle a chat message
 @socketio.on("dm")
 def handle_dm(data):
-    message = Message(**data)
+    message = Message(sender_id=data['sender_id'], recipient_id=data['recipient_id'], body=data['body'])
     db.session.add(message)
     db.session.commit()
-
     emit('message', message.to_dict())
+    
+    # message = Message(**data)
+    # db.session.add(message)
+    # db.session.commit()
