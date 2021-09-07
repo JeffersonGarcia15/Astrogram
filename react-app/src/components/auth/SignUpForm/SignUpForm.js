@@ -130,7 +130,7 @@ const SignUpForm = () => {
           </div>
           <p style={{ textAlign: 'center' }}>Login with Google</p>
           <GoogleLogin
-            clientId="421931574627-u93gqbc7jkfcab9qnholne745bh46otv.apps.googleusercontent.com"
+            clientId="60469361499-a3opbb8lsiqp1h4b4p68nfksn125lqaa.apps.googleusercontent.com"
             buttonText="Login with Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
