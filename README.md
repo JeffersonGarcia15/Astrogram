@@ -14,7 +14,7 @@
 Your browser does not support the video tag.
 </video> -->
 * Validation and Likes
-![Validations and likes](https://mylovetable.s3.us-east-2.amazonaws.com/quicktour1.gif)
+![Validations and likes](https://mylovetable.s3.us-east-2.amazonaws.com/profile.gif)
 
 ## Quick tour part 2
 
