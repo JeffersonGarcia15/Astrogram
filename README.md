@@ -8,13 +8,13 @@
 
 ## Quick tour part 1
 
-<video width="320" height="240" controls>
+<!-- <video width="320" height="240" controls>
   <source src="https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.53.17+AM.mov" type="video/mp4">
   <!-- <source src="movie.ogg" type="video/ogg"> -->
 Your browser does not support the video tag.
-</video>
-
-[Validations and likes](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.53.17+AM.mov)
+</video> -->
+* Validation and Likes
+[Validations and likes](https://mylovetable.s3.us-east-2.amazonaws.com/quicktour1.gif)
 
 ## Quick tour part 2
 
