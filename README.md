@@ -25,9 +25,9 @@ Your browser does not support the video tag.
 * Profile Edit
 ![](https://mylovetable.s3.us-east-2.amazonaws.com/profilevid.gif)
 
-## Quick tour part 2
+<!-- ## Quick tour part 2
 
-[posts, search bar and more](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.56.42+AM.mov)
+[posts, search bar and more](https://astrogram.s3.us-east-2.amazonaws.com/Screen+Recording+2021-08-09+at+1.56.42+AM.mov) -->
 
 ## Table of content
 
