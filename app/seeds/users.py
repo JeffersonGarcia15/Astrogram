@@ -7,7 +7,7 @@ def seed_users():
     demo = User(
         username='Jeff', full_name='Adilson', email='jeff@aa.io', hashed_password=generate_password_hash('password'))
     demo1 = User(
-        username='Amber', full_name='Amber Bancroft', email='amber@aa.io', hashed_password=generate_password_hash('password'))
+        username='yeilyn', full_name='yeilyn Bancroft', email='yeilyn@aa.io', hashed_password=generate_password_hash('password'))
     demo2 = User(
         username='Jonas', full_name='Jonas Garcia', email='jonas@aa.io', hashed_password=generate_password_hash('password'))
     demo3 = User(
