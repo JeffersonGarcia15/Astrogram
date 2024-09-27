@@ -42,3 +42,29 @@
     margin-left: auto;
     padding-right: 10px;
 }
+
+.comment__modal {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    text-align: center;
+}
+
+.comment__modal__input {
+    border: none;
+    border-bottom: 2px solid #8e8e8e;
+    outline: none;
+}
+
+.comment__modal__button {
+    background-color: white;
+    border: none;
+    border-bottom: 1px solid #d8d8d8;
+    padding: 10px;
+    color: red;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
