@@ -169,10 +169,10 @@ function Footer() {
           <div className="about__the__project">
             <h1>
               {" "}
-              This Flickr clone is a side project designed to practice front-end
-              and back-end development and it is part of the Week16 requirements
-              at App Academy. It showcases image uploads, user galleries, tags,
-              comments and more.
+              This Instagram clone is a side project designed to practice
+              front-end and back-end development and it is part of the capstone
+              requirements at App Academy. It showcases image uploads, posts,
+              post likes, comments, comment likes and followers.
             </h1>
           </div>
         </Modal>
