@@ -1,53 +1,266 @@
-import React, { useState } from 'react'
-import GitHubIcon from '@material-ui/icons/GitHub';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import BuildIcon from '@material-ui/icons/Build';
-import { DiPython, DiReact, DiNodejs } from 'react-icons/di'
-import { SiJavascript, SiRedux, SiDocker, SiHeroku, SiFlask, SiPostgresql, SiPostman, SiAmazonaws, SiHtml5, SiCss3, SiMaterialUi } from 'react-icons/si'
-import './footer.css'
+import { useState } from "react";
+import { Modal } from "../../context/Modal";
+import { useHistory } from "react-router-dom";
+import { DiPython, DiReact, DiNodejs } from "react-icons/di";
+import {
+  SiJavascript,
+  SiRedux,
+  SiDocker,
+  SiHeroku,
+  SiFlask,
+  SiPostgresql,
+  SiPostman,
+  SiAmazonaws,
+  SiHtml5,
+  SiCss3,
+  SiMaterialUi,
+} from "react-icons/si";
 
+import "./footer.css";
 
 function Footer() {
-    const [technologies, setTechnologies] = useState(false)
+  const history = useHistory();
+  const [showHowItWorks, setShowHowItWorks] = useState(false);
+  const [showAboutTheProject, setShowAboutTheProject] = useState(false);
+  const [technologies, setTechnologies] = useState(false);
 
+  function toggleShowHowItWorks() {
+    setShowHowItWorks((prev) => !prev);
+  }
 
-    return (
-        <div className="footer">
-            <div className={`tools ${technologies ? 'tools-active' : ''}`}>
-                <p>Built with</p>
-                <SiJavascript style={{ paddingRight: '10px' }}></SiJavascript>
-                    <SiHtml5 style={{paddingRight: '10px'}}></SiHtml5>
-                    <SiCss3 style={{paddingRight: '10px'}}></SiCss3>
-                    <DiNodejs style={{paddingRight: '10px'}}></DiNodejs>
-                    <DiReact style={{paddingRight: '10px'}}></DiReact>
-                    <SiRedux style={{paddingRight: '10px'}}></SiRedux>
-                    <DiPython style={{paddingRight: '10px'}}></DiPython>
-                    <SiFlask style={{paddingRight: '10px'}}></SiFlask>
-                    <SiPostgresql style={{paddingRight: '10px'}}></SiPostgresql>
-                    <SiDocker style={{paddingRight: '10px'}}></SiDocker>
-                    <SiAmazonaws style={{paddingRight: '10px'}}></SiAmazonaws>
-                    <SiHeroku style={{paddingRight: '10px'}}></SiHeroku>
-                    <SiPostman style={{paddingRight: '10px'}}></SiPostman>
-                    <SiMaterialUi style={{paddingRight: '10px'}}></SiMaterialUi>
-                    <div className="t"></div>
+  function toggleShowAboutTheProject() {
+    setShowAboutTheProject((prev) => !prev);
+  }
+
+  return (
+    <footer className="footer">
+      {showHowItWorks && (
+        <Modal onClose={toggleShowHowItWorks}>
+          <div>
+            <h1>
+              Please visit the{" "}
+              <a
+                href="https://github.com/JeffersonGarcia15/Astrogram"
+                target="_blank"
+                className="footer__how__it__works__a"
+                rel="noreferrer"
+              >
+                repo
+              </a>{" "}
+              to see some of the app's demos{" "}
+            </h1>
+          </div>
+        </Modal>
+      )}
+      <nav className="footer__logo">
+        <div
+          style={{ cursor: "pointer" }}
+          onClick={(e) => {
+            e.preventDefault();
+            history.push(`/feed`);
+          }}
+        >
+          <img
+            className="logo-navbar"
+            src="https://i.ibb.co/pWpLBFN/Astrogram.png"
+            alt="Astrogram"
+            border="0"
+          />
+        </div>
+      </nav>
+      <nav
+        className="footer__explore footer__section
+      "
+      >
+        <p className="footer__section__title">Explore</p>
+        <ul className="footer__ul">
+          <li className="footer__li">Planets</li>
+          <li className="footer__li">Galaxies</li>
+          <li className="footer__li">Habitable planets</li>
+          <li className="footer__li">Black holes</li>
+          <li className="footer__li">Stars</li>
+          <li className="footer__li">Moons</li>
+          <li className="footer__li">Other</li>
+        </ul>
+      </nav>
+      <nav
+        className="footer__about__us footer__section
+      "
+      >
+        <p className="footer__section__title">About Us</p>
+        <ul className="footer__ul footer__ul__technologies">
+          <li className="footer__li" onClick={() => history.push("/about-us")}>
+            Meet the team
+          </li>
+          <li className="footer__li" onClick={toggleShowAboutTheProject}>
+            About the Project
+          </li>
+          <li className="footer__li">
+            <a
+              className="footer__about__us__a"
+              href="https://github.com/JeffersonGarcia15/Astrogram"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub Repo
+            </a>
+          </li>
+          <li
+            className="footer__li"
+            onMouseEnter={() => setTechnologies(true)}
+            onMouseLeave={() => setTechnologies(false)}
+          >
+            Tools
+            <div
+              onMouseEnter={() => setTechnologies(true)}
+              onMouseLeave={() => setTechnologies(false)}
+              className={`tools ${technologies ? "tools-active" : ""}`}
+            >
+              <p className="tools__header">Built with</p>
+              <SiJavascript
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></SiJavascript>
+              <SiHtml5
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></SiHtml5>
+              <SiCss3
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></SiCss3>
+              <DiNodejs
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></DiNodejs>
+              <DiReact
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></DiReact>
+              <SiRedux
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></SiRedux>
+              <DiPython
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></DiPython>
+              <SiFlask
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></SiFlask>
+              <SiPostgresql
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></SiPostgresql>
+              <SiDocker
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></SiDocker>
+              <SiAmazonaws
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></SiAmazonaws>
+              <SiHeroku
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></SiHeroku>
+              <SiPostman
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></SiPostman>
+              <SiMaterialUi
+                style={{ paddingRight: "10px", height: "30px", width: "30px" }}
+              ></SiMaterialUi>
+              <div className="t"></div>{" "}
             </div>
-            <div className='technologies'>
-                    <div id='copyright'>© 2021 Astrogram. No rights reserved.</div>
-                <a href="https://github.com/JeffersonGarcia15" style={{ textDecoration: "none" }}>
-                    About the Developer
-                </a>
-                {/* <Tooltip className='technology-list'> */}
-                    <BuildIcon onMouseEnter={() => setTechnologies(true)} onMouseLeave={() => setTechnologies(false)} style={{fontSize: '25px', paddingRight: '15px'}} />
-                {/* </Tooltip> */}
-                <a href="https://github.com/JeffersonGarcia15/Astrogram">
-                    <GitHubIcon />
-                </a>
-                <a href="https://www.linkedin.com/in/jefferson-lopez-garcia/">
-                    <LinkedInIcon/>
-                </a>
-            </div>
-        </div >
-    );
+          </li>
+        </ul>
+      </nav>
+      {showAboutTheProject && (
+        <Modal onClose={toggleShowAboutTheProject}>
+          <div className="about__the__project">
+            <h1>
+              {" "}
+              This Flickr clone is a side project designed to practice front-end
+              and back-end development and it is part of the Week16 requirements
+              at App Academy. It showcases image uploads, user galleries, tags,
+              comments and more.
+            </h1>
+          </div>
+        </Modal>
+      )}
+      <nav
+        className="footer__help footer__section
+      "
+      >
+        <p className="footer__section__title">Help</p>
+        <ul className="footer__ul">
+          <li className="footer__li" onClick={toggleShowHowItWorks}>
+            How It Works
+          </li>
+          <li className="footer__li" onClick={() => history.push("/faq")}>
+            FAQ
+          </li>
+        </ul>
+      </nav>
+      <nav
+        className="footer__social__media footer__section
+      "
+      >
+        <p className="footer__section__title">Social Media</p>
+        <ul className="footer__ul">
+          <li className="footer__li">
+            <a
+              href="https://www.linkedin.com/in/jefferson-jurado-garcia/"
+              target="_blank"
+              rel="noreferrer"
+              className="footer__social__media__a"
+            >
+              LinkedIn
+            </a>
+          </li>
+          <li className="footer__li">
+            <a
+              href="https://github.com/JeffersonGarcia15"
+              target="_blank"
+              rel="noreferrer"
+              className="footer__social__media__a"
+            >
+              GitHub
+            </a>
+          </li>
+          <li className="footer__li">
+            <a
+              href="https://jefferson-portfolio.onrender.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="footer__social__media__a"
+            >
+              Portfolio
+            </a>
+          </li>
+          <li className="footer__li">
+            <a
+              href="https://wellfound.com/u/jefferson-a-lopez-garcia"
+              target="_blank"
+              rel="noreferrer"
+              className="footer__social__media__a"
+            >
+              Wellfound
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <nav
+        className="footer__legal footer__section
+      "
+      >
+        <p className="footer__section__title">Legal</p>
+        <ul className="footer__ul">
+          <li className="footer__li">Terms & Conditions</li>
+          <li className="footer__li">Privacy Policy</li>
+        </ul>
+      </nav>
+      <nav
+        className="footer__extras footer__section
+      "
+      >
+        <p className="footer__section__title">Extras</p>
+        <ul className="footer__ul">
+          <li className="footer__li">Become a contributor</li>
+          <li className="footer__li">Partner with Us</li>
+        </ul>
+      </nav>
+    </footer>
+  );
 }
 
-export default Footer
+export default Footer;
