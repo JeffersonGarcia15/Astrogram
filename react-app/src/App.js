@@ -11,6 +11,7 @@ import Comments from "./components/Comment";
 import Search from "./components/Search";
 import NotFound from "./components/NotFound";
 import { authenticate } from "./store/session";
+import { AboutUs } from "./components/AboutUs/AboutUs";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -54,7 +55,7 @@ function App() {
             <Home></Home>
           </ProtectedRoute>
           <ProtectedRoute path="/about-us" exact={true}>
-            <h1>ABOUT ME</h1>
+            <AboutUs />
           </ProtectedRoute>
           <Route path="*">
             <NotFound></NotFound>
