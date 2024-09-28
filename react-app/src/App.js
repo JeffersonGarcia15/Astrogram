@@ -12,6 +12,7 @@ import Search from "./components/Search";
 import NotFound from "./components/NotFound";
 import { authenticate } from "./store/session";
 import { AboutUs } from "./components/AboutUs/AboutUs";
+import FAQ from "./components/FAQ/FAQ";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -56,6 +57,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/about-us" exact={true}>
             <AboutUs />
+          </ProtectedRoute>
+          <ProtectedRoute>
+            <FAQ />
           </ProtectedRoute>
           <Route path="*">
             <NotFound></NotFound>
