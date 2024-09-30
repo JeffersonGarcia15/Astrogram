@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
-import { login, loginGoogle } from '../../../store/session';
-// import GoogleLogin from 'react-google-login';
-import { GoogleLogin } from 'react-google-login'
-import Demo from '../../Demo';
-import '../auth.css'
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect, useHistory } from "react-router-dom";
+import { login, loginGoogle } from "../../../store/session";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import Demo from "../../Demo";
+import "../auth.css";
 
 const LoginForm = () => {
   const history = useHistory();
   const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const user = useSelector(state => state.session.user);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
   const onLogin = async (e) => {
@@ -33,9 +33,9 @@ const LoginForm = () => {
 
   function FloatingEvt(evt) {
     if (evt.target.value.length > 0) {
-      evt.target.classList.add('has-value')
+      evt.target.classList.add("has-value");
     } else {
-      evt.target.classList.remove('has-value')
+      evt.target.classList.remove("has-value");
     }
   }
 
@@ -44,51 +44,70 @@ const LoginForm = () => {
   }
 
   const responseGoogle = async (response) => {
-    const data = await dispatch(loginGoogle({email: response?.Rs?.Ct, password: 'password1!'}));
+    const decodedToken = jwtDecode(response.credential);
+    console.log({ decodedToken });
+    await dispatch(
+      loginGoogle({
+        email: decodedToken.email,
+        password: decodedToken.sub,
+      })
+    );
     if (user) {
-      history.push('/feed')
-
+      history.push("/feed");
     }
 
-
-    return response
-  }
+    return response;
+  };
 
   return (
     <div className="container">
-      <img src={'https://astrogram.s3.us-east-2.amazonaws.com/Screen+Shot+2021-07-04+at+6.30.15+PM.png'} alt='logo'></img>
+      <img
+        src={
+          "https://astrogram.s3.us-east-2.amazonaws.com/Screen+Shot+2021-07-04+at+6.30.15+PM.png"
+        }
+        alt="logo"
+      ></img>
       <div className="form-group">
         <div className="form-container">
-          <img className="logo" src="https://i.ibb.co/pWpLBFN/Astrogram.png" alt="Astrogram" border="0" />
+          <img
+            className="logo"
+            src="https://i.ibb.co/pWpLBFN/Astrogram.png"
+            alt="Astrogram"
+            border="0"
+          />
           <form onSubmit={onLogin}>
             {errors.map((error, ind) => (
-              <div className="error-container" key={ind}>{error}</div>
+              <div className="error-container" key={ind}>
+                {error}
+              </div>
             ))}
             <div className="floating-label">
               <input
-                name='email'
-                type='text'
+                name="email"
+                type="text"
                 value={email}
                 onChange={updateEmail}
                 className="form-control"
                 onBlur={FloatingEvt}
                 autoComplete="off"
               />
-              <label htmlFor='email'>Email</label>
+              <label htmlFor="email">Email</label>
             </div>
             <div className="floating-label">
               <input
-                name='password'
-                type='password'
+                name="password"
+                type="password"
                 value={password}
                 onChange={updatePassword}
                 className="form-control"
                 onBlur={FloatingEvt}
                 autoComplete="off"
               />
-              <label htmlFor='password'>Password</label>
+              <label htmlFor="password">Password</label>
             </div>
-            <button type='submit' className="btn-form">Login</button>
+            <button type="submit" className="btn-form">
+              Login
+            </button>
           </form>
 
           <div className="line">
@@ -96,41 +115,49 @@ const LoginForm = () => {
             <p className="t-line">OR</p>
             <p className="r-line"></p>
           </div>
-          <p style={{ textAlign: 'center' }}>Login with</p>
+          <p style={{ textAlign: "center" }}>Login with</p>
           <Demo></Demo>
           <div className="line">
             <p className="l-line"></p>
             <p className="t-line">OR</p>
             <p className="r-line"></p>
           </div>
-          <p style={{ textAlign: 'center' }}>Login with Google</p>
+          <p style={{ textAlign: "center" }}>Login with Google</p>
           <GoogleLogin
             clientId="60469361499-a3opbb8lsiqp1h4b4p68nfksn125lqaa.apps.googleusercontent.com"
             buttonText="Login with Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
+            cookiePolicy={"single_host_origin"}
             // onClick={e => { e.preventDefault(); history.push(`/feed`) }}
-
           ></GoogleLogin>
         </div>
         <div className="form-bottom">
-          <p>Don't have an account?
-            <a onClick={e => { e.preventDefault(); history.push(`/`) }} href="/">
-              Sign up</a>
+          <p>
+            Don't have an account?
+            <a
+              onClick={(e) => {
+                e.preventDefault();
+                history.push(`/`);
+              }}
+              href="/"
+            >
+              Sign up
+            </a>
           </p>
         </div>
-
       </div>
     </div>
   );
 };
 
 export default LoginForm;
-{/* <GoogleLogin
+{
+  /* <GoogleLogin
   clientId={process.env.GOOGLE_OAUTH_CLIENT_ID}
   buttonText="Login with Google"
   onSuccess={responseGoogle}
   onFailure={responseGoogle}
   cookiePolicy={'single_host_origin'}
-></GoogleLogin> */}
+></GoogleLogin> */
+}

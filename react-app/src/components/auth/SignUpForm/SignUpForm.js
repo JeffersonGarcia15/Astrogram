@@ -81,16 +81,15 @@ const SignUpForm = () => {
   };
   const responseGoogle = async (response) => {
     const decodedToken = jwtDecode(response.credential);
-    console.log("Decoded Token", decodedToken);
-    const values = await dispatch(
+    console.log({ decodedToken });
+    await dispatch(
       signUpGoogle({
         username: decodedToken.name,
         full_name: decodedToken.name,
         email: decodedToken.email,
-        password: "password1!",
+        password: decodedToken.sub,
       })
     );
-    console.log("THE VALUE", values);
     if (user) {
       history.push("/feed");
     }
