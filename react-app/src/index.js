@@ -6,7 +6,7 @@ import { ModalProvider } from "./context/Modal";
 import "./index.css";
 import App from "./App";
 import configureStore from "./store";
-import Footer from "./components/Footer";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const store = configureStore();
 
@@ -17,7 +17,9 @@ function Root() {
         <Provider store={store}>
           <ModalProvider>
             <BrowserRouter>
-              <App />
+              <GoogleOAuthProvider clientId="60469361499-a3opbb8lsiqp1h4b4p68nfksn125lqaa.apps.googleusercontent.com">
+                <App />
+              </GoogleOAuthProvider>
             </BrowserRouter>
           </ModalProvider>
         </Provider>
