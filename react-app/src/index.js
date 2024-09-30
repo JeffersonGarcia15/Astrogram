@@ -18,7 +18,6 @@ function Root() {
           <ModalProvider>
             <BrowserRouter>
               <App />
-              <Footer />
             </BrowserRouter>
           </ModalProvider>
         </Provider>
