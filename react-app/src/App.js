@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LoginForm from "./components/auth/LoginForm/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm/SignUpForm";
 import NavBar from "./components/NavBar";
@@ -13,9 +13,11 @@ import NotFound from "./components/NotFound";
 import { authenticate } from "./store/session";
 import { AboutUs } from "./components/AboutUs/AboutUs";
 import FAQ from "./components/FAQ/FAQ";
+import Footer from "./components/Footer";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+  const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
   const [results, setResults] = useState([]);
@@ -66,6 +68,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      {user && <Footer />}
     </>
   );
 }
