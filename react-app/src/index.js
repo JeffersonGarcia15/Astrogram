@@ -10,6 +10,11 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const store = configureStore();
 
+console.log("Google OAuth Client ID: ", {
+  GOOGLE: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID,
+  ENV: process.env,
+});
+
 function Root() {
   return (
     <>
