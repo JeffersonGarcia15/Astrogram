@@ -36,7 +36,7 @@ function Footer() {
     <footer className="footer">
       {showHowItWorks && (
         <Modal onClose={toggleShowHowItWorks}>
-          <div>
+          <div className="about__the__project show__it__works">
             <h1>
               Please visit the{" "}
               <a
