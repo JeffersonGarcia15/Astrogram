@@ -17,7 +17,9 @@ function Root() {
         <Provider store={store}>
           <ModalProvider>
             <BrowserRouter>
-              <GoogleOAuthProvider clientId="60469361499-a3opbb8lsiqp1h4b4p68nfksn125lqaa.apps.googleusercontent.com">
+              <GoogleOAuthProvider
+                clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+              >
                 <App />
               </GoogleOAuthProvider>
             </BrowserRouter>

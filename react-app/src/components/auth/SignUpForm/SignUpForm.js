@@ -151,7 +151,7 @@ const SignUpForm = () => {
             <p className="r-line"></p>
           </div>
           <GoogleLogin
-            buttonText="Login with Google"
+            buttonText="Sign up with Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
