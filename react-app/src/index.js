@@ -13,6 +13,7 @@ const store = configureStore();
 console.log("Google OAuth Client ID: ", {
   GOOGLE: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID,
   ENV: process.env,
+  WINDOW: window._env_,
 });
 
 function Root() {
@@ -23,7 +24,7 @@ function Root() {
           <ModalProvider>
             <BrowserRouter>
               <GoogleOAuthProvider
-                clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+                clientId={window._env_.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
               >
                 <App />
               </GoogleOAuthProvider>
