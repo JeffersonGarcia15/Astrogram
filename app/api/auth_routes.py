@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, session, request, Flask, redirect, url_for
+import os
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
@@ -55,7 +56,10 @@ def login():
 #     assert response.ok, response.text
 #     return "You are {email} on Google".format(email=response.json()["emails"][0]["value"])
     
-
+@auth_routes.route('/client-id')
+def get_client_id():
+    client_id = os.environ.get('REACT_APP_GOOGLE_OAUTH_CLIENT_ID')
+    return jsonify({'clientId': client_id})
 
 @auth_routes.route('/logout')
 def logout():

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ModalProvider } from "./context/Modal";
+import { getClientId } from "./utils/getClientId";
 import "./index.css";
 import App from "./App";
 import configureStore from "./store";
@@ -10,22 +11,27 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const store = configureStore();
 
-console.log("Google OAuth Client ID: ", {
-  GOOGLE: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID,
-  ENV: process.env,
-  WINDOW: window._env_,
-});
-
 function Root() {
+  const [clientId, setClientId] = useState(null);
+
+  useEffect(() => {
+    const fetchClientId = async () => {
+      const id = await getClientId();
+      setClientId(id);
+    };
+    fetchClientId();
+  }, []);
+
+  if (!clientId) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <div className="component">
         <Provider store={store}>
           <ModalProvider>
             <BrowserRouter>
-              <GoogleOAuthProvider
-                clientId={window._env_.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
-              >
+              <GoogleOAuthProvider clientId={clientId}>
                 <App />
               </GoogleOAuthProvider>
             </BrowserRouter>
