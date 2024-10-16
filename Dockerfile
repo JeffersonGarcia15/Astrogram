@@ -10,6 +10,8 @@ ENV REACT_APP_GOOGLE_OAUTH_CLIENT_ID=$REACT_APP_GOOGLE_OAUTH_CLIENT_ID
 # Install and build the app
 RUN npm install
 RUN npm run build
+RUN echo "GOOGLE_OAUTH_CLIENT_ID during build: $REACT_APP_GOOGLE_OAUTH_CLIENT_ID"
+
 
 FROM python:3.9
 WORKDIR /var/www
